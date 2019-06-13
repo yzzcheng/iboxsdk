@@ -1,0 +1,14 @@
+{
+  "name": "iboxsdk",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "yarn react-native start",
+    "android":"react-native run-android",
+    "bundle":"react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/iboxsdk2/src/main/assets/index.android.bundle --assets-dest android/iboxsdk2/src/main/res"
+  },
+  "dependencies": {
+    "react": "16.8.3",
+    "react-native": "^0.59.9"
+  }
+}
