@@ -1,4 +1,10 @@
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+
+def libVersionName = "1.0"
+def libVersionCode = 4
 
 android {
     compileSdkVersion 28
@@ -6,8 +12,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode libVersionCode
+        versionName libVersionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -15,16 +21,82 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
 }
 
+bintray {
+    user = 'iboxzhang'
+    key = 'ea809e65b990d7aae07e3d9aeba910a925dae096'
+    publications = ['maven']
+    pkg {
+        repo = 'IBoxSDK'
+        name = 'IBoxSDK'
+        userOrg = 'iboxzhang'
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/bintray/gradle-bintray-plugin.git'
+        publish = true
+        version {
+            name = libVersionName + "." + libVersionCode
+            released  = new Date()
+        }
+    }
+}
+
+def libGroupId = "com.ibox.sdk"
+
+def pomConfig = {
+    licenses {
+        license {
+            name "The Apache Software License, Version 2.0"
+            url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            distribution "repo"
+        }
+    }
+    developers {
+        developer {
+            id "linlin"
+            name "linlin.zhang"
+            email "linlin.zhang@mythsgame.com"
+        }
+    }
+
+    scm {
+        url "https://github.com/yzzcheng/iboxsdk"
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifact("$buildDir/outputs/aar/iboxsdk2-release.aar")
+            groupId libGroupId
+            artifactId libGroupId
+            version libVersionName + "." + libVersionCode
+            pom.withXml { xml->
+                def dependenciesNode = xml.asNode().getAt('dependencies')[0] ?: asNode().appendNode('dependencies')
+                configurations.implementation.allDependencies.each {
+                    // Ensure dependencies such as fileTree are not included.
+                    if (it.name != 'unspecified') {
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                    }
+                }
+            }
+
+        }
+    }
+}
+
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.facebook.react:react-native:+'
+    // From node_modules
     implementation 'com.android.billingclient:billing:1.2.2'
     implementation 'com.orhanobut:logger:2.2.0'
     implementation 'com.android.support:appcompat-v7:28.0.0'
