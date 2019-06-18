@@ -42,7 +42,8 @@ export default class APP extends Component {
             ReactEventListener.sendMsgToNative(ReactEventListener.LOGIN,{
                 [ReactEventListener.STATUS]:200,
                 userName:'linlin.zhang',
-                userId:123
+                userId:123,
+                token:'124325325'
             });
         });
 

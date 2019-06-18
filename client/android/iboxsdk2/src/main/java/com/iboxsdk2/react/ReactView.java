@@ -12,9 +12,11 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.common.LifecycleState;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.shell.MainReactPackage;
+import com.iboxsdk2.abstracts.Action;
 import com.iboxsdk2.abstracts.InitCallback;
 import com.iboxsdk2.bean.InitEvent;
 import com.iboxsdk2.consts.EventConsts;
+import com.iboxsdk2.singleton.IBoxSDKService;
 import com.iboxsdk2.utils.ResourceUtils;
 import com.orhanobut.logger.Logger;
 
@@ -39,27 +41,35 @@ public class ReactView {
     }
 
     public void init(final Activity activity, final ReactInitCallback callback){
-        this.mReactRootView = new ReactRootView(activity);
-        this.mReactInstanceManager = ReactInstanceManager.builder()
-                .setApplication(activity.getApplication())
-                .setCurrentActivity(activity)
-                .setBundleAssetName("index.android.bundle")
-                .setJSMainModulePath("index")
-                .addPackage(new MainReactPackage())
-                .addPackage(new ReactModulePackage())
-                .setUseDeveloperSupport(true)
-                .setInitialLifecycleState(LifecycleState.RESUMED)
-                .build();
         final ReactView reactView = this;
-        this.mReactInstanceManager.addReactInstanceEventListener(new ReactInstanceManager.ReactInstanceEventListener() {
+        IBoxSDKService.getInstance().getBundleService().checkBundleVersion(activity, new Action<String>() {
             @Override
-            public void onReactContextInitialized(ReactContext context) {
-                callback.callback(activity,reactView);
+            public void Action(String path) {
+                mReactRootView = new ReactRootView(activity);
+                mReactInstanceManager = ReactInstanceManager.builder()
+                        .setApplication(activity.getApplication())
+                        .setCurrentActivity(activity)
+                        .setJSBundleFile(path)
+                        .setJSMainModulePath("index")
+                        .addPackage(new MainReactPackage())
+                        .addPackage(new ReactModulePackage())
+                        .setUseDeveloperSupport(true)
+                        .setInitialLifecycleState(LifecycleState.RESUMED)
+                        .build();
+
+                mReactInstanceManager.addReactInstanceEventListener(new ReactInstanceManager.ReactInstanceEventListener() {
+                    @Override
+                    public void onReactContextInitialized(ReactContext context) {
+                        callback.callback(activity,reactView);
+                    }
+                });
+                mReactRootView.startReactApplication(mReactInstanceManager, "iboxsdk", null);
+                mythsActivity = new ReactActive(activity);
+                mythsActivity.setContentView(mReactRootView);
             }
         });
-        mReactRootView.startReactApplication(mReactInstanceManager, "iboxsdk", null);
-        this.mythsActivity = new ReactActive(activity);
-        this.mythsActivity.setContentView(mReactRootView);
+
+
 
     }
 

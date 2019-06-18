@@ -4,4 +4,6 @@
     <string name="ibox_app_id">10003</string>
     <string name="ibox_package_id">2</string>
     <string name="ibox_gpverify">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnLJxXWmXIyBH7gN+JD14SQXBVIJd+kCmnUmRf23eYtXALKAw/jqYM0toLPdus4sxJeXJKmkrkSVnWJR2oNzERxaCc4ltyfYv0Qk8y0XrPc4ZAeDLYM+q6eJKId8hJYGbrRR4/Mo2iJa2bFVKXlGIyIK+/h/tEUxi6Ew9A070CCfl7zzNbR5JvbHo8pXQ3IP33y1rVzXjNSxsP2ks447/60THmJVr6GR5YJAr2gW8IPFH8oo2M4iPf98kGZNGCFrrhLLp7DDnINHr0wWJIxoSsPEHGWZNCaGQxaQ+6j4LX95tioWKp0u5gER01uwTeSvmMO0hJdPGkUqEWNHER8X4zQIDAQAB</string>
+    <string name="ibox_bundle_url">http://oas.mythsgame.com/index.android.bundle</string>
+    <string name="ibox_bundle_name">index.android.bundle</string>
 </resources>
