@@ -52,6 +52,7 @@ public class SDKPaymentEvent extends SDKPayment implements EventData {
         map.putInt("appId",this.appId);
         map.putInt("packageId",packageId);
         map.putString("packageName",packageName);
+        map.putString("productName",getProductName());
         return map;
     }
 }

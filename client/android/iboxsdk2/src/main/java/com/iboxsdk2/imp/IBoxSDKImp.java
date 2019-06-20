@@ -1,6 +1,7 @@
 package com.iboxsdk2.imp;
 
 import android.app.Activity;
+import android.content.Intent;
 
 import com.iboxsdk2.abstracts.IBoxSDK;
 import com.iboxsdk2.abstracts.InitCallback;
@@ -29,6 +30,7 @@ public class IBoxSDKImp implements IBoxSDK {
     public void init(Activity activity,final InitCallback callback) {
         if(!IBoxSDKContext.getInstance().isInit()) {
             IBoxSDKService.getInstance().getGoogleService().setActivity(activity);
+            IBoxSDKContext.getInstance().setActivity(activity);
             ReactView reactView = new ReactView(activity, new ReactView.ReactInitCallback() {
                 @Override
                 public void callback(Activity activity, ReactView reactView) {
@@ -78,14 +80,21 @@ public class IBoxSDKImp implements IBoxSDK {
             event.setAppId(appId);
             event.setPackageId(packageId);
             event.setPackageName(activity.getPackageName());
+            event.setProductName(payment.getProductName());
             IBoxReactView.getInstance().getReactView().emitter().emit(EventConsts.ORDER_CREATE,event.fromSDKPayment(payment).toMap());
-            IBoxReactView.getInstance().getReactView().show();
+//            IBoxReactView.getInstance().getReactView().show();
         }
     }
 
     @Override
     public void submitRoleInfo(int type, SDKRoleInfo roleInfo) {
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        Logger.d("onActivityResult",requestCode,requestCode,data.toString());
+        IBoxSDKService.getInstance().getPlusGoogleService().onActivityResult(requestCode,resultCode,data);
     }
 
     public IBoxSDKImp(){

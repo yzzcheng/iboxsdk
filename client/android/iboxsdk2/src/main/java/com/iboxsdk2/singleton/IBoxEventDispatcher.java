@@ -38,6 +38,7 @@ public final class IBoxEventDispatcher {
             sdkCallback.Error(status,data.getString(EventParam.MESSAGE));
             return ;
         }
+        if(sdkCallback == null) return ;
         switch (eventType) {
             case EventConsts.INIT:reciever.init(); ((InitCallback)sdkCallback).InitSuccess();break;
             case EventConsts.LOGIN:((LoginCallback)sdkCallback).LoginSuccess(new SDKUserEvent().fromMap(data));break;

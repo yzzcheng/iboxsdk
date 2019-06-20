@@ -1,2 +1,0 @@
-# iboxsdk
-iboxsdk

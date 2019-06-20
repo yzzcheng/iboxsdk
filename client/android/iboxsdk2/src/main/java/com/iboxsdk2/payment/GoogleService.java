@@ -89,7 +89,6 @@ public class GoogleService {
     }
 
     public void create(String productName) {
-
         for (SkuDetails sku : this.skuDetails) {
             if (sku.getSku().equals(productName)) {
                 BillingFlowParams flowParams = BillingFlowParams.newBuilder()
@@ -99,6 +98,7 @@ public class GoogleService {
 
                 if (result.getResponseCode() != BillingClient.BillingResponseCode.OK) {
                     Logger.e(result.getDebugMessage());
+
                 }
 
             }

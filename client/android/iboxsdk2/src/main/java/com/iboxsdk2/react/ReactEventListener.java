@@ -34,6 +34,7 @@ public class ReactEventListener extends ReactContextBaseJavaModule {
         constants.put(EventConsts.INIT, EventConsts.INIT);
         constants.put(EventConsts.LOGIN, EventConsts.LOGIN);
         constants.put(EventConsts.START_GOOGLE_PAY, EventConsts.START_GOOGLE_PAY);
+        constants.put(EventConsts.START_PLUS_PAY, EventConsts.START_PLUS_PAY);
         constants.put(EventConsts.ORDER_CREATE, EventConsts.ORDER_CREATE);
         constants.put(EventConsts.ORDER_FINISH, EventConsts.ORDER_FINISH);
 

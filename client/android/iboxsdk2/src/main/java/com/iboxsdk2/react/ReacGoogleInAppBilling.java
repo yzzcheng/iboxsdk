@@ -21,7 +21,12 @@ public class ReacGoogleInAppBilling extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void startPayment(String sku){
-        IBoxSDKService.getInstance().getGoogleService().create(sku);
+    public void startPayment(String sku,int type){
+        if(type == 0){
+            IBoxSDKService.getInstance().getGoogleService().create(sku);
+        } else {
+            IBoxSDKService.getInstance().getPlusGoogleService().startPay(sku);
+        }
+
     }
 }

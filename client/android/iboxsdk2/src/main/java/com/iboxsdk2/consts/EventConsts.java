@@ -7,6 +7,8 @@ public class EventConsts {
 
     public final static String START_GOOGLE_PAY = "START_GOOGLE_PAY";
 
+    public final static String START_PLUS_PAY = "START_PLUS_PAY";
+
 
     public final static String ORDER_CREATE = "ORDER_CREATE";
 

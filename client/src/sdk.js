@@ -57,8 +57,9 @@ export default class APP extends Component {
                 ...finishBean
             });
         });
-        this.createOrderHandler = DeviceEventEmitter.addListener(ReactEventListener.ORDER_CREATE,(e)=>{
-            console.log('ORDER_CREATE',e)
+        this.createOrderHandler = DeviceEventEmitter.addListener(ReactEventListener.ORDER_CREATE,(orderinfo)=>{
+            console.log('ORDER_CREATE',orderinfo)
+            GoogleInAppBilling.startPayment(orderinfo.productName,1);
             // ReactEventListener.sendMsgToNative(ReactEventListener.ORDER_FINISH,{
             //     [ReactEventListener.STATUS]:200,
             // });
@@ -74,7 +75,7 @@ export default class APP extends Component {
     }
     
     onGoogleInAppBilling(){
-        GoogleInAppBilling.startPayment('product_4.99_xmyxwno1');
+        GoogleInAppBilling.startPayment('product_4.99_xmyxwno1',0);
     }
 
     render() {

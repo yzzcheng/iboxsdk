@@ -2,6 +2,7 @@ package com.iboxsdk2.singleton;
 
 import com.iboxsdk2.imp.IBoxBundleService;
 import com.iboxsdk2.payment.GoogleService;
+import com.iboxsdk2.payment.PlusGoogleService;
 
 public class IBoxSDKService {
     private static final IBoxSDKService ourInstance = new IBoxSDKService();
@@ -13,6 +14,9 @@ public class IBoxSDKService {
 
     GoogleService googleService = new GoogleService();
     IBoxBundleService bundleService = new IBoxBundleService();
+    PlusGoogleService plusGoogleService = new PlusGoogleService();
+
+
     public GoogleService getGoogleService() {
         return googleService;
     }
@@ -20,6 +24,10 @@ public class IBoxSDKService {
 
     public IBoxBundleService getBundleService() {
         return bundleService;
+    }
+
+    public PlusGoogleService getPlusGoogleService() {
+        return plusGoogleService;
     }
 
     private IBoxSDKService() {

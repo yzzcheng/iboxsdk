@@ -33,13 +33,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="product_4.99_xmyxwno1" />
+                android:text="product_0.99_xmyxwno1" />
             <Button
                 android:id="@+id/paymentBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Payment" />
-
+            <Button
+                android:id="@+id/intentBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Intent" />
 
         </LinearLayout>
     </LinearLayout>
