@@ -5,7 +5,7 @@
   "scripts": {
     "start": "yarn react-native start",
     "android":"react-native run-android",
-    "bundle":"react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/iboxsdk2/src/main/assets/index.android.bundle --assets-dest android/iboxsdk2/src/main/res"
+    "bundle":"react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/IBoxSDK/src/main/assets/index.android.bundle --assets-dest android/iboxsdk2/src/main/res"
   },
   "dependencies": {
     "react": "16.8.3",

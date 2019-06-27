@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { DeviceEventEmitter,NativeModules,Button, View } from 'react-native';
+import { DeviceEventEmitter, NativeModules, Button, View } from 'react-native';
 import Login from './view/Login'
 import Risgistry from './view/Risgistry'
-
-const {ReactEventListener,GoogleInAppBilling} = NativeModules;
+import API from './apis'
+const { ReactEventListener, GoogleService, FaceBookService } = NativeModules;
 
 /*
 sendMsgToNative
@@ -12,60 +12,63 @@ sendMsgToNative
 
 */
 
+
+
 export default class APP extends Component {
 
-    
 
-    
 
-    constructor(props){
+
+
+    constructor(props) {
         super(props);
         this.state = this.initState();
     }
 
-    initState(){
+    initState() {
         return {
-            view:'login',
+            view: 'login',
 
         };
     }
 
     componentWillMount() {
-        this.initHandler = DeviceEventEmitter.addListener(ReactEventListener.INIT,(e)=>{
-            console.log(ReactEventListener.INIT,e);
-            ReactEventListener.sendMsgToNative(ReactEventListener.INIT,{
-                [ReactEventListener.STATUS]:200,
+        this.initHandler = DeviceEventEmitter.addListener(ReactEventListener.INIT, (e) => {
+            console.log(ReactEventListener.INIT, e);
+            ReactEventListener.sendMsgToNative(ReactEventListener.INIT, {
+                [ReactEventListener.STATUS]: 200,
             });
         });
-        this.loginHandler = DeviceEventEmitter.addListener(ReactEventListener.LOGIN,(e)=>{
-            this.setState({view:'login'});
-            ReactEventListener.sendMsgToNative(ReactEventListener.LOGIN,{
-                [ReactEventListener.STATUS]:200,
-                userName:'linlin.zhang',
-                userId:123,
-                token:'124325325'
+        this.loginHandler = DeviceEventEmitter.addListener(ReactEventListener.LOGIN, (e) => {
+            this.setState({ view: 'login' });
+            ReactEventListener.sendMsgToNative(ReactEventListener.LOGIN, {
+                [ReactEventListener.STATUS]: 200,
+                [ReactEventListener.DIALOG_STATUS]: 1,
+                userName: 'linlin.zhang',
+                userId: 123,
+                token: '124325325'
             });
         });
 
-        this.finishOrderHandler = DeviceEventEmitter.addListener(ReactEventListener.ORDER_FINISH,(finishBean)=>{
-            console.log("ORDER_FINISH",finishBean);
+        this.finishOrderHandler = DeviceEventEmitter.addListener(ReactEventListener.ORDER_FINISH, (finishBean) => {
+            console.log("ORDER_FINISH", finishBean);
             // 请求后端接口完成订单
             //TODO
             //通知Google消单
-            ReactEventListener.sendMsgToNative(ReactEventListener.ORDER_FINISH,{
-                [ReactEventListener.STATUS]:200,
+            ReactEventListener.sendMsgToNative(ReactEventListener.ORDER_FINISH, {
+                [ReactEventListener.STATUS]: 200,
                 ...finishBean
             });
         });
-        this.createOrderHandler = DeviceEventEmitter.addListener(ReactEventListener.ORDER_CREATE,(orderinfo)=>{
-            console.log('ORDER_CREATE',orderinfo)
-            GoogleInAppBilling.startPayment(orderinfo.productName,1);
+        this.createOrderHandler = DeviceEventEmitter.addListener(ReactEventListener.ORDER_CREATE, (orderinfo) => {
+            console.log('ORDER_CREATE', orderinfo)
+            GoogleService.startPayment(orderinfo.productName);
             // ReactEventListener.sendMsgToNative(ReactEventListener.ORDER_FINISH,{
             //     [ReactEventListener.STATUS]:200,
             // });
         });
-        
-        
+
+
     }
 
     componentWillUnmount() {
@@ -73,21 +76,32 @@ export default class APP extends Component {
         this.loginHandler.remove();
         this.createOrderHandler.remove();
     }
-    
-    onGoogleInAppBilling(){
-        GoogleInAppBilling.startPayment('product_4.99_xmyxwno1',0);
+
+    onGoogleInAppBilling() {
+        GoogleService.startPlusPayment('product_0.99_xmyxwno1', "com.bdgames.xmyxwno1://pluspay");
     }
 
-    render() {
-      const {view} = this.state;
-      return (
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-           {view === 'login'?<Login/>:null} 
-           {view === 'risgistry'?<Risgistry/>:null} 
-           <Button title="GoogleInAppBilling" onPress={this.onGoogleInAppBilling.bind(this)}/>
-        </View>
-      );
+    onFacebookLogin() {
+        FaceBookService.doLogin((res) => {
+            console.log(res)
+        })
     }
-  }
+    launchToApp() {
+        GoogleService.launchToApp('com.bdgames.xmyxwno1');
+    }
+    render() {
+        const { view } = this.state;
+        console.log(view);
+        return (
+            <View>
+                {view === 'login' ? <Login /> : null}
+                {view === 'risgistry' ? <Risgistry /> : null}
+                <Button title="插件支付" onPress={this.onGoogleInAppBilling.bind(this)} />
+                <Button title="FaceBookLogin" onPress={this.onFacebookLogin.bind(this)} />
+                <Button title="GotoGoogle" onPress={this.launchToApp.bind(this)} />
+            </View>
+        );
+    }
+}
 
 

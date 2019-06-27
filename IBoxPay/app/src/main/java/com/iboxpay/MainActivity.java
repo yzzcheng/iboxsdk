@@ -38,21 +38,30 @@ public class MainActivity extends Activity {
 
     private String action = "create";
 
+    private String[] actionList = new String[]{"create","finish"};
 //    private String productName = "";
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Logger.addLogAdapter(new AndroidLogAdapter());
         final Intent intent = this.getIntent();
-        if(!intent.hasExtra("action")) return ;
+        if(!intent.hasExtra("action")) {
+            finish();
+            return ;
+        }
         this.action = intent.getStringExtra("action");
-
+        final String url = intent.getDataString();
+        if("create".equals(this.action) && "finish".equals(this.action)) {
+            finish();
+            return ;
+        }
         billingClient = BillingClient.newBuilder(this).setListener(new PurchasesUpdatedListener() {
             @Override
             public void onPurchasesUpdated(BillingResult billingResult, List<Purchase> purchases) {
                 if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
                     for(Purchase purchase : purchases) {
                         Intent intent = new Intent();
+                        intent.putExtra("url",url);
                         intent.putExtra("developerPayload",purchase.getDeveloperPayload());
                         intent.putExtra("purchaseToken",purchase.getPurchaseToken());
                         intent.putExtra("orderId",purchase.getOrderId());
@@ -138,6 +147,9 @@ public class MainActivity extends Activity {
                 finish();
             }
         });
+
+
+
 
 
 

@@ -1,51 +1,54 @@
 package com.iboxsdk;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.iboxsdk2.abstracts.InitCallback;
-import com.iboxsdk2.abstracts.LoginCallback;
-import com.iboxsdk2.abstracts.PaymentCallback;
-import com.iboxsdk2.bean.SDKPayment;
-import com.iboxsdk2.bean.SDKUser;
-import com.iboxsdk2.singleton.IBoxSDKAPI;
+import com.iboxsdk.abstracts.InitCallback;
+import com.iboxsdk.abstracts.LoginCallback;
+import com.iboxsdk.abstracts.PaymentCallback;
+import com.iboxsdk.bean.SDKPayment;
+import com.iboxsdk.bean.SDKUser;
+import com.iboxsdk.singleton.IBoxSDKAPI;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Button InitBtn = this.findViewById(R.id.initBtn);
-        Button LoginBtn = this.findViewById(R.id.loginBtn);
-        Button payBtn = this.findViewById(R.id.paymentBtn);
-        Button intentBtn = this.findViewById(R.id.intentBtn);
-        View.OnClickListener clickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId())
-                {
-                    case R.id.initBtn:init(); break;
-                    case R.id.loginBtn:login();break;
-                    case R.id.paymentBtn:createOrder();break;
-                    case R.id.intentBtn:sendIntent();break;
-                }
-            }
-        };
+//        LayoutInflater inflater = LayoutInflater.from(RePlugin.getPluginContext());
+        LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+        View view = inflater.inflate(R.layout.activity_main,null);
+        setContentView(view);
+        Log.e("MainActivity",MainActivity.this.getLocalClassName());
+        Button InitBtn = view.findViewById(R.id.initBtn);
+        Button LoginBtn = view.findViewById(R.id.loginBtn);
+        Button payBtn = view.findViewById(R.id.paymentBtn);
+        Button intentBtn = view.findViewById(R.id.intentBtn);
         InitBtn.setOnClickListener(clickListener);
         intentBtn.setOnClickListener(clickListener);
         LoginBtn.setOnClickListener(clickListener);
         payBtn.setOnClickListener(clickListener);
     }
-
+     View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId())
+            {
+                case R.id.initBtn:init(); break;
+                case R.id.loginBtn:login();break;
+                case R.id.paymentBtn:createOrder();break;
+                case R.id.intentBtn:sendIntent();break;
+            }
+        }
+    };
     protected void init(){
         IBoxSDKAPI.getInstance().getSDK().init(this, new InitCallback() {
             @Override
@@ -104,13 +107,13 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent();
         Uri url = Uri.parse("com.bdgames.xmyxwno1://pluspay");
         intent.setData(url);
-        intent.putExtra("action","create");
+        intent.putExtra("action","startPay");
         intent.putExtra("productName",productName.getText().toString());
         this.startActivityForResult(intent,0);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode,Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         IBoxSDKAPI.getInstance().getSDK().onActivityResult(requestCode,resultCode,data);
     }

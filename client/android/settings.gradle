@@ -1,1 +1,1 @@
-include ':app', ':iboxsdk2'
+include ':app', ':IBoxSDK', ':IBoxSDKResource'

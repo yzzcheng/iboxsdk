@@ -7,12 +7,14 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.2'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+'
+        classpath 'com.qihoo360.replugin:replugin-plugin-gradle:2.3.2'
     }
 }
 
 allprojects {
 
     repositories {
+        maven { url 'https://dl.bintray.com/iboxzhang/IBoxSDK' }
         jcenter()
         maven {
             // All of React Native (JS, Android binaries) is installed from npm
