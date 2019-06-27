@@ -12,13 +12,15 @@ DeviceEventEmitter.addListener(String eventName,(data)->{
     //TODO
 })
 ```
+
 参数1  eventName  事件名
 eventName | description 
 ---|:--:|
-ReactEventListener.ORDER_CREATE |原生发起下单
-ReactEventListener.INIT |原生发起初始化
-ReactEventListener.LOGIN |原生发起登录
-ReactEventListener.ORDER_FINISH |原生支付成功返回
+ReactEventListener.ORDER_CREATE | 原生发起下单
+ReactEventListener.INIT | 原生发起初始化
+ReactEventListener.LOGIN | 原生发起登录
+ReactEventListener.ORDER_FINISH | 原生支付成功返回
+
 ---
 ### 操作原生方法
 ```
