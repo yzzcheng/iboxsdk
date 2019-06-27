@@ -1,9 +1,11 @@
 package com.iboxsdk.singleton;
 
 import com.iboxsdk.imp.IBoxBundleService;
-import com.iboxsdk.payment.GoogleService;
+import com.iboxsdk.payment.GooglePayService;
 import com.iboxsdk.payment.PlusGoogleService;
+import com.iboxsdk.thirdparty.AdjustService;
 import com.iboxsdk.thirdparty.FaceBookService;
+import com.iboxsdk.thirdparty.GoogleAdsService;
 
 public class IBoxSDKService {
     private static IBoxSDKService ourInstance = new IBoxSDKService();
@@ -13,14 +15,14 @@ public class IBoxSDKService {
         return ourInstance;
     }
 
-    GoogleService googleService = new GoogleService();
+    GooglePayService googlePayService = new GooglePayService();
     IBoxBundleService bundleService = new IBoxBundleService();
     PlusGoogleService plusGoogleService = new PlusGoogleService();
     FaceBookService faceBookService = new FaceBookService();
-
-
-    public GoogleService getGoogleService() {
-        return googleService;
+    GoogleAdsService googleAdsService = new GoogleAdsService();
+    AdjustService adjustService = new AdjustService();
+    public GooglePayService getGooglePayService() {
+        return googlePayService;
     }
 
 
@@ -34,6 +36,14 @@ public class IBoxSDKService {
 
     public FaceBookService getFaceBookService() {
         return faceBookService;
+    }
+
+    public GoogleAdsService getGoogleAdsService() {
+        return googleAdsService;
+    }
+
+    public AdjustService getAdjustService() {
+        return adjustService;
     }
 
     private IBoxSDKService() {

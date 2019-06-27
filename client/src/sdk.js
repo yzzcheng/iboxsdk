@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { DeviceEventEmitter, NativeModules, Button, View } from 'react-native';
+import { DeviceEventEmitter, NativeModules, View } from 'react-native';
 import Login from './view/Login'
 import Risgistry from './view/Risgistry'
+import Payment from './view/Payment'
 import API from './apis'
-const { ReactEventListener, GoogleService, FaceBookService } = NativeModules;
+const { ReactEventListener, GoogleService, FaceBookService,IBoxEnvironment } = NativeModules;
 
 /*
 sendMsgToNative
@@ -13,12 +14,7 @@ sendMsgToNative
 */
 
 
-
 export default class APP extends Component {
-
-
-
-
 
     constructor(props) {
         super(props);
@@ -41,13 +37,7 @@ export default class APP extends Component {
         });
         this.loginHandler = DeviceEventEmitter.addListener(ReactEventListener.LOGIN, (e) => {
             this.setState({ view: 'login' });
-            ReactEventListener.sendMsgToNative(ReactEventListener.LOGIN, {
-                [ReactEventListener.STATUS]: 200,
-                [ReactEventListener.DIALOG_STATUS]: 1,
-                userName: 'linlin.zhang',
-                userId: 123,
-                token: '124325325'
-            });
+           
         });
 
         this.finishOrderHandler = DeviceEventEmitter.addListener(ReactEventListener.ORDER_FINISH, (finishBean) => {
@@ -62,7 +52,8 @@ export default class APP extends Component {
         });
         this.createOrderHandler = DeviceEventEmitter.addListener(ReactEventListener.ORDER_CREATE, (orderinfo) => {
             console.log('ORDER_CREATE', orderinfo)
-            GoogleService.startPayment(orderinfo.productName);
+            this.setState({ view: 'pay' });
+          
             // ReactEventListener.sendMsgToNative(ReactEventListener.ORDER_FINISH,{
             //     [ReactEventListener.STATUS]:200,
             // });
@@ -96,9 +87,10 @@ export default class APP extends Component {
             <View>
                 {view === 'login' ? <Login /> : null}
                 {view === 'risgistry' ? <Risgistry /> : null}
-                <Button title="插件支付" onPress={this.onGoogleInAppBilling.bind(this)} />
+                {view === 'pay' ? <Payment /> : null}
+                {/* <Button title="插件支付" onPress={this.onGoogleInAppBilling.bind(this)} />
                 <Button title="FaceBookLogin" onPress={this.onFacebookLogin.bind(this)} />
-                <Button title="GotoGoogle" onPress={this.launchToApp.bind(this)} />
+                <Button title="GotoGoogle" onPress={this.launchToApp.bind(this)} /> */}
             </View>
         );
     }

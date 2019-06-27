@@ -20,6 +20,7 @@ public class ReactModulePackage implements ReactPackage {
         modules.add(new ReactEventListener(reactContext));
         modules.add(new ReactGoogleService(reactContext));
         modules.add(new ReactFaceBook(reactContext));
+        modules.add(new ReactEnvironment(reactContext));
         return modules;
     }
     @Nonnull

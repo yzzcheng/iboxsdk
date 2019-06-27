@@ -24,7 +24,7 @@ import com.orhanobut.logger.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoogleService {
+public class GooglePayService {
     private BillingClient billingClient;
     private List<SkuDetails> skuDetails = new ArrayList<>();
 
@@ -45,7 +45,7 @@ public class GoogleService {
                         event.setPackageId(packageId);
                         event.setDeveloperPayload(purchase.getDeveloperPayload());
                         event.setSignature(purchase.getSignature());
-                        event.setPurseToken(purchase.getPurchaseToken());
+                        event.setPurchaseToken(purchase.getPurchaseToken());
                         IBoxReactView.getInstance().getReactView().emitter().emit(EventConsts.ORDER_FINISH, event.toMap());
                     }
                 } else {

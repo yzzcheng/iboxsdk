@@ -7,4 +7,5 @@ public interface EventReciever {
 
     void finishOrder(SDKFinishOrderEvent event);
 
+    void closeSDK();
 }

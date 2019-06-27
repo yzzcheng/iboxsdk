@@ -6,7 +6,6 @@ import android.net.Uri;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.iboxsdk.abstracts.IBoxSDK;
 import com.iboxsdk.singleton.IBoxSDKContext;
 import com.iboxsdk.singleton.IBoxSDKService;
 
@@ -31,7 +30,7 @@ public class ReactGoogleService extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void startPayment(String sku){
-        IBoxSDKService.getInstance().getGoogleService().startPay(sku);
+        IBoxSDKService.getInstance().getGooglePayService().startPay(sku);
     }
 
     @ReactMethod

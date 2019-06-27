@@ -9,6 +9,7 @@ import com.facebook.react.common.LifecycleState;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.shell.MainReactPackage;
 import com.iboxsdk.abstracts.Action;
+import com.iboxsdk.singleton.IBoxSDKContext;
 import com.iboxsdk.singleton.IBoxSDKService;
 
 import java.net.PortUnreachableException;
@@ -75,13 +76,24 @@ public class ReactView {
 
     public void show(){
         if(!this.mythsActivity.isShowing()){
-            this.mythsActivity.show();
+            IBoxSDKContext.getInstance().getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mythsActivity.show();
+                }
+            });
         }
     }
 
     public void hide(){
         if(this.mythsActivity.isShowing()){
-            this.mythsActivity.hide();
+            IBoxSDKContext.getInstance().getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mythsActivity.cancel();
+                }
+            });
+
         }
     }
 
@@ -89,4 +101,5 @@ public class ReactView {
     public boolean equals(Object obj) {
         return mReactRootView.getContext().equals(obj);
     }
+
 }

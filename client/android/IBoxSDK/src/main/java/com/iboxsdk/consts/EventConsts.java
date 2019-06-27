@@ -16,4 +16,6 @@ public class EventConsts {
 
 
     public final static String FACEBOOK_LOGIN = "FACEBOOK_LOGIN";
+
+    public final static String CLOSE_SDK = "CLOSE_SDK";
 }

@@ -31,23 +31,24 @@ public class IBoxSDKImp implements IBoxSDK {
     public void init(Activity activity,final InitCallback callback) {
         IBoxSDKContext.getInstance().setActivity(activity);
         if(!IBoxSDKContext.getInstance().isInit()) {
-
-            ReactView reactView = new ReactView(activity, new ReactView.ReactInitCallback() {
-                @Override
-                public void callback(boolean isSuccess,Activity activity, ReactView reactView) {
-                    if (isSuccess) {
-                        IBoxEventDispatcher.getInstance().addListener(EventConsts.INIT, callback);
-                        InitEvent event = new InitEvent();
-                        Integer appId = Integer.parseInt(ResourceUtils.getString(activity.getApplicationContext(), "ibox_app_id"));
-                        event.setPackageName(activity.getPackageName());
-                        event.setAppId(appId);
-                        reactView.emitter().emit(EventConsts.INIT, event.toMap());
-                    } else {
-                        callback.Error(400,"SDK Component init error");
+            synchronized (this) {
+                ReactView reactView = new ReactView(activity, new ReactView.ReactInitCallback() {
+                    @Override
+                    public void callback(boolean isSuccess, Activity activity, ReactView reactView) {
+                        if (isSuccess) {
+                            IBoxEventDispatcher.getInstance().addListener(EventConsts.INIT, callback);
+                            InitEvent event = new InitEvent();
+                            Integer appId = Integer.parseInt(ResourceUtils.getString(activity.getApplicationContext(), "ibox_app_id"));
+                            event.setPackageName(activity.getPackageName());
+                            event.setAppId(appId);
+                            reactView.emitter().emit(EventConsts.INIT, event.toMap());
+                        } else {
+                            callback.Error(400, "SDK Component init error");
+                        }
                     }
-                }
-            });
-            IBoxReactView.getInstance().setReactView(reactView);
+                });
+                IBoxReactView.getInstance().setReactView(reactView);
+            }
         } else {
             IBoxEventDispatcher.getInstance().addListener(EventConsts.INIT, callback);
             InitEvent event = new InitEvent();
@@ -67,8 +68,9 @@ public class IBoxSDKImp implements IBoxSDK {
             Integer appId = Integer.parseInt(ResourceUtils.getString(activity.getApplicationContext(), ConfigConsts.app_id));
             event.setPackageName(activity.getPackageName());
             event.setAppId(appId);
-            IBoxReactView.getInstance().getReactView().emitter().emit(EventConsts.LOGIN, event.toMap());
             IBoxReactView.getInstance().getReactView().show();
+            IBoxReactView.getInstance().getReactView().emitter().emit(EventConsts.LOGIN, event.toMap());
+
             Logger.d("login success");
         }else {
             callback.Error(ErrorCode.NOT_INIT,"NOT INIT");
@@ -86,8 +88,9 @@ public class IBoxSDKImp implements IBoxSDK {
             event.setPackageId(packageId);
             event.setPackageName(activity.getPackageName());
             event.setProductName(payment.getProductName());
+            IBoxReactView.getInstance().getReactView().show();
             IBoxReactView.getInstance().getReactView().emitter().emit(EventConsts.ORDER_CREATE,event.fromSDKPayment(payment).toMap());
-//            IBoxReactView.getInstance().getReactView().show();
+
         }
     }
 

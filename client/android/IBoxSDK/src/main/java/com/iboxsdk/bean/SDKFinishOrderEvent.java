@@ -12,7 +12,12 @@ public class SDKFinishOrderEvent implements EventData {
     private String transactionId;
     private String signature;
     private String developerPayload;
-    private String purseToken;
+    private String orderId;
+    private String purchaseState;
+    private String originalJson;
+    private String purchaseTime;
+    private String purchaseToken;
+
 
     public Integer getAppId() {
         return appId;
@@ -54,12 +59,44 @@ public class SDKFinishOrderEvent implements EventData {
         this.developerPayload = developerPayload;
     }
 
-    public String getPurseToken() {
-        return purseToken;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setPurseToken(String purseToken) {
-        this.purseToken = purseToken;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getPurchaseState() {
+        return purchaseState;
+    }
+
+    public void setPurchaseState(String purchaseState) {
+        this.purchaseState = purchaseState;
+    }
+
+    public String getOriginalJson() {
+        return originalJson;
+    }
+
+    public void setOriginalJson(String originalJson) {
+        this.originalJson = originalJson;
+    }
+
+    public String getPurchaseTime() {
+        return purchaseTime;
+    }
+
+    public void setPurchaseTime(String purchaseTime) {
+        this.purchaseTime = purchaseTime;
+    }
+
+    public String getPurchaseToken() {
+        return purchaseToken;
+    }
+
+    public void setPurchaseToken(String purchaseToken) {
+        this.purchaseToken = purchaseToken;
     }
 
     @Override
@@ -70,7 +107,12 @@ public class SDKFinishOrderEvent implements EventData {
         map.putString("signature", signature);
         map.putString("developerPayload", developerPayload);
         map.putString("transactionId",transactionId);
-        map.putString("purseToken",purseToken);
+        map.putString("orderId",orderId);
+        map.putString("purchaseState",purchaseState);
+        map.putString("originalJson",originalJson);
+        map.putString("purchaseTime",purchaseTime);
+        map.putString("purchaseToken",purchaseToken);
+
         return map;
     }
 
@@ -80,8 +122,13 @@ public class SDKFinishOrderEvent implements EventData {
         this.setPackageId(map.getInt("pacakgeId"));
         this.setDeveloperPayload(map.getString("developerPayload"));
         this.setTransactionId(map.getString("transactionId"));
-        this.setPurseToken(map.getString("purseToken"));
+        this.setOrderId(map.getString("orderId"));
+        this.setPurchaseState(map.getString("purchaseState"));
+        this.setPurchaseToken(map.getString("purchaseToken"));
+        this.setPurchaseTime(map.getString("purchaseTime"));
         return this;
     }
+
+
 
 }

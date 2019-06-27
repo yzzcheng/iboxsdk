@@ -49,6 +49,7 @@ public final class IBoxEventDispatcher {
             case EventConsts.INIT:reciever.init(); ((InitCallback)sdkCallback).InitSuccess();break;
             case EventConsts.LOGIN:((LoginCallback)sdkCallback).LoginSuccess(new SDKUserEvent().fromMap(data));break;
             case EventConsts.ORDER_FINISH:reciever.finishOrder(new SDKFinishOrderEvent().fromMap(data));((PaymentCallback)sdkCallback).PaymentFinish();break;
+            case EventConsts.CLOSE_SDK:reciever.closeSDK();break;
             default:break;
         }
     }
