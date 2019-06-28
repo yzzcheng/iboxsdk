@@ -31,6 +31,12 @@ public class IBoxSDKImp implements IBoxSDK {
     public void init(Activity activity,final InitCallback callback) {
         IBoxSDKContext.getInstance().setActivity(activity);
         if(!IBoxSDKContext.getInstance().isInit()) {
+            Integer appId = Integer.parseInt(ResourceUtils.getString(activity.getApplicationContext(), ConfigConsts.app_id));
+            Integer packageId = Integer.parseInt(ResourceUtils.getString(activity.getApplicationContext(),  ConfigConsts.package_id));
+            String appKey = ResourceUtils.getString(activity.getApplicationContext(),  ConfigConsts.app_key);
+            IBoxSDKContext.getInstance().setAppId(appId);
+            IBoxSDKContext.getInstance().setPackageId(packageId);
+            IBoxSDKContext.getInstance().setAppKey(appKey);
             synchronized (this) {
                 ReactView reactView = new ReactView(activity, new ReactView.ReactInitCallback() {
                     @Override
@@ -38,9 +44,8 @@ public class IBoxSDKImp implements IBoxSDK {
                         if (isSuccess) {
                             IBoxEventDispatcher.getInstance().addListener(EventConsts.INIT, callback);
                             InitEvent event = new InitEvent();
-                            Integer appId = Integer.parseInt(ResourceUtils.getString(activity.getApplicationContext(), "ibox_app_id"));
                             event.setPackageName(activity.getPackageName());
-                            event.setAppId(appId);
+                            event.setAppId(IBoxSDKContext.getInstance().getAppId());
                             reactView.emitter().emit(EventConsts.INIT, event.toMap());
                         } else {
                             callback.Error(400, "SDK Component init error");
@@ -52,9 +57,8 @@ public class IBoxSDKImp implements IBoxSDK {
         } else {
             IBoxEventDispatcher.getInstance().addListener(EventConsts.INIT, callback);
             InitEvent event = new InitEvent();
-            Integer appId = Integer.parseInt(ResourceUtils.getString(activity.getApplicationContext(), "ibox_app_id"));
             event.setPackageName(activity.getPackageName());
-            event.setAppId(appId);
+            event.setAppId(IBoxSDKContext.getInstance().getAppId());
             IBoxReactView.getInstance().getReactView().emitter().emit(EventConsts.INIT, event.toMap());
 
         }
@@ -65,7 +69,7 @@ public class IBoxSDKImp implements IBoxSDK {
         if(IBoxSDKContext.getInstance().isInit()){
             IBoxEventDispatcher.getInstance().addListener(EventConsts.LOGIN, callback);
             InitEvent event = new InitEvent();
-            Integer appId = Integer.parseInt(ResourceUtils.getString(activity.getApplicationContext(), ConfigConsts.app_id));
+            Integer appId = IBoxSDKContext.getInstance().getAppId();
             event.setPackageName(activity.getPackageName());
             event.setAppId(appId);
             IBoxReactView.getInstance().getReactView().show();

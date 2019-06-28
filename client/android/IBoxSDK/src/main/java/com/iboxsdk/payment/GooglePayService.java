@@ -37,8 +37,8 @@ public class GooglePayService {
             public void onPurchasesUpdated(BillingResult billingResult, List<Purchase> purchases) {
                 if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK
                         && purchases != null) {
-                    Integer appId = Integer.parseInt(ResourceUtils.getString(activity.getApplicationContext(), ConfigConsts.app_id));
-                    Integer packageId = Integer.parseInt(ResourceUtils.getString(activity.getApplicationContext(), ConfigConsts.package_id));
+                    Integer appId = IBoxSDKContext.getInstance().getAppId();
+                    Integer packageId = IBoxSDKContext.getInstance().getPackageId();
                     for (Purchase purchase : purchases) {
                         SDKFinishOrderEvent event = new SDKFinishOrderEvent();
                         event.setAppId(appId);

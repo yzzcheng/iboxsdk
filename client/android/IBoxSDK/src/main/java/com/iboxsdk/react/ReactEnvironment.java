@@ -10,6 +10,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.iboxsdk.singleton.IBoxSDKContext;
 import com.iboxsdk.singleton.IBoxSDKService;
 import com.iboxsdk.utils.DeviceUtils;
+import com.iboxsdk.utils.StringUtils;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -40,6 +41,7 @@ public class ReactEnvironment extends ReactContextBaseJavaModule {
         constants.put("MODEL","MODEL");
         constants.put("PACKAGE_NAME","PACKAGE_NAME");
         constants.put("LANGUAGE","LANGUAGE");
+        constants.put("APP_CONFIG","APP_CONFIG");
         return constants;
     }
     @ReactMethod
@@ -60,8 +62,20 @@ public class ReactEnvironment extends ReactContextBaseJavaModule {
                 map.putInt(type,android.os.Build.VERSION.SDK_INT); break;
             case "NETWORK":
                 map.putInt(type,DeviceUtils.getNetworkState()); break;
+            case "APP_CONFIG":
+                map.putInt("app_id",IBoxSDKContext.getInstance().getAppId());
+                map.putInt("package_id",IBoxSDKContext.getInstance().getPackageId());
+                break;
         }
         callback.invoke(map);
+    }
+    @ReactMethod
+    public void sign(ReadableMap map,Callback callback){
+        String sign = StringUtils.sign(map.toHashMap(),IBoxSDKContext.getInstance().getAppKey());
+        WritableMap writableMap = Arguments.createMap();
+        writableMap.merge(map);
+        writableMap.putString("sign",sign);
+        callback.invoke(writableMap);
     }
 
 }

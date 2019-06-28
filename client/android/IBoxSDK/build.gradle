@@ -4,7 +4,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.jfrog.bintray'
 
 def libVersionName = "1.0"
-def libVersionCode = 3
+def libVersionCode = 4
 
 android {
     compileSdkVersion 28
@@ -17,6 +17,9 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+    }
+    lintOptions {
+        abortOnError false
     }
 
     buildTypes {

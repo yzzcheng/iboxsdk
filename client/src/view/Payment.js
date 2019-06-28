@@ -12,8 +12,8 @@ export default class Payment extends Component {
 
     initState() {
         return {
-            userName: '',
-            password: ''
+            productId: 'product_0.99_xmyxwno1',
+            plusName: 'com.bdgames.xmyxwno1://pluspay'
         };
     }
 
@@ -23,7 +23,9 @@ export default class Payment extends Component {
         //   [ReactEventListener.DIALOG_STATUS]: 0,
         // });
         // GoogleService.startPayment(orderinfo.productName);
-        GoogleService.startPlusPayment('product_0.99_xmyxwno1', "com.bdgames.xmyxwno1://pluspay");
+        const {productId,plusName} = this.state;
+        console.log(this.state);
+        GoogleService.startPlusPayment(productId, plusName);
         // ReactEventListener.sendMsgToNative(ReactEventListener.LOGIN, {
         //   [ReactEventListener.STATUS]: 200,
         //   [ReactEventListener.DIALOG_STATUS]: 0,
@@ -41,20 +43,24 @@ export default class Payment extends Component {
     }
 
     render() {
+        const {productId,plusName} = this.state;
+        console.log(this.state);
         return (
             <View style={{ width: 300, height: 400, flexDirection: 'column' }}>
                 <Text style={{ textAlign: 'center' }}>支付</Text>
                 <TextInput
-                    placeholder="UserName"
-                    onChangeText={(text) => this.setState({ userName: text })}
+                    placeholder="商品ID"
+                    value={productId}
+                    onChangeText={(text) => this.setState({ productId: text })}
                 />
                 <TextInput
-                    placeholder="Password"
-                    onChangeText={(text) => this.setState({ password: text })}
+                    placeholder="插件信息"
+                    value={plusName}
+                    onChangeText={(text) => this.setState({ plusName: text })}
                 />
                 <View >
-                    <Button style={{ textAlign: "center" }} title="GoogleOnPlus" onPress={this.doPay.bind(this)} />
-                    <Button style={{ textAlign: "center" }} title="Cancel" onPress={this.cancel.bind(this)} />
+                    <Button style={{ textAlign: "center" }}  title="拉起插件支付" onPress={this.doPay.bind(this)} />
+                    <Button style={{ textAlign: "center" }}  title="Cancel" onPress={this.cancel.bind(this)} />
                 </View>
             </View>
         );

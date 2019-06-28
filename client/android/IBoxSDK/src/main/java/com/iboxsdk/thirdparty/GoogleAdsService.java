@@ -2,11 +2,17 @@ package com.iboxsdk.thirdparty;
 
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.iboxsdk.singleton.IBoxSDKContext;
+import com.orhanobut.logger.Logger;
 
 public class GoogleAdsService {
     AdvertisingIdClient advertisingIdClient;
     public void init(){
-        advertisingIdClient = new AdvertisingIdClient(IBoxSDKContext.getInstance().getActivity());
+        try {
+            advertisingIdClient = new AdvertisingIdClient(IBoxSDKContext.getInstance().getActivity());
+            advertisingIdClient.start();
+        }catch (Exception e){
+            Logger.e("GoogleAdsService","init error",e);
+        }
     }
 
     public String getAdsId(){

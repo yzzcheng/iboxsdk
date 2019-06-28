@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.iboxsdk.abstracts.ActivityResult;
+import com.iboxsdk.abstracts.IBoxSDK;
 import com.iboxsdk.bean.SDKFinishOrderEvent;
 import com.iboxsdk.consts.ConfigConsts;
 import com.iboxsdk.consts.EventConsts;
@@ -62,8 +63,8 @@ public class PlusGoogleService implements ActivityResult {
             IBoxSDKContext.getInstance().getActivity().startActivityForResult(intent,0);
         }else if(resultCode == PUSECHASE_FINISH){
             Activity activity = IBoxSDKContext.getInstance().getActivity();
-            Integer appId = Integer.parseInt(ResourceUtils.getString(activity.getApplicationContext(), ConfigConsts.app_id));
-            Integer packageId = Integer.parseInt(ResourceUtils.getString(activity.getApplicationContext(), ConfigConsts.package_id));
+            Integer appId = IBoxSDKContext.getInstance().getAppId();
+            Integer packageId = IBoxSDKContext.getInstance().getPackageId();
             SDKFinishOrderEvent event = new SDKFinishOrderEvent();
             event.setAppId(appId);
             event.setPackageId(packageId);

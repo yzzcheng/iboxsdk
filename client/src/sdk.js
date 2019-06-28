@@ -23,7 +23,7 @@ export default class APP extends Component {
 
     initState() {
         return {
-            view: 'login',
+            view: 'pay',
 
         };
     }
