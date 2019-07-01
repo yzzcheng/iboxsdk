@@ -32,10 +32,18 @@ public class MainActivity extends Activity {
         Button LoginBtn = view.findViewById(R.id.loginBtn);
         Button payBtn = view.findViewById(R.id.paymentBtn);
         Button intentBtn = view.findViewById(R.id.intentBtn);
+        Button customBtn = view.findViewById(R.id.costomBtn);
+        Button userBtn = view.findViewById(R.id.userBtn);
+        Button authLoginBtn = view.findViewById(R.id.autoLoginBtn);
         InitBtn.setOnClickListener(clickListener);
         intentBtn.setOnClickListener(clickListener);
         LoginBtn.setOnClickListener(clickListener);
         payBtn.setOnClickListener(clickListener);
+        customBtn.setOnClickListener(clickListener);
+        userBtn.setOnClickListener(clickListener);
+        authLoginBtn.setOnClickListener(clickListener);
+        init();
+
     }
      View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
@@ -46,6 +54,9 @@ public class MainActivity extends Activity {
                 case R.id.loginBtn:login();break;
                 case R.id.paymentBtn:createOrder();break;
                 case R.id.intentBtn:sendIntent();break;
+                case R.id.costomBtn:openCustomCenter();break;
+                case R.id.userBtn:openUserCenter();break;
+                case R.id.autoLoginBtn:autoLogin();break;
             }
         }
     };
@@ -117,4 +128,28 @@ public class MainActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         IBoxSDKAPI.getInstance().getSDK().onActivityResult(requestCode,resultCode,data);
     }
+
+    void openCustomCenter(){
+        IBoxSDKAPI.getInstance().getSDK().openAccountCenter(this);
+    }
+
+    void openUserCenter(){
+        IBoxSDKAPI.getInstance().getSDK().openAccountCenter(this);
+    }
+
+    void autoLogin(){
+        IBoxSDKAPI.getInstance().getSDK().autoLogin(this, new LoginCallback() {
+            @Override
+            public void LoginSuccess(SDKUser user) {
+                Toast.makeText(MainActivity.this, "Hellow" + user.getUserName(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void Error(int code, String message) {
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    };
+
+
 }

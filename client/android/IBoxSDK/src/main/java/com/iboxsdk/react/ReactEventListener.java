@@ -37,7 +37,18 @@ public class ReactEventListener extends ReactContextBaseJavaModule {
         constants.put(EventConsts.ORDER_CREATE, EventConsts.ORDER_CREATE);
         constants.put(EventConsts.ORDER_FINISH, EventConsts.ORDER_FINISH);
         constants.put(EventConsts.CLOSE_SDK, EventConsts.CLOSE_SDK);
+        constants.put(EventConsts.SHOW_SDK, EventConsts.SHOW_SDK);
         constants.put(EventConsts.FACEBOOK_LOGIN, EventConsts.FACEBOOK_LOGIN);
+        constants.put(EventConsts.GOOGLE_PAY_FINISH, EventConsts.GOOGLE_PAY_FINISH);
+        constants.put(EventConsts.GOOGLE_PLUS_PAY_FINISH, EventConsts.GOOGLE_PLUS_PAY_FINISH);
+
+        constants.put(EventConsts.AUTO_LOGIN, EventConsts.AUTO_LOGIN);
+
+        constants.put(EventConsts.OPEN_ACCOUNT_CENTER, EventConsts.OPEN_ACCOUNT_CENTER);
+
+        constants.put(EventConsts.OPEN_COSTOMER_CENTER, EventConsts.OPEN_COSTOMER_CENTER);
+
+        constants.put(EventConsts.AUTO_LOGIN, EventConsts.AUTO_LOGIN);
 
         constants.put(EventParam.MESSAGE, EventParam.MESSAGE);
         constants.put(EventParam.STATUS, EventParam.STATUS);

@@ -16,6 +16,8 @@ import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.orhanobut.logger.Logger;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,16 +45,19 @@ public class GooglePayService {
             public void onPurchasesUpdated(BillingResult billingResult, List<Purchase> purchases) {
 
                 if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                    Intent intent = activity.getIntent();
                     for(Purchase purchase : purchases) {
-                        Intent intent = new Intent();
-                        intent.putExtra("developerPayload",purchase.getDeveloperPayload());
-                        intent.putExtra("purchaseToken",purchase.getPurchaseToken());
-                        intent.putExtra("orderId",purchase.getOrderId());
-                        intent.putExtra("signature",purchase.getSignature());
-                        intent.putExtra("purchaseState",purchase.getPurchaseState());
-                        intent.putExtra("originalJson",purchase.getOriginalJson());
-                        intent.putExtra("purchaseTime",purchase.getPurchaseTime());
-                        activity.setResult(PUSECHASE_SUCCESS,intent);
+                        Intent sendIntent = new Intent();
+                        sendIntent.putExtra("dataString",intent.getDataString());
+                        sendIntent.putExtra("developerPayload",purchase.getDeveloperPayload());
+                        sendIntent.putExtra("purchaseToken",purchase.getPurchaseToken());
+                        sendIntent.putExtra("orderId",purchase.getOrderId());
+                        sendIntent.putExtra("signature",purchase.getSignature());
+                        sendIntent.putExtra("purchaseState",purchase.getPurchaseState());
+                        sendIntent.putExtra("originalJson",purchase.getOriginalJson());
+                        sendIntent.putExtra("purchaseTime",purchase.getPurchaseTime());
+                        sendIntent.putExtra("sku",purchase.getSku());
+                        activity.setResult(PUSECHASE_SUCCESS,sendIntent);
                         activity.finish();
                     }
                 }else {
@@ -74,7 +79,7 @@ public class GooglePayService {
             @Override
             public void onBillingSetupFinished(BillingResult billingResult) {
                 if("create".equals(state)){
-                    Intent intent = activity.getIntent();
+                    final Intent intent = activity.getIntent();
                     String productName = intent.getStringExtra("productName");
                     //拉起支付
                     SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
@@ -87,6 +92,7 @@ public class GooglePayService {
 
                         for(Purchase purchase : purchasesResult.getPurchasesList()) {
                             Intent sendIntent = new Intent();
+                            sendIntent.putExtra("dataString",intent.getDataString());
                             sendIntent.putExtra("developerPayload",purchase.getDeveloperPayload());
                             sendIntent.putExtra("purchaseToken",purchase.getPurchaseToken());
                             sendIntent.putExtra("orderId",purchase.getOrderId());
@@ -94,6 +100,7 @@ public class GooglePayService {
                             sendIntent.putExtra("purchaseState",purchase.getPurchaseState());
                             sendIntent.putExtra("originalJson",purchase.getOriginalJson());
                             sendIntent.putExtra("purchaseTime",purchase.getPurchaseTime());
+                            sendIntent.putExtra("sku",purchase.getSku());
                             activity.setResult(PUSECHASE_SUCCESS,sendIntent);
                             activity.finish();
                         }
@@ -127,6 +134,7 @@ public class GooglePayService {
                             Intent intent = activity.getIntent();
                             if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK){
                                 Intent sendIntent = new Intent();
+                                sendIntent.putExtra("dataString",intent.getDataString());
                                 sendIntent.putExtra("developerPayload",intent.getStringExtra("developerPayload"));
                                 sendIntent.putExtra("purchaseToken",intent.getStringExtra("purchaseToken"));
                                 sendIntent.putExtra("orderId",intent.getStringExtra("orderId"));
@@ -134,6 +142,7 @@ public class GooglePayService {
                                 sendIntent.putExtra("purchaseState",intent.getStringExtra("purchaseState"));
                                 sendIntent.putExtra("originalJson",intent.getStringExtra("originalJson"));
                                 sendIntent.putExtra("purchaseTime",intent.getStringExtra("purchaseTime"));
+                                sendIntent.putExtra("sku",intent.getStringExtra("sku"));
                                 activity.setResult(PUSECHASE_FINISH,sendIntent);
                             }
                             activity.finish();
@@ -161,10 +170,14 @@ public class GooglePayService {
         billingClient.consumeAsync(consumeParams, listener);
     }
     public void create(SkuDetails skuDetails) {
-        BillingFlowParams flowParams = BillingFlowParams.newBuilder()
-                .setSkuDetails(skuDetails)
-                .build();
-        billingClient.launchBillingFlow(activity, flowParams);
+        try {
+            BillingFlowParams flowParams = BillingFlowParams.newBuilder()
+                    .setSkuDetails(skuDetails)
+                    .build();
+            billingClient.launchBillingFlow(activity, flowParams);
+        }catch (Exception e){
+            Logger.e("create order error",e);
+        }
     }
 
 }

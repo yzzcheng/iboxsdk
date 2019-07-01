@@ -1,6 +1,8 @@
 package com.iboxsdk.singleton;
 
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableMap;
+import com.iboxsdk.abstracts.Action;
 import com.iboxsdk.abstracts.EventReciever;
 import com.iboxsdk.abstracts.InitCallback;
 import com.iboxsdk.abstracts.LoginCallback;
@@ -33,27 +35,87 @@ public final class IBoxEventDispatcher {
 
     public void dispatcherEvent(String eventType, ReadableMap data) {
         int status = data.getInt(EventParam.STATUS);
-        SDKCallback sdkCallback = map.get(eventType);
-        if(status != 200) {
-            sdkCallback.Error(status,data.getString(EventParam.MESSAGE));
-            return ;
+        final SDKCallback sdkCallback = map.get(eventType);
+        if (status != 200) {
+            sdkCallback.Error(status, data.getString(EventParam.MESSAGE));
+            return;
         }
         //控制原生窗体是否显示
-        if(data.hasKey(EventParam.DIALOG_STATUS)){
-            if(data.getInt(EventParam.DIALOG_STATUS) == 0){
+        if (data.hasKey(EventParam.DIALOG_STATUS)) {
+            if (data.getInt(EventParam.DIALOG_STATUS) == 0) {
                 IBoxReactView.getInstance().getReactView().hide();
-            } else  IBoxReactView.getInstance().getReactView().show();
+            } else IBoxReactView.getInstance().getReactView().show();
         }
-        if(sdkCallback == null) return ;
+
         switch (eventType) {
-            case EventConsts.INIT:reciever.init(); ((InitCallback)sdkCallback).InitSuccess();break;
-            case EventConsts.LOGIN:((LoginCallback)sdkCallback).LoginSuccess(new SDKUserEvent().fromMap(data));break;
-            case EventConsts.ORDER_FINISH:reciever.finishOrder(new SDKFinishOrderEvent().fromMap(data));((PaymentCallback)sdkCallback).PaymentFinish();break;
-            case EventConsts.CLOSE_SDK:reciever.closeSDK();break;
-            default:break;
+            case EventConsts.INIT:
+                reciever.init();
+                if (sdkCallback != null){
+                    ((InitCallback) sdkCallback).InitSuccess();
+                }
+
+                break;
+            case EventConsts.LOGIN:
+                if (sdkCallback != null){
+                    ((LoginCallback) sdkCallback).LoginSuccess(new SDKUserEvent().fromMap(data));
+                }
+                break;
+            case EventConsts.ORDER_FINISH:
+                if (sdkCallback != null){
+                    ((PaymentCallback) sdkCallback).PaymentFinish();
+                }
+
+                break;
+            case EventConsts.GOOGLE_PAY_FINISH:
+            case EventConsts.GOOGLE_PLUS_PAY_FINISH:
+                reciever.finishOrder(new SDKFinishOrderEvent().fromMap(data), new Action() {
+                    @Override
+                    public void Action(Object data) {
+                        if (sdkCallback != null){
+                            ((PaymentCallback) sdkCallback).PaymentFinish();
+                        }
+
+                    }
+                });
+            case EventConsts.CLOSE_SDK:
+                reciever.closeSDK();
+                break;
+
+            case EventConsts.SHOW_SDK:
+                reciever.showSDK();
+                break;
+            case EventConsts.AUTO_LOGIN:
+                if (sdkCallback != null){
+                    ((LoginCallback) sdkCallback).LoginSuccess(new SDKUserEvent().fromMap(data));
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void dispatcherEvent(String eventType, WritableMap data) {
+        int status = data.getInt(EventParam.STATUS);
+        final SDKCallback sdkCallback = map.get(eventType);
+        if (status != 200) {
+            sdkCallback.Error(status, data.getString(EventParam.MESSAGE));
+            return;
+        }
+        switch (eventType) {
+            case EventConsts.INIT:
+                reciever.init();
+                ((InitCallback) sdkCallback).InitSuccess();
+                break;
+            case EventConsts.LOGIN:
+                ((LoginCallback) sdkCallback).LoginSuccess(new SDKUserEvent().fromMap(data));
+                break;
+            case EventConsts.ORDER_FINISH:
+                ((PaymentCallback) sdkCallback).PaymentFinish();
+                break;
         }
     }
 
     private IBoxEventDispatcher() {
+
     }
 }

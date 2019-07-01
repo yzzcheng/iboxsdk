@@ -1,6 +1,7 @@
 package com.iboxsdk.react;
 
 import android.app.Activity;
+import android.graphics.Color;
 
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactRootView;
@@ -50,7 +51,6 @@ public class ReactView {
                             .setUseDeveloperSupport(true)
                             .setInitialLifecycleState(LifecycleState.RESUMED)
                             .build();
-
                     mReactInstanceManager.addReactInstanceEventListener(new ReactInstanceManager.ReactInstanceEventListener() {
                         @Override
                         public void onReactContextInitialized(ReactContext context) {
@@ -58,7 +58,7 @@ public class ReactView {
                         }
                     });
                     mReactRootView.startReactApplication(mReactInstanceManager, "iboxsdk", null);
-
+                    mReactRootView.setBackgroundColor(Color.TRANSPARENT);
                     mythsActivity.setContentView(mReactRootView);
                 }
             });

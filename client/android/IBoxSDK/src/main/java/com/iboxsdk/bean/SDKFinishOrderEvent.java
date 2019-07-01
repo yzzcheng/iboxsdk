@@ -17,6 +17,8 @@ public class SDKFinishOrderEvent implements EventData {
     private String originalJson;
     private String purchaseTime;
     private String purchaseToken;
+    private int type;
+    private String dataString;
 
 
     public Integer getAppId() {
@@ -99,6 +101,22 @@ public class SDKFinishOrderEvent implements EventData {
         this.purchaseToken = purchaseToken;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public String getDataString() {
+        return dataString;
+    }
+
+    public void setDataString(String dataString) {
+        this.dataString = dataString;
+    }
+
     @Override
     public WritableMap toMap() {
         WritableMap map = Arguments.createMap();
@@ -112,7 +130,8 @@ public class SDKFinishOrderEvent implements EventData {
         map.putString("originalJson",originalJson);
         map.putString("purchaseTime",purchaseTime);
         map.putString("purchaseToken",purchaseToken);
-
+        map.putInt("type",type);
+        map.putString("dataString",dataString);
         return map;
     }
 
@@ -126,6 +145,8 @@ public class SDKFinishOrderEvent implements EventData {
         this.setPurchaseState(map.getString("purchaseState"));
         this.setPurchaseToken(map.getString("purchaseToken"));
         this.setPurchaseTime(map.getString("purchaseTime"));
+        this.setType(map.getInt("type"));
+        this.setDataString(map.getString("dataString"));
         return this;
     }
 

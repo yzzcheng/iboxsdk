@@ -45,6 +45,24 @@
                 android:layout_height="wrap_content"
                 android:text="Intent" />
 
+            <Button
+                android:id="@+id/autoLoginBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="自动登录" />
+
+            <Button
+                android:id="@+id/costomBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="打开客服中心" />
+
+            <Button
+                android:id="@+id/userBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="打开用户中心" />
+
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

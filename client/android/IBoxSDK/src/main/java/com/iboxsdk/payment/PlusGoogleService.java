@@ -5,11 +5,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableMap;
 import com.iboxsdk.abstracts.ActivityResult;
 import com.iboxsdk.abstracts.IBoxSDK;
 import com.iboxsdk.bean.SDKFinishOrderEvent;
 import com.iboxsdk.consts.ConfigConsts;
 import com.iboxsdk.consts.EventConsts;
+import com.iboxsdk.consts.EventParam;
+import com.iboxsdk.singleton.IBoxEventDispatcher;
 import com.iboxsdk.singleton.IBoxReactView;
 import com.iboxsdk.singleton.IBoxSDKContext;
 import com.iboxsdk.utils.ResourceUtils;
@@ -38,7 +43,6 @@ public class PlusGoogleService implements ActivityResult {
         }
         Intent doPayIntent = new Intent();
         doPayIntent.setData(Uri.parse(String.format(clientAction)));
-
         Intent intent = new Intent();
         Uri url = Uri.parse(clientAction);
         intent.setData(url);
@@ -50,19 +54,6 @@ public class PlusGoogleService implements ActivityResult {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Logger.d("plus app callbak",requestCode,requestCode,data);
         if(resultCode == PUSECHASE_SUCCESS) {
-            Intent intent = new Intent();
-            intent.setData(Uri.parse("com.bdgames.xmyxwno1://pluspay"));
-            intent.putExtra("action","finish");
-            intent.putExtra("orderId",data.getStringExtra("orderId"));
-            intent.putExtra("signature",data.getStringExtra("signature"));
-            intent.putExtra("purchaseState",data.getStringExtra("purchaseState"));
-            intent.putExtra("originalJson",data.getStringExtra("originalJson"));
-            intent.putExtra("purchaseTime",data.getStringExtra("purchaseTime"));
-            intent.putExtra("purchaseToken",data.getStringExtra("purchaseToken"));
-            intent.putExtra("developerPayload",data.getStringExtra("developerPayload"));
-            IBoxSDKContext.getInstance().getActivity().startActivityForResult(intent,0);
-        }else if(resultCode == PUSECHASE_FINISH){
-            Activity activity = IBoxSDKContext.getInstance().getActivity();
             Integer appId = IBoxSDKContext.getInstance().getAppId();
             Integer packageId = IBoxSDKContext.getInstance().getPackageId();
             SDKFinishOrderEvent event = new SDKFinishOrderEvent();
@@ -76,8 +67,28 @@ public class PlusGoogleService implements ActivityResult {
             event.setPurchaseToken(data.getStringExtra("purchaseToken"));
             event.setOriginalJson(data.getStringExtra("originalJson"));
             event.setPurchaseState(data.getStringExtra("purchaseState"));
-            IBoxReactView.getInstance().getReactView().emitter().emit(EventConsts.ORDER_FINISH, event.toMap());
+            event.setDataString(data.getStringExtra("dataString"));
+            event.setType(1);
+            IBoxReactView.getInstance().getReactView().emitter().emit(EventConsts.GOOGLE_PLUS_PAY_FINISH, event.toMap());
+        }else if(resultCode == PUSECHASE_FINISH){
+            WritableMap map = Arguments.createMap();
+            map.putInt(EventParam.STATUS,200);
+            IBoxEventDispatcher.getInstance().dispatcherEvent(EventConsts.ORDER_FINISH,map);
         }
 
+    }
+    public void finishPay(SDKFinishOrderEvent event){
+        Intent intent = new Intent();
+        Uri url = Uri.parse(event.getDataString());
+        intent.setData(url);
+        intent.putExtra("action","finish");
+        intent.putExtra("orderId",event.getOrderId());
+        intent.putExtra("signature",event.getSignature());
+        intent.putExtra("purchaseState",event.getPurchaseState());
+        intent.putExtra("originalJson",event.getOriginalJson());
+        intent.putExtra("purchaseTime",event.getPurchaseTime());
+        intent.putExtra("purchaseToken",event.getPurchaseToken());
+        intent.putExtra("developerPayload",event.getDeveloperPayload());
+        IBoxSDKContext.getInstance().getActivity().startActivityForResult(intent,0);
     }
 }

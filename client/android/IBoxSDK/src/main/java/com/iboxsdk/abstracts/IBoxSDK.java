@@ -12,4 +12,7 @@ public interface IBoxSDK {
     void startPay(Activity activity, SDKPayment payment, PaymentCallback callback);
     void submitRoleInfo(int type, SDKRoleInfo roleInfo);
     void onActivityResult(int requestCode, int resultCode, Intent data);
+    void openAccountCenter(Activity activity);
+    void openCustomerCenter(Activity activity);
+    void autoLogin(Activity activity,LoginCallback callback);
 }

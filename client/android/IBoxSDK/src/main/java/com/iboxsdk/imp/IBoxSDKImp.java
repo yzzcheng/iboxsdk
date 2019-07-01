@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.WritableMap;
 import com.iboxsdk.abstracts.IBoxSDK;
 import com.iboxsdk.abstracts.InitCallback;
 import com.iboxsdk.abstracts.LoginCallback;
@@ -12,6 +14,7 @@ import com.iboxsdk.bean.InitEvent;
 import com.iboxsdk.bean.SDKPayment;
 import com.iboxsdk.bean.SDKPaymentEvent;
 import com.iboxsdk.bean.SDKRoleInfo;
+import com.iboxsdk.bean.SDKRoleInfoEvent;
 import com.iboxsdk.consts.ConfigConsts;
 import com.iboxsdk.consts.ErrorCode;
 import com.iboxsdk.consts.EventConsts;
@@ -100,7 +103,10 @@ public class IBoxSDKImp implements IBoxSDK {
 
     @Override
     public void submitRoleInfo(int type, SDKRoleInfo roleInfo) {
-
+        if(IBoxSDKContext.getInstance().isInit()) {
+            SDKRoleInfoEvent event = new SDKRoleInfoEvent(roleInfo);
+            IBoxReactView.getInstance().getReactView().emitter().emit(EventConsts.SUBMIT_ROLE_INFO,event.toMap());
+        }
     }
 
     @Override
@@ -108,6 +114,30 @@ public class IBoxSDKImp implements IBoxSDK {
 //        Logger.d("onActivityResult",requestCode,requestCode,data.toString());
         IBoxSDKService.getInstance().getFaceBookService().onActivityResult(requestCode,resultCode,data);
         IBoxSDKService.getInstance().getPlusGoogleService().onActivityResult(requestCode,resultCode,data);
+    }
+
+    @Override
+    public void openAccountCenter(Activity activity) {
+        if(IBoxSDKContext.getInstance().isInit()){
+            WritableMap map = Arguments.createMap();
+            IBoxReactView.getInstance().getReactView().emitter().emit(EventConsts.OPEN_ACCOUNT_CENTER,map);
+        }
+    }
+
+    @Override
+    public void openCustomerCenter(Activity activity) {
+        if(IBoxSDKContext.getInstance().isInit()){
+            WritableMap map = Arguments.createMap();
+            IBoxReactView.getInstance().getReactView().emitter().emit(EventConsts.OPEN_COSTOMER_CENTER,map);
+        }
+    }
+
+    @Override
+    public void autoLogin(Activity activity, LoginCallback callback) {
+        if(IBoxSDKContext.getInstance().isInit()){
+            WritableMap map = Arguments.createMap();
+            IBoxReactView.getInstance().getReactView().emitter().emit(EventConsts.AUTO_LOGIN,map);
+        }
     }
 
 
