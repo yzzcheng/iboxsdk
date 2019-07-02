@@ -9,6 +9,7 @@ export default {
     GOOGLE_PLUS_PAY_FINISH:ReactEventListener.GOOGLE_PLUS_PAY_FINISH, // 插件支付
     AUTO_LOGIN:ReactEventListener.AUTO_LOGIN, //自动登录
     STATUS:ReactEventListener.STATUS,
+    DIALOG_STATUS:ReactEventListener.DIALOG_STATUS,
     registry(event,callback){
         if(event === this.INIT) {
             this.initHandler = DeviceEventEmitter.addListener(ReactEventListener.INIT, (e) => {
@@ -43,6 +44,12 @@ export default {
             });
         }
       
+    },
+
+    dispatcherEvent(event,code,isShow,data){
+        data[this.STATUS] = code;
+        data[this.DIALOG_STATUS] = isShow;
+        ReactEventListener.sendMsgToNative(event,data);
     },
     unRegistry(){
         if(event === this.INIT) {

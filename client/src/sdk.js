@@ -77,9 +77,9 @@ export default class APP extends Component {
         GoogleService.launchToApp('com.bdgames.xmyxwno1');
     }
     render() {
-        const { view,component:Component } = this.state;
+        const {component:Component } = this.state;
         return (
-            <View style={{backgroundColor:'white' }} >
+            <View style={{backgroundColor:'rgba(255,255,255,0.9)',borderRadius:10 }} >
                 {Component?<Component/>:null}
             </View>
         );

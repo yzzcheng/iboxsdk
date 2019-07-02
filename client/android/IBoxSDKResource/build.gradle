@@ -3,7 +3,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'com.android.library'
 apply plugin: 'com.jfrog.bintray'
 def libVersionName = "1.0"
-def libVersionCode = 3
+def libVersionCode = 4
 
 android {
     compileSdkVersion 28
@@ -93,5 +93,5 @@ publishing {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api 'com.facebook.react:react-native:+'
+
 }

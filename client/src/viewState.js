@@ -2,6 +2,9 @@ import Login from './view/Login'
 import Pay from './view/Payment'
 import Registry from './view/Risgistry'
 import QuickLoginTip from './view/LoginComponents/QuickLoginTip'
+import LoginLoading from './view/LoginComponents/Loading'
+import PlatformLogin from './view/LoginComponents/PlatformLogin'
+import AccountUpdate from './view/LoginComponents/AccountUpdate'
 
 const componentList = [
     {
@@ -16,6 +19,15 @@ const componentList = [
     },{
         componentName:'quickLoginTip',
         component:QuickLoginTip
+    },{
+        componentName:'loginLoading',
+        component:LoginLoading
+    },{
+        componentName:'platformLogin',
+        component:PlatformLogin
+    },{
+        componentName:'accountUpdate',
+        component:AccountUpdate
     }
 ];
 

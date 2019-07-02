@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {NativeModules, Text, View, TouchableWithoutFeedback, Image } from 'react-native';
+import { NativeModules, Text, View, TouchableWithoutFeedback, Image } from 'react-native';
 import Apis from '../apis'
 import Radio from './components/Radio'
-import {componentController} from '../viewState'
+import { componentController } from '../viewState'
+import device from './device'
 const { ReactEventListener, IBoxEnvironment, FaceBookService } = NativeModules;
 
 
@@ -51,54 +52,52 @@ export default class Login extends Component {
     })
   }
 
-  onQuickLogin(){
+  onQuickLogin() {
     componentController.changeView('quickLoginTip');
   }
 
-  render() {
+  onPlatformLogin() {
+    componentController.changeView('platformLogin');
+  }
 
+  render() {
     const styles = {
-      dashLine: { borderColor: 'black', borderStyle: 'dashed', borderWidth: 0.5, flex: 1, height: 0,borderRadius:1 }
+      dashLine: { borderColor: 'black', borderStyle: 'dashed', borderWidth: 0.5, flex: 1, height: 0, borderRadius: 1 }
     };
 
     return (
-      <View style={{ width: 350, height: 300, flexDirection: 'column' }}>
-        <View style={{ height: 70, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ width: device.pxTodp(350), height: device.pxTodp(290), flexDirection: 'column' }}>
+        <View style={{ justifyContent: 'center', height: device.pxTodp(50), alignItems: 'center' }}>
           <Image source={require('../res/img/logo.png')} style={{ alignSelf: 'center' }} />
         </View>
 
         <View style={{ flexDirection: 'row', height: 50, alignItems: 'center' }}>
           <View style={styles.dashLine}></View>
-          <Text style={{ textAlign: 'center' }}>请选择登录方式</Text>
+          <Text style={{ textAlign: 'center', color: '#8E9090' }}>请选择登录方式</Text>
           <View style={styles.dashLine}></View>
         </View>
-        <View style={{ flexDirection: 'row'}}>
-          <View style={{ flex: 1, alignItems: 'center' }}>
+        <View style={{ flexDirection: 'row', height: device.pxTodp(140) }}>
+          <View style={{ flex: 1, alignItems: 'center',justifyContent:'center' }}>
             <TouchableWithoutFeedback onPress={this.onQuickLogin.bind(this)}>
-              <Image style={{ width: 70, height: 70 }} source={require('../res/img/guest.png')} />
+              <Image style={{ width: device.pxTodp(70), height: device.pxTodp(70) }} source={require('../res/img/guest.png')} />
             </TouchableWithoutFeedback>
-            <Text style={{ textAlign: 'center' }}>立即体验</Text>
+            <Text style={{ textAlign: 'center', color: '#8E9090' }}>立即体验</Text>
           </View>
-          <View style={{ flex: 1, alignItems: 'center' }}>
-            <TouchableWithoutFeedback >
-              <Image style={{ width: 70, height: 70 }} source={require('../res/img/platform.png')} />
+          <View style={{ flex: 1, alignItems: 'center',justifyContent:'center' }}>
+            <TouchableWithoutFeedback onPress={this.onPlatformLogin.bind(this)}>
+              <Image style={{ width: device.pxTodp(70), height: device.pxTodp(70) }} source={require('../res/img/platform.png')} />
             </TouchableWithoutFeedback>
-            <Text style={{ textAlign: 'center' }}>MG账号</Text>
+            <Text style={{ textAlign: 'center', color: '#8E9090' }}>MG账号</Text>
           </View>
-          <View style={{ flex: 1, alignItems: 'center' }}>
+          <View style={{ flex: 1, alignItems: 'center',justifyContent:'center' }}>
             <TouchableWithoutFeedback onPress={this.onFacebookLogin.bind(this)}>
-              <Image style={{ width: 70, height: 70 }} source={require('../res/img/facebook.png')} />
+              <Image style={{ width: device.pxTodp(70), height: device.pxTodp(70) }} source={require('../res/img/facebook.png')} />
             </TouchableWithoutFeedback>
-            <Text style={{ textAlign: 'center' }}>FaceBook</Text>
+            <Text style={{ textAlign: 'center', color: '#8E9090' }}>FaceBook</Text>
           </View>
-
-
-          {/* <Button style={{ textAlign: "center" }} title="Login" onPress={this.login.bind(this)} />
-          <Button style={{ textAlign: "center" }} title="Env" onPress={this.getEnv.bind(this)} />
-          <Button title="FaceBookLogin" onPress={this.onFacebookLogin.bind(this)} /> */}
         </View>
-        <View style={{ flex: 1, alignItems: 'center',justifyContent:'center'}}>
-          <View style={{flexDirection:'row'}}><Radio label="我已阅读并同意" /><Text style={{color:'red'}}>用户服务协议</Text></View>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <View style={{ flexDirection: 'row' }}><Radio label="我已阅读并同意" textStyle={{ color: '#8E9090' }} /><Text style={{ color: 'red' }}>用户服务协议</Text></View>
         </View>
       </View>
 

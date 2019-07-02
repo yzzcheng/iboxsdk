@@ -9,6 +9,15 @@ export default class QuickLoginTip extends Component {
     back() {
         componentController.changeView('login');
     }
+
+    continue(){
+        componentController.changeView('loginLoading');
+    }
+
+    accountupdate(){
+        componentController.changeView('accountUpdate');
+    }
+
     render() {
         return <View>
             <View style={{ flexDirection: "row",margin:10 }}>
@@ -22,11 +31,11 @@ export default class QuickLoginTip extends Component {
                 <Text style={{color:'rgb(51, 51, 51)'}}>        为了您的虚拟财产安全，强力建议您进行帐号绑定！</Text>
             </View>
             <View style={{ flexDirection: "column",height:50,alignItems: 'center',justifyContent: 'center',padding:10 }}>
-                <Radio label="不在提示"/>
+                <Radio label="不在提示" textStyle={{color:'red'}}/>
             </View>
             <View style={{ flexDirection: "row",height:50,padding:20 }}>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Button color="rgb(203, 53, 54)" title="继续登录"></Button></View>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Button color="rgb(0, 114, 190)" title="账号升级"></Button></View>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Button color="rgb(203, 53, 54)" onPress={this.continue.bind(this)} title="继续登录"></Button></View>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Button color="rgb(0, 114, 190)" onPress={this.accountupdate.bind(this)} title="账号升级"></Button></View>
             </View>
         </View>
     }

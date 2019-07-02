@@ -454,3 +454,7 @@
 -keep class com.iboxsdk.bean.SDKPayment { *;}
 -keep class com.iboxsdk.bean.SDKRoleInfo { *;}
 -keep class com.iboxsdk.bean.SDKUser { *;}
+
+-keep class com.iboxsdk.** {
+  public <init>(...);
+}

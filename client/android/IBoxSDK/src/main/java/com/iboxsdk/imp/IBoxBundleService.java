@@ -15,13 +15,12 @@ import com.iboxsdk.utils.FileUtils;
 import com.iboxsdk.utils.HttpUtils;
 import com.iboxsdk.utils.ResourceUtils;
 import com.orhanobut.logger.Logger;
-import com.qihoo360.replugin.RePlugin;
 
 import java.io.File;
 
 public class IBoxBundleService {
     public void checkBundleVersion(final Activity activity, final Action<String> action) {
-        final Context context = IBoxSDKContext.getInstance().isPlusStart()? RePlugin.getPluginContext():activity;
+        final Context context = activity;
         final String bundleName =
                 ResourceUtils.getString(context, ConfigConsts.bundle_name);
 
