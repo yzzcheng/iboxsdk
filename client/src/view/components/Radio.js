@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text,TouchableWithoutFeedback } from 'react-native';
+import common from '../../res/styles/common'
 export default class Radio extends Component {
 
     constructor(props) {
@@ -37,8 +38,8 @@ export default class Radio extends Component {
     render() {
         const { isCheck,label,textStyle } = this.state;
         return <TouchableWithoutFeedback onPress={this.checkOnChange.bind(this)}><View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <View style={{ borderWidth: 0.5, borderColor: "rgb(122, 124, 125)", borderRadius: 10, width: 14, height: 14, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center',marginRight:10 }}>
-                {isCheck ? <View style={{ backgroundColor: "rgb(122, 124, 125)", width: 5, height: 5, borderRadius: 6 }}></View> : null}
+            <View style={common.radioCircle}>
+                {isCheck ? <View style={common.radioInnerCircle}></View> : null}
             </View>
             <Text style={textStyle}>{label}</Text>
         </View></TouchableWithoutFeedback>;

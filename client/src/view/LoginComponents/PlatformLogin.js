@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, Image, TouchableWithoutFeedback, Button } from 'react-native';
 import InputArea from '../components/InputArea'
+import IBoxButton from '../components/Button'
 import { componentController } from '../../viewState'
+import Styles from './styles/PlatformLogin'
+
 
 export default class PlatformLogin extends Component {
     constructor(props) {
@@ -12,27 +15,46 @@ export default class PlatformLogin extends Component {
         componentController.changeView('login');
     }
 
-   
+    onPlatformLogin() {
+        componentController.changeView('loginLoading');
+    }
+
+    accountUpdate() {
+        componentController.changeView('accountUpdate');
+    }
+
+    registry(){
+        componentController.changeView('registry');
+    }
 
     render() {
-        return <View>
-            <View style={{ flexDirection: "row", margin: 10 }}>
-                <TouchableWithoutFeedback onPress={this.back.bind(this)}>
-                    <Image style={{ width: 30, height: 30 }} source={require('../../res/img/back.png')} />
-                </TouchableWithoutFeedback>
-                <View style={{ flex: 1, alignSelf: 'center' }}>
-                    <Text style={{ textAlign: 'center', color: 'rgb(51, 51, 51)' }}>MG账号登录</Text>
+        return <View style={Styles.contain}>
+            <View style={Styles.logo}>
+                <Image style={Styles.logoImage} source={require('../../res/img/login/MG-logo.png')} />
+            </View>
+            <View style={Styles.loginPannel}>
+                <View style={Styles.loginContain}>
+                    <View style={Styles.formItem}>
+                        <InputArea placeholder="请输入您的账号" placeholderTextColor="#D4D4D4" leftIcon={require('../../res/img/platformlogin/user.png')} />
+                    </View>
+                    <View style={Styles.formItem}>
+                        <InputArea placeholder="请输入您的密码" secureTextEntry placeholderTextColor="#D4D4D4" leftIcon={require('../../res/img/platformlogin/password.png')} />
+                    </View>
+                    <View style={Styles.formItem}>
+                        <IBoxButton text="登录游戏" style={Styles.loginBtn} textStyle={Styles.loginBtnText} />
+                    </View>
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={{flex:1,alignItems:'flex-start'}}>
+                            <IBoxButton text="切换登录方式" onPress={this.back.bind(this)} style={Styles.otherBtn} textStyle={Styles.otherBtnText} />
+                        </View>
+                        <View style={{flex:1,alignItems:'flex-end'}}>
+                            <IBoxButton text="注册正式账号" onPress={this.registry.bind(this)} style={Styles.regPlatformBtn} textStyle={Styles.regPlatformBtnText} />
+                        </View>
+
+                    </View>
                 </View>
             </View>
-            <View style={{paddingLeft:20,paddingRight:20,paddingTop:5,paddingBottom:5,height:70}}>
-                <InputArea leftIcon={require('../../res/img/user.png')} rightIcon={require('../../res/img/array-down.png')} textContentType="username"   placeholder="请输入您的邮箱账号" placeholderTextColor="rgb(153, 153, 153)"/>
-            </View>
-            <View style={{paddingLeft:20,paddingRight:20,paddingTop:5,paddingBottom:5,height:70}}>
-                <InputArea leftIcon={require('../../res/img/password.png')}  textContentType="password" secureTextEntry  placeholder="请输入您的密码" placeholderTextColor="rgb(153, 153, 153)"/>
-            </View>
-            <View>
-                
-            </View>
+
         </View>
     }
 }

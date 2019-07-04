@@ -1,8 +1,10 @@
 package com.iboxsdk.react;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.graphics.Color;
 
+import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactRootView;
 import com.facebook.react.bridge.ReactContext;
@@ -36,7 +38,7 @@ public class ReactView {
     public void init(final Activity activity, final ReactInitCallback callback){
         final ReactView reactView = this;
         try {
-            mythsActivity = new ReactActive(activity);
+
             IBoxSDKService.getInstance().getBundleService().checkBundleVersion(activity, new Action<String>() {
                 @Override
                 public void Action(String path) {
@@ -59,7 +61,17 @@ public class ReactView {
                     });
                     mReactRootView.startReactApplication(mReactInstanceManager, "iboxsdk", null);
                     mReactRootView.setBackgroundColor(Color.TRANSPARENT);
-                    mythsActivity.setContentView(mReactRootView);
+                    mReactRootView.setEventListener(new ReactRootView.ReactRootViewEventListener() {
+                        @Override
+                        public void onAttachedToReactInstance(ReactRootView reactRootView) {
+                            if(mythsActivity == null) {
+                                mythsActivity = new ReactActive(activity);
+                            } else {
+                               hide();
+                            }
+                            mythsActivity.setContentView(reactRootView);
+                        }
+                    });
                 }
             });
         }catch (Exception e){
@@ -95,6 +107,20 @@ public class ReactView {
             });
 
         }
+    }
+
+    public void reSize(final int width,final int height){
+
+        IBoxSDKContext.getInstance().getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                android.view.WindowManager.LayoutParams p = mythsActivity.getWindow().getAttributes();
+                p.height = (int)(mythsActivity.getContext().getResources().getDisplayMetrics().density * height);
+                p.width = (int)(mythsActivity.getContext().getResources().getDisplayMetrics().density * width);
+                mythsActivity.getWindow().setAttributes(p);
+            }
+        });
+
     }
 
     @Override

@@ -43,7 +43,7 @@ public class ReactEventListener extends ReactContextBaseJavaModule {
         constants.put(EventConsts.GOOGLE_PLUS_PAY_FINISH, EventConsts.GOOGLE_PLUS_PAY_FINISH);
 
         constants.put(EventConsts.AUTO_LOGIN, EventConsts.AUTO_LOGIN);
-
+        constants.put(EventConsts.RESIZE, EventConsts.RESIZE);
         constants.put(EventConsts.OPEN_ACCOUNT_CENTER, EventConsts.OPEN_ACCOUNT_CENTER);
 
         constants.put(EventConsts.OPEN_COSTOMER_CENTER, EventConsts.OPEN_COSTOMER_CENTER);

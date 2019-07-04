@@ -21,7 +21,7 @@ export default class Loading extends Component {
 
     render(){
         return <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',height:100}}>
-            <Image source={require('../../res/img/loading.gif')} style={{width:50,height:50}}></Image>
+            <Image source={require('../../res/img/loading.gif' )} style={{width:50,height:50}}></Image>
             <Text style={{color:'#8E9090'}}>正在登录...</Text>
         </View>;
     }

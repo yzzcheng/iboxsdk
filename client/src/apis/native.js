@@ -10,6 +10,8 @@ export default {
     AUTO_LOGIN:ReactEventListener.AUTO_LOGIN, //自动登录
     STATUS:ReactEventListener.STATUS,
     DIALOG_STATUS:ReactEventListener.DIALOG_STATUS,
+    MESSAGE:ReactEventListener.MESSAGE,
+    RESIZE:ReactEventListener.RESIZE,
     registry(event,callback){
         if(event === this.INIT) {
             this.initHandler = DeviceEventEmitter.addListener(ReactEventListener.INIT, (e) => {
@@ -50,6 +52,28 @@ export default {
         data[this.STATUS] = code;
         data[this.DIALOG_STATUS] = isShow;
         ReactEventListener.sendMsgToNative(event,data);
+    },
+    facebookLogin(callback){
+        FaceBookService.doLogin(callback);
+    },
+    googleDoPay(productName){
+        GoogleService.startPayment(productName);
+    },
+    googleDoPlusPay(productName,action){
+        GoogleService.startPlusPayment(productName,action);
+    },
+    getAppEnv(callback){
+        IBoxEnvironment.getEnv(callback);
+    },
+    sign(param,callback){
+        IBoxEnvironment.sign(param,callback);
+    },
+    resize(width,height){
+        ReactEventListener.sendMsgToNative(this.RESIZE,{
+            [this.STATUS]:200,
+            width:width,
+            height:height
+        });
     },
     unRegistry(){
         if(event === this.INIT) {

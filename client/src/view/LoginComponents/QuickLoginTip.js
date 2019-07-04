@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableWithoutFeedback, Image, Button } from 'react-native';
+import { View, Text, TouchableWithoutFeedback, Image, Button, StyleSheet } from 'react-native';
 import Radio from '../components/Radio'
+import common from '../../res/styles/common'
 import { componentController } from '../../viewState'
+import SDKBox from '../components/SDKBox'
+import device from '../device'
+import IBoxButton from '../components/Button'
+
 export default class QuickLoginTip extends Component {
     constructor(props) {
         super(props);
@@ -10,33 +15,39 @@ export default class QuickLoginTip extends Component {
         componentController.changeView('login');
     }
 
-    continue(){
+    continue() {
         componentController.changeView('loginLoading');
     }
 
-    accountupdate(){
+    accountupdate() {
         componentController.changeView('accountUpdate');
     }
 
+
     render() {
-        return <View>
-            <View style={{ flexDirection: "row",margin:10 }}>
-                <TouchableWithoutFeedback onPress={this.back.bind(this)}>
-                    <Image style={{ width: 30, height: 30 }} source={require('../../res/img/back.png')} />
-                </TouchableWithoutFeedback>
-                <View style={{ flex: 1, alignSelf: 'center' }}><Text style={{ textAlign: 'center',color:'rgb(51, 51, 51)' }}>快速登录提示</Text></View>
+        return <SDKBox style={{ height: device.pxTodp(670), width: device.pxTodp(730) }} title="快速登录提示" back={this.back.bind(this)}>
+            <View style={{ padding: device.pxTodp(100), flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                <View style={{ height: device.pxTodp(170) }}>
+                    <View style={{ height: device.pxTodp(100) }}>
+                        <Text style={{ color: '#525252', fontSize: device.pxTodp(22) }}>玩家朋友，游客模式将无法保障数据安全！删除游戏、更换设备等有可能会清楚游戏数据。</Text>
+                    </View>
+                    <View style={{ height: device.pxTodp(70) }}>
+                        <Text style={{ color: '#525252', fontSize: device.pxTodp(22) }}>为了您的虚拟财产安全，强力建议您进行帐号绑定！</Text>
+                    </View>
+
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                    <View style={{ padding: device.pxTodp(5) }}>
+                        <IBoxButton text="继续登录" onPress={this.continue.bind(this)} style={{ backgroundColor: "#FFBE2A", borderRadius: 5, width: device.pxTodp(265), height: device.pxTodp(65), justifyContent: 'center', alignItems: 'center' }} textStyle={{ color: '#473100' }} />
+                    </View>
+                    <View style={{ padding: device.pxTodp(5) }}>
+                        <IBoxButton text="账号升级" onPress={this.accountupdate.bind(this)} style={{ backgroundColor: "#1192D3", borderRadius: 5, width: device.pxTodp(265), height: device.pxTodp(65), justifyContent: 'center', alignItems: 'center' }} textStyle={{ color: '#DCF3FF' }} />
+                    </View>
+
+
+                </View>
+
             </View>
-            <View style={{ flexDirection: "column",height:100,justifyContent: 'center',padding:10  }}>
-                <Text style={{color:'rgb(51, 51, 51)'}}>        玩家朋友，游客模式将无法保障数据安全！删除游戏、更换设备等有可能会清楚游戏数据。</Text>
-                <Text style={{color:'rgb(51, 51, 51)'}}>        为了您的虚拟财产安全，强力建议您进行帐号绑定！</Text>
-            </View>
-            <View style={{ flexDirection: "column",height:50,alignItems: 'center',justifyContent: 'center',padding:10 }}>
-                <Radio label="不在提示" textStyle={{color:'red'}}/>
-            </View>
-            <View style={{ flexDirection: "row",height:50,padding:20 }}>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Button color="rgb(203, 53, 54)" onPress={this.continue.bind(this)} title="继续登录"></Button></View>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Button color="rgb(0, 114, 190)" onPress={this.accountupdate.bind(this)} title="账号升级"></Button></View>
-            </View>
-        </View>
+        </SDKBox>
     }
 }

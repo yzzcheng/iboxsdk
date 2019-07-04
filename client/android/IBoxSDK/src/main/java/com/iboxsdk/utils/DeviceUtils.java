@@ -11,9 +11,9 @@ import com.iboxsdk.singleton.IBoxSDKService;
 
 public final class DeviceUtils {
 
-    public static String getDevice(Context context){
+    public static String getDevice(){
         String device = "";
-        device = Settings.System.getString(context.getContentResolver(), Settings.System.ANDROID_ID);
+        device = Settings.System.getString(IBoxSDKContext.getInstance().getActivity().getContentResolver(), Settings.System.ANDROID_ID);
         return device;
     }
 

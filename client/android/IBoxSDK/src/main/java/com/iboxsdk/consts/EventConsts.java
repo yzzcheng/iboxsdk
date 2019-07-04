@@ -12,6 +12,9 @@ public class EventConsts {
 
     public final static String AUTO_LOGIN = "AUTO_LOGIN";
 
+
+    public final static String RESIZE = "RESIZE";
+
     public final static String OPEN_ACCOUNT_CENTER = "OPEN_ACCOUNT_CENTER";
 
     public final static String OPEN_COSTOMER_CENTER = "OPEN_COSTOMER_CENTER";

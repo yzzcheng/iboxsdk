@@ -4,6 +4,8 @@ import Apis from '../apis'
 import Radio from './components/Radio'
 import { componentController } from '../viewState'
 import device from './device'
+import common from '../res/styles/common'
+import Styles from './styles/Login'
 const { ReactEventListener, IBoxEnvironment, FaceBookService } = NativeModules;
 
 
@@ -61,44 +63,55 @@ export default class Login extends Component {
   }
 
   render() {
-    const styles = {
-      dashLine: { borderColor: 'black', borderStyle: 'dashed', borderWidth: 0.5, flex: 1, height: 0, borderRadius: 1 }
-    };
 
     return (
-      <View style={{ width: device.pxTodp(350), height: device.pxTodp(290), flexDirection: 'column' }}>
-        <View style={{ justifyContent: 'center', height: device.pxTodp(50), alignItems: 'center' }}>
-          <Image source={require('../res/img/logo.png')} style={{ alignSelf: 'center' }} />
+      <View style={Styles.contain}>
+        <View style={Styles.logo}>
+          <Image style={Styles.logoImage} source={require('../res/img/login/MG-logo.png')} />
+        </View>
+        <View style={Styles.loginPannel}>
+          <View style={Styles.loginContain}>
+            <View style={{ flexDirection: 'row', height: device.pxTodp(50), alignItems: 'center' }}>
+              <View style={Styles.dashLine}></View>
+              <Text style={{ textAlign: 'center', color: '#8E9090',fontSize:device.pxTodp(16) }}>请选择登录方式</Text>
+              <View style={Styles.dashLine}></View>
+            </View>
+            <View style={Styles.iconPannel}>
+              <View style={Styles.iconItem}>
+                <TouchableWithoutFeedback onPress={this.onQuickLogin.bind(this)}>
+                  <Image style={Styles.loginIcon} source={require('../res/img/login/guest.png')} />
+                </TouchableWithoutFeedback>
+                <Text style={Styles.loginText}>Play Now</Text>
+              </View>
+              <View style={Styles.iconItem}>
+                <TouchableWithoutFeedback onPress={this.onPlatformLogin.bind(this)}>
+                  <Image style={Styles.loginIcon} source={require('../res/img/login/mg-icon.png')} />
+                </TouchableWithoutFeedback>
+                <Text style={Styles.loginText}>MG账号</Text>
+              </View>
+              <View style={Styles.iconItem}>
+                <TouchableWithoutFeedback onPress={this.onFacebookLogin.bind(this)}>
+                  <Image style={Styles.loginIcon} source={require('../res/img/login/fb-icon.png')} />
+                </TouchableWithoutFeedback>
+                <Text style={Styles.loginText}>FaceBook</Text>
+              </View>
+              <View style={Styles.iconItem}>
+                <TouchableWithoutFeedback onPress={this.onFacebookLogin.bind(this)}>
+                  <Image style={Styles.loginIcon} source={require('../res/img/login/google-icon.png')} />
+                </TouchableWithoutFeedback>
+                <Text style={Styles.loginText}>Google</Text>
+              </View>
+            </View>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+              <View style={{ flexDirection: 'row' }}><Radio label="I have read and agree to the " textStyle={{ color: '#7A7C7D', fontSize: device.pxTodp(16) }} />
+                <Text style={{ color: '#2972EC', fontSize: device.pxTodp(16) }}>Terms of Service</Text>
+                <Text style={{ color: '#7A7C7D', fontSize: device.pxTodp(16) }}> and </Text>
+                <Text style={{ color: '#2972EC', fontSize: device.pxTodp(16) }}>Privacy Policy</Text>
+              </View>
+            </View>
+          </View>
         </View>
 
-        <View style={{ flexDirection: 'row', height: 50, alignItems: 'center' }}>
-          <View style={styles.dashLine}></View>
-          <Text style={{ textAlign: 'center', color: '#8E9090' }}>请选择登录方式</Text>
-          <View style={styles.dashLine}></View>
-        </View>
-        <View style={{ flexDirection: 'row', height: device.pxTodp(140) }}>
-          <View style={{ flex: 1, alignItems: 'center',justifyContent:'center' }}>
-            <TouchableWithoutFeedback onPress={this.onQuickLogin.bind(this)}>
-              <Image style={{ width: device.pxTodp(70), height: device.pxTodp(70) }} source={require('../res/img/guest.png')} />
-            </TouchableWithoutFeedback>
-            <Text style={{ textAlign: 'center', color: '#8E9090' }}>立即体验</Text>
-          </View>
-          <View style={{ flex: 1, alignItems: 'center',justifyContent:'center' }}>
-            <TouchableWithoutFeedback onPress={this.onPlatformLogin.bind(this)}>
-              <Image style={{ width: device.pxTodp(70), height: device.pxTodp(70) }} source={require('../res/img/platform.png')} />
-            </TouchableWithoutFeedback>
-            <Text style={{ textAlign: 'center', color: '#8E9090' }}>MG账号</Text>
-          </View>
-          <View style={{ flex: 1, alignItems: 'center',justifyContent:'center' }}>
-            <TouchableWithoutFeedback onPress={this.onFacebookLogin.bind(this)}>
-              <Image style={{ width: device.pxTodp(70), height: device.pxTodp(70) }} source={require('../res/img/facebook.png')} />
-            </TouchableWithoutFeedback>
-            <Text style={{ textAlign: 'center', color: '#8E9090' }}>FaceBook</Text>
-          </View>
-        </View>
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <View style={{ flexDirection: 'row' }}><Radio label="我已阅读并同意" textStyle={{ color: '#8E9090' }} /><Text style={{ color: 'red' }}>用户服务协议</Text></View>
-        </View>
       </View>
 
 

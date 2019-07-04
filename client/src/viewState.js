@@ -9,22 +9,38 @@ import AccountUpdate from './view/LoginComponents/AccountUpdate'
 const componentList = [
     {
         componentName: 'login',
-        component: Login
+        component: Login,
+        size:{
+            width:692,
+            height:652
+        }
     },{
         componentName: 'pay',
         component: Pay
     },{
         componentName: 'registry',
-        component: Registry
+        component: Registry,
+        size:{
+            width:730,
+            height:670
+        }
     },{
         componentName:'quickLoginTip',
-        component:QuickLoginTip
+        component:QuickLoginTip,
+        size:{
+            width:730,
+            height:670
+        }
     },{
         componentName:'loginLoading',
         component:LoginLoading
     },{
         componentName:'platformLogin',
-        component:PlatformLogin
+        component:PlatformLogin,
+        size:{
+            width:692,
+            height:652
+        }
     },{
         componentName:'accountUpdate',
         component:AccountUpdate
@@ -38,8 +54,15 @@ export const componentController = {
        this.event = callback;
     },
     changeView(view){
-        if(this.event)
-            this.event(view);
+        if(this.event){
+            for(var i = 0;i<componentList.length;i++){
+                if(componentList[i].componentName === view) {
+                    this.event(componentList[i]);
+                }
+            }
+            
+        }
+           
     },
     removeListener:function(){
         if(this.event) this.event = null;

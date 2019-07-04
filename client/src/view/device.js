@@ -1,9 +1,21 @@
 import {Dimensions} from 'react-native'
 const {width,height} =  Dimensions.get('window')
-const designSize = {
-    width:670,
-    height:375
+const vDesignSize = {
+    width:1334,
+    height:750
 };
+
+const hDesignSize = {
+    height:1334,
+    width:900
+};
+
+let designSize = vDesignSize;
+
+if(width > height) designSize = vDesignSize;
+else designSize = hDesignSize;
+
+
 
 export default {
     height:height,

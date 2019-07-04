@@ -89,6 +89,9 @@ public final class IBoxEventDispatcher {
                     ((LoginCallback) sdkCallback).LoginSuccess(new SDKUserEvent().fromMap(data));
                 }
                 break;
+            case EventConsts.RESIZE:
+
+                reciever.resize(data.getInt("width"),data.getInt("height"));
             default:
                 break;
         }

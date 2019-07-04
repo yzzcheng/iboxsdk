@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "start": "yarn react-native start --reset-cache",
-    "android":"react-native run-android",
-    "bundle":"react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/IBoxSDK/src/main/assets/index.android.bundle --assets-dest android/iboxsdk2/src/main/res"
+    "android": "react-native run-android",
+    "bundle": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/IBoxSDK/src/main/assets/index.android.bundle --assets-dest android/iboxsdk2/src/main/res"
   },
   "dependencies": {
+    "babel": "^6.23.0",
+    "babel-plugin-module-alias": "^1.6.0",
     "react": "16.8.3",
     "react-native": "^0.59.9"
   }

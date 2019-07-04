@@ -10,4 +10,6 @@ public interface EventReciever {
     void closeSDK();
 
     void showSDK();
+
+    void resize(int width,int height);
 }

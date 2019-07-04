@@ -34,47 +34,39 @@ public class ReactEnvironment extends ReactContextBaseJavaModule {
     @Override
     public Map<String, Object> getConstants() {
         final Map<String, Object> constants = new HashMap<>();
-        constants.put("GPS_ID","GPS_ID");
-        constants.put("SYSTEM_VERSION","SYSTEM_VERSION");
-        constants.put("SDK_VERSION","SDK_VERSION");
-        constants.put("NETWORK","NETWORK");
-        constants.put("MODEL","MODEL");
-        constants.put("PACKAGE_NAME","PACKAGE_NAME");
-        constants.put("LANGUAGE","LANGUAGE");
-        constants.put("APP_CONFIG","APP_CONFIG");
+        constants.put("GPS_ID", "GPS_ID");
+        constants.put("SYSTEM_VERSION", "SYSTEM_VERSION");
+        constants.put("SDK_VERSION", "SDK_VERSION");
+        constants.put("NETWORK", "NETWORK");
+        constants.put("MODEL", "MODEL");
+        constants.put("PACKAGE_NAME", "PACKAGE_NAME");
+        constants.put("LANGUAGE", "LANGUAGE");
+        constants.put("APP_CONFIG", "APP_CONFIG");
         return constants;
     }
+
     @ReactMethod
-    public void getEnv(String type, Callback callback) {
+    public void getEnv(Callback callback) {
         WritableMap map = Arguments.createMap();
-        switch (type){
-            case "GPS_ID":
-                map.putString(type,DeviceUtils.getDeviceNo()); break;
-            case "SYSTEM_VERSION":
-                map.putString(type,android.os.Build.VERSION.RELEASE); break;
-            case "MODEL":
-                map.putString(type,android.os.Build.MODEL); break;
-            case "LANGUAGE":
-                map.putString(type,Locale.getDefault().getLanguage()); break;
-            case "PACKAGE_NAME":
-                map.putString(type,IBoxSDKContext.getInstance().getActivity().getPackageName()); break;
-            case "SDK_VERSION":
-                map.putInt(type,android.os.Build.VERSION.SDK_INT); break;
-            case "NETWORK":
-                map.putInt(type,DeviceUtils.getNetworkState()); break;
-            case "APP_CONFIG":
-                map.putInt("app_id",IBoxSDKContext.getInstance().getAppId());
-                map.putInt("package_id",IBoxSDKContext.getInstance().getPackageId());
-                break;
-        }
+        map.putString("GPS_ID", DeviceUtils.getDeviceNo());
+        map.putString("device",DeviceUtils.getDevice());
+        map.putString("SYSTEM_VERSION", android.os.Build.VERSION.RELEASE);
+        map.putString("MODEL", android.os.Build.MODEL);
+        map.putString("LANGUAGE", Locale.getDefault().getLanguage());
+        map.putString("PACKAGE_NAME", IBoxSDKContext.getInstance().getActivity().getPackageName());
+        map.putInt("SDK_VERSION", android.os.Build.VERSION.SDK_INT);
+        map.putInt("NETWORK", DeviceUtils.getNetworkState());
+        map.putInt("app_id", IBoxSDKContext.getInstance().getAppId());
+        map.putInt("package_id", IBoxSDKContext.getInstance().getPackageId());
         callback.invoke(map);
     }
+
     @ReactMethod
-    public void sign(ReadableMap map,Callback callback){
-        String sign = StringUtils.sign(map.toHashMap(),IBoxSDKContext.getInstance().getAppKey());
+    public void sign(ReadableMap map, Callback callback) {
+        String sign = StringUtils.sign(map.toHashMap(), IBoxSDKContext.getInstance().getAppKey());
         WritableMap writableMap = Arguments.createMap();
         writableMap.merge(map);
-        writableMap.putString("sign",sign);
+        writableMap.putString("sign", sign);
         callback.invoke(writableMap);
     }
 

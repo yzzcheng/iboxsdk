@@ -56,4 +56,9 @@ public class IBoxSDKEventReciever implements EventReciever {
     public void showSDK() {
         IBoxReactView.getInstance().getReactView().show();
     }
+
+    @Override
+    public void resize(int width,int height) {
+        IBoxReactView.getInstance().getReactView().reSize(width,height);
+    }
 }

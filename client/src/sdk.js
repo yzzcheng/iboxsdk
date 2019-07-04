@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { DeviceEventEmitter, NativeModules, View } from 'react-native';
-import Common from './res/styles/common'
-import ComponentList,{componentController} from './viewState'
-import Login from './view/Login'
+
+import ComponentList, { componentController } from './viewState'
 import API from './apis'
 import Native from './apis/native'
+import device from './view/device'
 const { ReactEventListener, GoogleService, FaceBookService, IBoxEnvironment } = NativeModules;
 
 /*
@@ -14,14 +14,27 @@ sendMsgToNative
 
 */
 
-Native.registry(Native.INIT,(native)=>{
-    componentController.changeView('login');
-    native.sendMsgToNative(Native.INIT,{
-        [Native.STATUS]:200
+Native.registry(Native.INIT, (native) => {
+    native.sendMsgToNative(Native.INIT, {
+        [Native.STATUS]: 200
     });
+    // API.init().then(data=>{
+    //     componentController.changeView('login');
+    //     native.sendMsgToNative(Native.INIT,{
+    //         [Native.STATUS]:200
+    //     });
+    // }).catch(msg=>{
+    //     native.sendMsgToNative(Native.INIT,{
+    //         [Native.STATUS]:400,
+    //         [Native.MESSAGE]:msg
+    //     });
+    // });
+
 });
 
-Native.registry(Native.LOGIN,(native)=>{
+// Native.resize();
+
+Native.registry(Native.LOGIN, (native) => {
     componentController.changeView('login');
 });
 
@@ -43,24 +56,19 @@ export default class APP extends Component {
     }
 
     changeView(view) {
-        const { component } = this.state;
-        let currentCom = component;
-        for (var i = 0;i<ComponentList.length;i++) {
-            let com = ComponentList[i];
-            if (com.componentName === view) {
-                currentCom = com.component;
-            }
+        if(view.size){
+            Native.resize(device.pxTodp(view.size.width),device.pxTodp(view.size.height));
         }
         this.setState({
             view,
-            component: currentCom
+            component: view.component
         });
     }
 
     componentWillMount() {
-        componentController.addListener((view)=>{
+        componentController.addListener((view) => {
             this.changeView(view);
-        })
+        });
     }
 
     componentWillUnmount() {
@@ -77,10 +85,10 @@ export default class APP extends Component {
         GoogleService.launchToApp('com.bdgames.xmyxwno1');
     }
     render() {
-        const {component:Component } = this.state;
+        const { component: Component } = this.state;
         return (
-            <View style={{backgroundColor:'rgba(255,255,255,0.9)',borderRadius:10 }} >
-                {Component?<Component/>:null}
+            <View style={{ backgroundColor: 'rgba(255,255,255,0.9)', borderRadius: 5 ,flex:1 }} >
+                {Component ? <Component /> : null}
             </View>
         );
     }
