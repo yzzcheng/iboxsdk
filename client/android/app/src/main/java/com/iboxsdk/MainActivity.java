@@ -130,7 +130,7 @@ public class MainActivity extends Activity {
     }
 
     void openCustomCenter(){
-        IBoxSDKAPI.getInstance().getSDK().openAccountCenter(this);
+        IBoxSDKAPI.getInstance().getSDK().openCustomerCenter(this);
     }
 
     void openUserCenter(){

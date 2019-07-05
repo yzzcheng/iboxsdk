@@ -104,5 +104,8 @@ export default {
       })
 
     })
+  },
+  getContext(callback){
+    getAppContext(callback);
   }
 };

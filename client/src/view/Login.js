@@ -4,7 +4,6 @@ import Apis from '../apis'
 import Radio from './components/Radio'
 import { componentController } from '../viewState'
 import device from './device'
-import common from '../res/styles/common'
 import Styles from './styles/Login'
 const { ReactEventListener, IBoxEnvironment, FaceBookService } = NativeModules;
 

@@ -12,6 +12,9 @@ export default {
     DIALOG_STATUS:ReactEventListener.DIALOG_STATUS,
     MESSAGE:ReactEventListener.MESSAGE,
     RESIZE:ReactEventListener.RESIZE,
+    SHOW_SDK:ReactEventListener.SHOW_SDK,
+    CLOSE_SDK:ReactEventListener.CLOSE_SDK,
+    OPEN_ACCOUNT_CENTER:ReactEventListener.OPEN_ACCOUNT_CENTER,
     registry(event,callback){
         if(event === this.INIT) {
             this.initHandler = DeviceEventEmitter.addListener(ReactEventListener.INIT, (e) => {
@@ -42,6 +45,11 @@ export default {
         } else if(event === this.GOOGLE_PLUS_PAY_FINISH) {
             this.finishGoogldPlusPayHandler = DeviceEventEmitter.addListener(ReactEventListener.GOOGLE_PLUS_PAY_FINISH,(e)=>{
                 console.log(ReactEventListener.GOOGLE_PLUS_PAY_FINISH, e);
+                callback(ReactEventListener,e);
+            });
+        } else if(event === this.OPEN_ACCOUNT_CENTER) {
+            this.openAccountCenter = DeviceEventEmitter.addListener(ReactEventListener.OPEN_ACCOUNT_CENTER,(e)=>{
+                console.log(ReactEventListener.OPEN_ACCOUNT_CENTER, e);
                 callback(ReactEventListener,e);
             });
         }
@@ -75,6 +83,16 @@ export default {
             height:height
         });
     },
+    hide(){
+        ReactEventListener.sendMsgToNative(this.CLOSE_SDK,{
+            [this.STATUS]:200,
+        });
+    },
+    show(){
+        ReactEventListener.sendMsgToNative(this.SHOW_SDK,{
+            [this.STATUS]:200,
+        });
+    },
     unRegistry(){
         if(event === this.INIT) {
             this.initHandler.remove();
@@ -88,6 +106,8 @@ export default {
             this.googlePayHandler.remove();
         } else if(event === this.GOOGLE_PLUS_PAY_FINISH) {
             this.finishGoogldPlusPayHandler.remove();
+        }else if(event === this.OPEN_ACCOUNT_CENTER) {
+            this.openAccountCenter.remove();
         }
     }
 }

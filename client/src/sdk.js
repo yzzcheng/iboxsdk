@@ -38,6 +38,14 @@ Native.registry(Native.LOGIN, (native) => {
     componentController.changeView('login');
 });
 
+Native.registry(Native.ORDER_CREATE, (native) => {
+    componentController.changeView('chargeList');
+});
+
+Native.registry(Native.OPEN_ACCOUNT_CENTER, (native) => {
+    Native.show();
+    componentController.changeView('userCenter');
+});
 
 
 
@@ -57,7 +65,16 @@ export default class APP extends Component {
 
     changeView(view) {
         if(view.size){
-            Native.resize(device.pxTodp(view.size.width),device.pxTodp(view.size.height));
+            let width = 0,height = 0;
+            if(view.size.full){
+                width = device.width - device.pxTodp(65)*2;
+                height = device.height- device.pxTodp(65)*2;
+            }else {
+                width = device.pxTodp(view.size.width);
+                height = device.pxTodp(view.size.height);
+            }
+            
+            Native.resize(width,height);
         }
         this.setState({
             view,

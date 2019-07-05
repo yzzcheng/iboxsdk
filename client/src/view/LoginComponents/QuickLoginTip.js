@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableWithoutFeedback, Image, Button, StyleSheet } from 'react-native';
+import { View, Text} from 'react-native';
 import Radio from '../components/Radio'
 import common from '../../res/styles/common'
 import { componentController } from '../../viewState'

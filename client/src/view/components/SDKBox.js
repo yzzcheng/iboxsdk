@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, Image, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import device from '../device';
+import Native from '../../apis/native'
 
 export default class SDKBox extends Component {
 
@@ -13,6 +14,7 @@ export default class SDKBox extends Component {
 
     close(){
         const {close} = this.props;
+        Native.hide();
         if(close) {
             close();
         }

@@ -7,7 +7,7 @@ const vDesignSize = {
 
 const hDesignSize = {
     height:1334,
-    width:900
+    width:750
 };
 
 let designSize = vDesignSize;
