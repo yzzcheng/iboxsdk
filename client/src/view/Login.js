@@ -66,7 +66,7 @@ export default class Login extends Component {
     return (
       <View style={Styles.contain}>
         <View style={Styles.logo}>
-          <Image style={Styles.logoImage} source={require('../res/img/login/MG-logo.png')} />
+          <Image style={Styles.logoImage} source={device.getAssert('login/MG-logo.png')} />
         </View>
         <View style={Styles.loginPannel}>
           <View style={Styles.loginContain}>
@@ -78,25 +78,25 @@ export default class Login extends Component {
             <View style={Styles.iconPannel}>
               <View style={Styles.iconItem}>
                 <TouchableWithoutFeedback onPress={this.onQuickLogin.bind(this)}>
-                  <Image style={Styles.loginIcon} source={require('../res/img/login/guest.png')} />
+                  <Image style={Styles.loginIcon} source={device.getAssert('login/guest.png')} />
                 </TouchableWithoutFeedback>
                 <Text style={Styles.loginText}>Play Now</Text>
               </View>
               <View style={Styles.iconItem}>
                 <TouchableWithoutFeedback onPress={this.onPlatformLogin.bind(this)}>
-                  <Image style={Styles.loginIcon} source={require('../res/img/login/mg-icon.png')} />
+                  <Image style={Styles.loginIcon} source={device.getAssert('login/mg-icon.png')} />
                 </TouchableWithoutFeedback>
                 <Text style={Styles.loginText}>MG账号</Text>
               </View>
               <View style={Styles.iconItem}>
                 <TouchableWithoutFeedback onPress={this.onFacebookLogin.bind(this)}>
-                  <Image style={Styles.loginIcon} source={require('../res/img/login/fb-icon.png')} />
+                  <Image style={Styles.loginIcon} source={device.getAssert('login/fb-icon.png')} />
                 </TouchableWithoutFeedback>
                 <Text style={Styles.loginText}>FaceBook</Text>
               </View>
               <View style={Styles.iconItem}>
                 <TouchableWithoutFeedback onPress={this.onFacebookLogin.bind(this)}>
-                  <Image style={Styles.loginIcon} source={require('../res/img/login/google-icon.png')} />
+                  <Image style={Styles.loginIcon} source={device.getAssert('login/google-icon.png')} />
                 </TouchableWithoutFeedback>
                 <Text style={Styles.loginText}>Google</Text>
               </View>

@@ -47,14 +47,14 @@ export default class UserCenter extends Component {
         <View style={Styles.userContain}>
           <View style={{ flexDirection: 'row' }}>
             <View>
-              <Image source={require('../res/img/usercenter/use-icon.png')} style={{ width: device.pxTodp(95), height: device.pxTodp(100) }} />
+              <Image source={device.getAssert('usercenter/use-icon.png')} style={{ width: device.pxTodp(95), height: device.pxTodp(100) }} />
             </View>
             <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', marginLeft: device.pxTodp(10) }}>
-              <Text style={{ color: '#525252' }}>ID_324973289479328473243252</Text>
-              <Text style={{ color: '#8B8B8B' }} >UUID</Text>
+              <Text ellipsizeMode='tail' numberOfLines={1} style={{ color: '#525252',fontSize:device.pxTodp(25) }}>ID_324973289479328473243252</Text>
+              <Text style={{ color: '#8B8B8B',fontSize:device.pxTodp(25) }} >UUID</Text>
               <View style={{ flexDirection: 'row' }}>
-                <Text ellipsizeMode='tail' numberOfLines={1} style={{ color: '#8B8B8B', flex: 1 }}>{this.state.device_no}</Text>
-                <IBoxButton onPress={this.copy.bind(this)} style={{ borderColor: '#8B8B8B', borderWidth: 0.5, borderRadius: 5, width: device.pxTodp(80), height: device.pxTodp(35) }} text="复制" textStyle={{ color: '#8B8B8B', textAlign: 'center' }} />
+                <Text ellipsizeMode='tail' numberOfLines={1} style={{ color: '#8B8B8B', flex: 1,fontSize:device.pxTodp(25)  }}>{this.state.device_no}</Text>
+                <IBoxButton onPress={this.copy.bind(this)} style={{ borderColor: '#8B8B8B', borderWidth: 0.5, borderRadius: 5, width: device.pxTodp(80), height: device.pxTodp(35) }} text="复制" textStyle={{ color: '#8B8B8B', textAlign: 'center',fontSize:device.pxTodp(25) }} />
               </View>
             </View>
 
@@ -63,27 +63,27 @@ export default class UserCenter extends Component {
 
           <View style={Styles.actionContain}>
             <View style={Styles.actionItem}>
-              <TouchableWithoutFeedback onPress={this.changeView.bind(this,'login')}>
-                <Image style={{ height: device.pxTodp(80), width: device.pxTodp(80) }} source={require('../res/img/usercenter/i-1.png')} />
+              <TouchableWithoutFeedback onPress={this.changeView.bind(this,'chargeList')}>
+                <Image style={{ height: device.pxTodp(80), width: device.pxTodp(80) }} source={device.getAssert('usercenter/i-1.png')} />
               </TouchableWithoutFeedback>
               <Text style={{ color: '#525252',textAlign:'center' }} >充值记录</Text>
             </View>
 
             <View style={Styles.actionItem}>
-              <TouchableWithoutFeedback onPress={this.changeView.bind(this,'login')}>
-                <Image style={Styles.actionIcon} source={require('../res/img/usercenter/i-2.png')} />
+              <TouchableWithoutFeedback onPress={this.changeView.bind(this,'customCenter')}>
+                <Image style={Styles.actionIcon} source={device.getAssert('usercenter/i-2.png')} />
               </TouchableWithoutFeedback>
               <Text style={Styles.actionText} >联系客服</Text>
             </View>
             <View style={Styles.actionItem}>
-              <TouchableWithoutFeedback onPress={this.changeView.bind(this,'login')}>
-                <Image style={Styles.actionIcon} source={require('../res/img/usercenter/i-3.png')} />
+              <TouchableWithoutFeedback onPress={this.changeView.bind(this,'customCenter')}>
+                <Image style={Styles.actionIcon} source={device.getAssert('usercenter/i-3.png')} />
               </TouchableWithoutFeedback>
               <Text style={Styles.actionText} >帮助中心</Text>
             </View>
             <View style={Styles.actionItem}>
               <TouchableWithoutFeedback onPress={this.changeView.bind(this,'login')}>
-                <Image style={Styles.actionIcon} source={require('../res/img/usercenter/i-4.png')} />
+                <Image style={Styles.actionIcon} source={device.getAssert('usercenter/i-4.png')} />
               </TouchableWithoutFeedback>
               <Text style={Styles.actionText} >切换账号</Text>
             </View>

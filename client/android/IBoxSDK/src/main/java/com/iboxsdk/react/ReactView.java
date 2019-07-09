@@ -3,6 +3,7 @@ package com.iboxsdk.react;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.graphics.Color;
+import android.os.Bundle;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactInstanceManager;
@@ -12,6 +13,7 @@ import com.facebook.react.common.LifecycleState;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.shell.MainReactPackage;
 import com.iboxsdk.abstracts.Action;
+import com.iboxsdk.imp.IBoxBundleService;
 import com.iboxsdk.singleton.IBoxSDKContext;
 import com.iboxsdk.singleton.IBoxSDKService;
 
@@ -39,33 +41,30 @@ public class ReactView {
         final ReactView reactView = this;
         try {
 
-            IBoxSDKService.getInstance().getBundleService().checkBundleVersion(activity, new Action<String>() {
+            IBoxSDKService.getInstance().getBundleService().checkBundleVersion(activity, new Action<IBoxBundleService.BundleInfo>() {
                 @Override
-                public void Action(String path) {
+                public void Action(IBoxBundleService.BundleInfo bundleInfo) {
                     mReactRootView = new ReactRootView(activity);
                     mReactInstanceManager = ReactInstanceManager.builder()
                             .setApplication(activity.getApplication())
                             .setCurrentActivity(activity)
-                            .setJSBundleFile(path)
+                            .setJSBundleFile(bundleInfo.getJsBundlePath())
                             .setJSMainModulePath("index")
                             .addPackage(new MainReactPackage())
                             .addPackage(new ReactModulePackage())
                             .setUseDeveloperSupport(true)
                             .setInitialLifecycleState(LifecycleState.RESUMED)
                             .build();
-                    mReactInstanceManager.addReactInstanceEventListener(new ReactInstanceManager.ReactInstanceEventListener() {
-                        @Override
-                        public void onReactContextInitialized(ReactContext context) {
-                            callback.callback(true,activity, reactView);
-                        }
-                    });
-                    mReactRootView.startReactApplication(mReactInstanceManager, "iboxsdk", null);
+                    Bundle initProperies = new Bundle();
+                    initProperies.putString("assert_path",bundleInfo.getAssertPath());
+                    mReactRootView.startReactApplication(mReactInstanceManager, "iboxsdk", initProperies);
                     mReactRootView.setBackgroundColor(Color.TRANSPARENT);
                     mReactRootView.setEventListener(new ReactRootView.ReactRootViewEventListener() {
                         @Override
                         public void onAttachedToReactInstance(ReactRootView reactRootView) {
                             if(mythsActivity == null) {
                                 mythsActivity = new ReactActive(activity);
+                                callback.callback(true,activity, reactView);
                             } else {
                                hide();
                             }

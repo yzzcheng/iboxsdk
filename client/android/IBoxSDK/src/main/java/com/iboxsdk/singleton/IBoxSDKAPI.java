@@ -1,5 +1,9 @@
 package com.iboxsdk.singleton;
 
+import android.app.Activity;
+import android.content.Intent;
+
+import com.facebook.react.devsupport.DevSettingsActivity;
 import com.iboxsdk.abstracts.IBoxSDK;
 import com.iboxsdk.imp.IBoxSDKImp;
 
@@ -18,5 +22,11 @@ public class IBoxSDKAPI {
 
     public IBoxSDK getSDK() {
         return iBoxSDK;
+    }
+
+    public static void debugTools(Activity activity){
+        Intent intent = new Intent();
+        intent.setClass(activity, DevSettingsActivity.class);
+        activity.startActivity(intent);
     }
 }

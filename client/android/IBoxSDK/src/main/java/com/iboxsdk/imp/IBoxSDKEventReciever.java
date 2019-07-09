@@ -27,6 +27,7 @@ public class IBoxSDKEventReciever implements EventReciever {
         IBoxSDKService.getInstance().getFaceBookService().init();
         IBoxSDKService.getInstance().getGoogleAdsService().init();
         IBoxSDKService.getInstance().getAdjustService().init();
+        IBoxSDKService.getInstance().getGoogleLoginService().init();
         Logger.d("init success");
     }
 

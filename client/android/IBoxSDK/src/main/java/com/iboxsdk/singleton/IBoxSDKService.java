@@ -6,6 +6,7 @@ import com.iboxsdk.payment.PlusGoogleService;
 import com.iboxsdk.thirdparty.AdjustService;
 import com.iboxsdk.thirdparty.FaceBookService;
 import com.iboxsdk.thirdparty.GoogleAdsService;
+import com.iboxsdk.thirdparty.GoogleLoginService;
 
 public class IBoxSDKService {
     private static IBoxSDKService ourInstance = new IBoxSDKService();
@@ -21,6 +22,8 @@ public class IBoxSDKService {
     FaceBookService faceBookService = new FaceBookService();
     GoogleAdsService googleAdsService = new GoogleAdsService();
     AdjustService adjustService = new AdjustService();
+    GoogleLoginService googleLoginService = new GoogleLoginService();
+
     public GooglePayService getGooglePayService() {
         return googlePayService;
     }
@@ -44,6 +47,10 @@ public class IBoxSDKService {
 
     public AdjustService getAdjustService() {
         return adjustService;
+    }
+
+    public GoogleLoginService getGoogleLoginService() {
+        return googleLoginService;
     }
 
     private IBoxSDKService() {

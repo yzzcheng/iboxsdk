@@ -63,6 +63,12 @@
                 android:layout_height="wrap_content"
                 android:text="打开用户中心" />
 
+            <Button
+                android:id="@+id/debugBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="调试" />
+
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

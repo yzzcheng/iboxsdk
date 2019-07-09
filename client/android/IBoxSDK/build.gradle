@@ -89,6 +89,7 @@ dependencies {
     implementation 'com.adjust.sdk:adjust-android:4.13.0'
     implementation 'com.android.installreferrer:installreferrer:1.0'
     implementation 'com.google.android.gms:play-services-analytics:16.0.8'
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
     implementation 'com.facebook.infer.annotation:infer-annotation:0.11.2'
     implementation 'javax.inject:javax.inject:1'
 

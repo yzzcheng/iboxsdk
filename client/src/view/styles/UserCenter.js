@@ -7,5 +7,5 @@ export default StyleSheet.create({
     actionContain:{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' },
     actionItem:{flex:1,justifyContent: 'center', alignItems: 'center'},
     actionIcon:{ height: device.pxTodp(80), width: device.pxTodp(80) },
-    actionText:{ color: '#525252',textAlign:'center' }
+    actionText:{ color: '#525252',textAlign:'center',fontSize:device.pxTodp(30) }
 })

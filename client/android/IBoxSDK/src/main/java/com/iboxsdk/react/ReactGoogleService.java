@@ -3,11 +3,14 @@ package com.iboxsdk.react;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.iboxsdk.singleton.IBoxSDKContext;
 import com.iboxsdk.singleton.IBoxSDKService;
+import com.iboxsdk.thirdparty.bean.GoogleAccountInfo;
+import com.iboxsdk.thirdparty.bean.GoogleSignInCallBack;
 
 import javax.annotation.Nonnull;
 
@@ -42,5 +45,20 @@ public class ReactGoogleService extends ReactContextBaseJavaModule {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             IBoxSDKContext.getInstance().getActivity().startActivity(intent);
         }
+    }
+
+    @ReactMethod
+    public void googleLogin(final Callback callback){
+        IBoxSDKService.getInstance().getGoogleLoginService().doLogin(new GoogleSignInCallBack() {
+            @Override
+            public void success(GoogleAccountInfo accountInfo) {
+                callback.invoke(accountInfo.toMap());
+            }
+
+            @Override
+            public void error() {
+
+            }
+        });
     }
 }

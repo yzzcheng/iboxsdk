@@ -2,6 +2,7 @@ import Login from './view/Login'
 import Pay from './view/Payment'
 import Registry from './view/Risgistry'
 import UserCenter from './view/UserCenter'
+import CustomCenter from './view/CustomCenter'
 import QuickLoginTip from './view/LoginComponents/QuickLoginTip'
 import LoginLoading from './view/LoginComponents/Loading'
 import PlatformLogin from './view/LoginComponents/PlatformLogin'
@@ -27,8 +28,8 @@ const componentList = [
         componentName: 'registry',
         component: Registry,
         size:{
-            width:730,
-            height:670
+            width:692,
+            height:652
         }
     },{
         componentName:'quickLoginTip',
@@ -46,7 +47,11 @@ const componentList = [
         }
     },{
         componentName:'loginLoading',
-        component:LoginLoading
+        component:LoginLoading,
+        size:{
+            width:300,
+            height:150
+        }
     },{
         componentName:'platformLogin',
         component:PlatformLogin,
@@ -56,7 +61,11 @@ const componentList = [
         }
     },{
         componentName:'accountUpdate',
-        component:AccountUpdate
+        component:AccountUpdate,
+        size:{
+            width:730,
+            height:670
+        }
     },{
         componentName:'payChannel',
         component:PayChannel,
@@ -83,6 +92,13 @@ const componentList = [
     },{
         componentName:'chargeList',
         component:ChargeList,
+        size:{
+            width:730,
+            height:670
+        }
+    },{
+        componentName:'customCenter',
+        component:CustomCenter,
         size:{
             width:730,
             height:670

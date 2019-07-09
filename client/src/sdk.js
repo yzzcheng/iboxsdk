@@ -15,6 +15,8 @@ sendMsgToNative
 */
 
 Native.registry(Native.INIT, (native) => {
+    Native.show();
+    componentController.changeView('login');
     native.sendMsgToNative(Native.INIT, {
         [Native.STATUS]: 200
     });
@@ -35,17 +37,25 @@ Native.registry(Native.INIT, (native) => {
 // Native.resize();
 
 Native.registry(Native.LOGIN, (native) => {
+    Native.show();
     componentController.changeView('login');
 });
 
 Native.registry(Native.ORDER_CREATE, (native) => {
-    componentController.changeView('chargeList');
+    Native.show();
+    componentController.changeView('payChannel');
 });
 
 Native.registry(Native.OPEN_ACCOUNT_CENTER, (native) => {
     Native.show();
     componentController.changeView('userCenter');
 });
+
+Native.registry(Native.OPEN_COSTOMER_CENTER, (native) => {
+    Native.show();
+    componentController.changeView('customCenter');
+});
+
 
 
 
@@ -54,18 +64,22 @@ export default class APP extends Component {
     constructor(props) {
         super(props);
         this.state = this.initState();
+        device.setAssertPath(props.assert_path);
+       
     }
 
     initState() {
         return {
             view: 'login',
             component: null,
+            width:0,
+            height:0,
         };
     }
 
     changeView(view) {
+        let width = 0,height = 0;
         if(view.size){
-            let width = 0,height = 0;
             if(view.size.full){
                 width = device.width - device.pxTodp(65)*2;
                 height = device.height- device.pxTodp(65)*2;
@@ -75,10 +89,15 @@ export default class APP extends Component {
             }
             
             Native.resize(width,height);
+        }else {
+            width = null;
+            height = null;
         }
         this.setState({
             view,
-            component: view.component
+            component: view.component,
+            width,
+            height
         });
     }
 
@@ -102,10 +121,10 @@ export default class APP extends Component {
         GoogleService.launchToApp('com.bdgames.xmyxwno1');
     }
     render() {
-        const { component: Component } = this.state;
+        const { component: Component,width,height } = this.state;
         return (
             <View style={{ backgroundColor: 'rgba(255,255,255,0.9)', borderRadius: 5 ,flex:1 }} >
-                {Component ? <Component /> : null}
+                {Component ? <Component width={width} height={height} /> : null}
             </View>
         );
     }

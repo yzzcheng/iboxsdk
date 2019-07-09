@@ -15,6 +15,7 @@ export default {
     SHOW_SDK:ReactEventListener.SHOW_SDK,
     CLOSE_SDK:ReactEventListener.CLOSE_SDK,
     OPEN_ACCOUNT_CENTER:ReactEventListener.OPEN_ACCOUNT_CENTER,
+    OPEN_COSTOMER_CENTER:ReactEventListener.OPEN_COSTOMER_CENTER,
     registry(event,callback){
         if(event === this.INIT) {
             this.initHandler = DeviceEventEmitter.addListener(ReactEventListener.INIT, (e) => {
@@ -50,6 +51,11 @@ export default {
         } else if(event === this.OPEN_ACCOUNT_CENTER) {
             this.openAccountCenter = DeviceEventEmitter.addListener(ReactEventListener.OPEN_ACCOUNT_CENTER,(e)=>{
                 console.log(ReactEventListener.OPEN_ACCOUNT_CENTER, e);
+                callback(ReactEventListener,e);
+            });
+        }else if(event === this.OPEN_COSTOMER_CENTER) {
+            this.openCustomCenter = DeviceEventEmitter.addListener(ReactEventListener.OPEN_COSTOMER_CENTER,(e)=>{
+                console.log(ReactEventListener.OPEN_COSTOMER_CENTER, e);
                 callback(ReactEventListener,e);
             });
         }
@@ -108,6 +114,8 @@ export default {
             this.finishGoogldPlusPayHandler.remove();
         }else if(event === this.OPEN_ACCOUNT_CENTER) {
             this.openAccountCenter.remove();
+        }else if(event === this.OPEN_COSTOMER_CENTER) {
+            this.openCustomCenter.remove();
         }
     }
 }

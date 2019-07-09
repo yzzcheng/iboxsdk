@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iboxsdk.abstracts.IBoxSDK;
 import com.iboxsdk.abstracts.InitCallback;
 import com.iboxsdk.abstracts.LoginCallback;
 import com.iboxsdk.abstracts.PaymentCallback;
@@ -35,6 +36,7 @@ public class MainActivity extends Activity {
         Button customBtn = view.findViewById(R.id.costomBtn);
         Button userBtn = view.findViewById(R.id.userBtn);
         Button authLoginBtn = view.findViewById(R.id.autoLoginBtn);
+        Button debugBtn = view.findViewById(R.id.debugBtn);
         InitBtn.setOnClickListener(clickListener);
         intentBtn.setOnClickListener(clickListener);
         LoginBtn.setOnClickListener(clickListener);
@@ -42,6 +44,7 @@ public class MainActivity extends Activity {
         customBtn.setOnClickListener(clickListener);
         userBtn.setOnClickListener(clickListener);
         authLoginBtn.setOnClickListener(clickListener);
+        debugBtn.setOnClickListener(clickListener);
         init();
 
     }
@@ -57,9 +60,15 @@ public class MainActivity extends Activity {
                 case R.id.costomBtn:openCustomCenter();break;
                 case R.id.userBtn:openUserCenter();break;
                 case R.id.autoLoginBtn:autoLogin();break;
+                case R.id.debugBtn:debug();break;
             }
         }
     };
+
+
+    protected void debug(){
+        IBoxSDKAPI.debugTools(this);
+    }
     protected void init(){
         IBoxSDKAPI.getInstance().getSDK().init(this, new InitCallback() {
             @Override

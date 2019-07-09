@@ -1,16 +1,12 @@
 package com.iboxsdk.react;
 
-import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.iboxsdk.consts.EventConsts;
-import com.iboxsdk.singleton.IBoxReactView;
 import com.iboxsdk.singleton.IBoxSDKService;
-import com.iboxsdk.thirdparty.FBUserInfo;
-import com.iboxsdk.thirdparty.FaceBookService;
-import com.iboxsdk.thirdparty.FacebookLoginCallBack;
+import com.iboxsdk.thirdparty.bean.FBUserInfo;
+import com.iboxsdk.thirdparty.bean.FacebookLoginCallBack;
 
 import javax.annotation.Nonnull;
 

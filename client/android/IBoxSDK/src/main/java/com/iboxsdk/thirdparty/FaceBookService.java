@@ -3,8 +3,6 @@ package com.iboxsdk.thirdparty;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -13,8 +11,9 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.iboxsdk.abstracts.ActivityResult;
-import com.iboxsdk.abstracts.IBoxSDK;
 import com.iboxsdk.singleton.IBoxSDKContext;
+import com.iboxsdk.thirdparty.bean.FBUserInfo;
+import com.iboxsdk.thirdparty.bean.FacebookLoginCallBack;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONObject;

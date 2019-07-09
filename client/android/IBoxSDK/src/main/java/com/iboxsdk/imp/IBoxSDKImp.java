@@ -75,7 +75,6 @@ public class IBoxSDKImp implements IBoxSDK {
             Integer appId = IBoxSDKContext.getInstance().getAppId();
             event.setPackageName(activity.getPackageName());
             event.setAppId(appId);
-            IBoxReactView.getInstance().getReactView().show();
             IBoxReactView.getInstance().getReactView().emitter().emit(EventConsts.LOGIN, event.toMap());
 
             Logger.d("login success");
@@ -95,7 +94,6 @@ public class IBoxSDKImp implements IBoxSDK {
             event.setPackageId(packageId);
             event.setPackageName(activity.getPackageName());
             event.setProductName(payment.getProductName());
-            IBoxReactView.getInstance().getReactView().show();
             IBoxReactView.getInstance().getReactView().emitter().emit(EventConsts.ORDER_CREATE,event.fromSDKPayment(payment).toMap());
 
         }
@@ -114,6 +112,7 @@ public class IBoxSDKImp implements IBoxSDK {
 //        Logger.d("onActivityResult",requestCode,requestCode,data.toString());
         IBoxSDKService.getInstance().getFaceBookService().onActivityResult(requestCode,resultCode,data);
         IBoxSDKService.getInstance().getPlusGoogleService().onActivityResult(requestCode,resultCode,data);
+        IBoxSDKService.getInstance().getGoogleLoginService().onActivityResult(requestCode,resultCode,data);
     }
 
     @Override

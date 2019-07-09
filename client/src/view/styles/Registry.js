@@ -5,7 +5,8 @@ export default StyleSheet.create({
     contain:{
         width: device.pxTodp(692),
         height: device.pxTodp(652),
-        padding: device.pxTodp(15)
+        padding: device.pxTodp(15),
+        alignItems: 'center'
     },
     logo:{ 
         justifyContent: 'center', 

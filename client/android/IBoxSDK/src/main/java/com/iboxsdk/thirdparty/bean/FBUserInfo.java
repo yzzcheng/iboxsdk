@@ -1,4 +1,4 @@
-package com.iboxsdk.thirdparty;
+package com.iboxsdk.thirdparty.bean;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableMap;
