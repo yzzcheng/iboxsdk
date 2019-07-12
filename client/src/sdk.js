@@ -16,7 +16,7 @@ sendMsgToNative
 
 Native.registry(Native.INIT, (native) => {
     Native.show();
-    componentController.changeView('login');
+    componentController.changeView('loginV2');
     native.sendMsgToNative(Native.INIT, {
         [Native.STATUS]: 200
     });
@@ -37,23 +37,31 @@ Native.registry(Native.INIT, (native) => {
 // Native.resize();
 
 Native.registry(Native.LOGIN, (native) => {
-    Native.show();
-    componentController.changeView('login');
+
+    componentController.changeView('loginV2', () => {
+        Native.show();
+    });
 });
 
 Native.registry(Native.ORDER_CREATE, (native) => {
     Native.show();
-    componentController.changeView('payChannel');
+    componentController.changeView('payChannel', () => {
+
+    });
 });
 
 Native.registry(Native.OPEN_ACCOUNT_CENTER, (native) => {
-    Native.show();
-    componentController.changeView('userCenter');
+
+    componentController.changeView('userCenter', () => {
+        Native.show();
+    });
 });
 
 Native.registry(Native.OPEN_COSTOMER_CENTER, (native) => {
-    Native.show();
-    componentController.changeView('customCenter');
+
+    componentController.changeView('customCenter', () => {
+        Native.show();
+    });
 });
 
 
@@ -65,31 +73,31 @@ export default class APP extends Component {
         super(props);
         this.state = this.initState();
         device.setAssertPath(props.assert_path);
-       
+
     }
 
     initState() {
         return {
             view: 'login',
             component: null,
-            width:0,
-            height:0,
+            width: 0,
+            height: 0,
         };
     }
 
-    changeView(view) {
-        let width = 0,height = 0;
-        if(view.size){
-            if(view.size.full){
-                width = device.width - device.pxTodp(65)*2;
-                height = device.height- device.pxTodp(65)*2;
-            }else {
+    changeView(view, callback) {
+        let width = 0, height = 0;
+        if (view.size) {
+            if (view.size.full) {
+                width = device.width - device.pxTodp(65) * 2;
+                height = device.height - device.pxTodp(65) * 2;
+            } else {
                 width = device.pxTodp(view.size.width);
                 height = device.pxTodp(view.size.height);
             }
-            
-            Native.resize(width,height);
-        }else {
+
+            Native.resize(width, height);
+        } else {
             width = null;
             height = null;
         }
@@ -98,12 +106,14 @@ export default class APP extends Component {
             component: view.component,
             width,
             height
+        }, () => {
+            if (callback) callback();
         });
     }
 
     componentWillMount() {
-        componentController.addListener((view) => {
-            this.changeView(view);
+        componentController.addListener((view,callback) => {
+            this.changeView(view,callback);
         });
     }
 
@@ -121,9 +131,9 @@ export default class APP extends Component {
         GoogleService.launchToApp('com.bdgames.xmyxwno1');
     }
     render() {
-        const { component: Component,width,height } = this.state;
+        const { component: Component, width, height } = this.state;
         return (
-            <View style={{ backgroundColor: 'rgba(255,255,255,0.9)', borderRadius: 5 ,flex:1 }} >
+            <View style={{ backgroundColor: 'rgba(255,255,255,0.9)', borderRadius: 5, flex: 1 }} >
                 {Component ? <Component width={width} height={height} /> : null}
             </View>
         );

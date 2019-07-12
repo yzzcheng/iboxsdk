@@ -8,6 +8,9 @@ import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustConfig;
 import com.adjust.sdk.AdjustEvent;
 import com.iboxsdk.singleton.IBoxSDKContext;
+import com.iboxsdk.utils.ResourceUtils;
+
+import java.util.Map;
 
 public class AdjustService {
 
@@ -15,7 +18,7 @@ public class AdjustService {
 
     public void init(){
         final Activity activity = IBoxSDKContext.getInstance().getActivity();
-        String appToken = "{YourAppToken}";
+        String appToken = ResourceUtils.getString(activity,"adjust_app_token");
         String environment = AdjustConfig.ENVIRONMENT_SANDBOX;
         AdjustConfig config = new AdjustConfig(activity, appToken, environment);
         Adjust.onCreate(config);
@@ -54,5 +57,27 @@ public class AdjustService {
 
             }
         });
+
+    }
+
+    public void trackEvent(String eventName,Map<String,Object> params){
+        final Activity activity = IBoxSDKContext.getInstance().getActivity();
+        String eventToken = ResourceUtils.getString(activity,eventName);
+        AdjustEvent event = new AdjustEvent(eventToken);
+        for(Map.Entry<String,Object> item : params.entrySet()){
+            event.addCallbackParameter(item.getKey(),item.getValue().toString());
+        }
+        Adjust.trackEvent(event);
+    }
+
+    public void trackOrderEvent(String eventName,String currency,double money,Map<String,Object> params){
+        final Activity activity = IBoxSDKContext.getInstance().getActivity();
+        String eventToken = ResourceUtils.getString(activity,eventName);
+        AdjustEvent event = new AdjustEvent(eventToken);
+        for(Map.Entry<String,Object> item : params.entrySet()){
+            event.addCallbackParameter(item.getKey(),item.getValue().toString());
+        }
+        event.setRevenue(money,currency);
+        Adjust.trackEvent(event);
     }
 }

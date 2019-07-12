@@ -3,10 +3,13 @@ package com.iboxsdk.react;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.WritableMap;
+import com.iboxsdk.consts.EventParam;
 import com.iboxsdk.singleton.IBoxSDKContext;
 import com.iboxsdk.singleton.IBoxSDKService;
 import com.iboxsdk.thirdparty.bean.GoogleAccountInfo;
@@ -56,8 +59,11 @@ public class ReactGoogleService extends ReactContextBaseJavaModule {
             }
 
             @Override
-            public void error() {
-
+            public void error(String message) {
+                WritableMap map = Arguments.createMap();
+                map.putInt(EventParam.STATUS,400);
+                map.putString(EventParam.MESSAGE,message);
+                callback.invoke(map);
             }
         });
     }

@@ -4,10 +4,14 @@ buildscript {
         maven { url 'https://dl.bintray.com/iboxzhang/IBoxSDK' }
         jcenter()
         google()
+        flatDir {
+            dirs 'libs'
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.2'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+'
+        classpath 'com.google.gms:google-services:4.2.0'
     }
 }
 
@@ -21,6 +25,9 @@ allprojects {
 //            url "$rootDir/../node_modules/react-native/android"
 //        }
         google()
+        flatDir {
+            dirs 'libs'
+        }
 
 
     }

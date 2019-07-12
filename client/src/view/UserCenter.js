@@ -66,7 +66,7 @@ export default class UserCenter extends Component {
               <TouchableWithoutFeedback onPress={this.changeView.bind(this,'chargeList')}>
                 <Image style={{ height: device.pxTodp(80), width: device.pxTodp(80) }} source={device.getAssert('usercenter/i-1.png')} />
               </TouchableWithoutFeedback>
-              <Text style={{ color: '#525252',textAlign:'center' }} >充值记录</Text>
+              <Text style={Styles.actionText} >充值记录</Text>
             </View>
 
             <View style={Styles.actionItem}>

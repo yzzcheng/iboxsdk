@@ -13,6 +13,10 @@ import ProductDetail from './view/PayComponents/ProductDetail'
 import ChargeList from './view/PayComponents/ChargeList'
 
 
+
+import LoginV2 from './view/LoginV2'
+
+
 const componentList = [
     {
         componentName: 'login',
@@ -103,6 +107,13 @@ const componentList = [
             width:730,
             height:670
         }
+    },{
+        componentName:'loginV2',
+        component:LoginV2,
+        size:{
+            width:320,
+            height:240
+        }
     }
 ];
 
@@ -112,11 +123,11 @@ export const componentController = {
     addListener:function(callback){
        this.event = callback;
     },
-    changeView(view){
+    changeView(view,callback){
         if(this.event){
             for(var i = 0;i<componentList.length;i++){
                 if(componentList[i].componentName === view) {
-                    this.event(componentList[i]);
+                    this.event(componentList[i],callback);
                 }
             }
             

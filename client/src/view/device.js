@@ -10,13 +10,25 @@ const hDesignSize = {
     width: 750
 };
 
-let designSize = vDesignSize;
+const vDesignSizeV2 = {
+    height: 375,
+    width: 810
+};
 
-if (width > height) designSize = vDesignSize;
-else designSize = hDesignSize;
+const hDesignSizeV2 = {
+    height: 810,
+    width : 375
+};
+
+
+let designSize = hDesignSizeV2;
+
+if (width > height) designSize = vDesignSizeV2;
+else designSize = hDesignSizeV2;
 
 
 let devAssertPath = 'iboxsdk/src/res/img/';
+let devAssertV2Path = 'iboxsdk/src/res/img_v2/'
 let assertPath = 'file:/data/user/0/com.mythsgame.bmpfbowq/files/img/';
 const assertMap = {
     ['login/MG-logo.png']: require(devAssertPath + 'login/MG-logo.png'),
@@ -51,11 +63,20 @@ const assertMap = {
     ['guest.png']: require(devAssertPath + 'guest.png'),
     ['loading.gif']: require(devAssertPath + 'loading.gif'),
     ['logo.png']: require(devAssertPath + 'logo.png'),
-    ['password.png']: require(devAssertPath + 'password.png'),
     ['platform.png']: require(devAssertPath + 'platform.png'),
+    ['password.png']: require(devAssertPath + 'password.png'),
     ['return.png']: require(devAssertPath + 'return.png'),
     ['user.png']: require(devAssertPath + 'user.png'),
 }
+
+
+const assertV2Map = {
+    ['back.png']:require(devAssertV2Path + 'back.png'),
+    ['close.png']:require(devAssertV2Path + 'close.png'),
+    ['lock.png']:require(devAssertV2Path + 'lock.png'),
+    ['people.png']:require(devAssertV2Path + 'people.png'),
+    ['unfold.png']:require(devAssertV2Path + 'unfold.png'),
+};
 
 export default {
     height: height,
@@ -67,6 +88,15 @@ export default {
     getAssert(name) {
         if(this.isDebug()){
             return assertMap[name];
+        } else {
+            return {
+                uri:"file:" + this.assertPath + name
+            };
+        }
+    },
+    getAssertV2(name) {
+        if(this.isDebug()){
+            return assertV2Map[name];
         } else {
             return {
                 uri:"file:" + this.assertPath + name

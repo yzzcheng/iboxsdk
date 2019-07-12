@@ -24,6 +24,7 @@ public class GoogleLoginService implements ActivityResult {
     public void init(){
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
+                .requestId()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(IBoxSDKContext.getInstance().getActivity(), gso);
     }
@@ -44,10 +45,12 @@ public class GoogleLoginService implements ActivityResult {
                 accountInfo.setEmail(account.getEmail());
                 accountInfo.setId(account.getId());
                 accountInfo.setName(account.getDisplayName());
-                accountInfo.setImageUrl(account.getPhotoUrl().toString());
+                if(account.getPhotoUrl() != null) {
+                    accountInfo.setImageUrl(account.getPhotoUrl().toString());
+                }
                 signInCallBack.success(accountInfo);
             }catch (ApiException e){
-                signInCallBack.error();
+                signInCallBack.error(e.getMessage());
             }
         }
         }

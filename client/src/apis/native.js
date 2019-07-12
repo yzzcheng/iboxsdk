@@ -76,6 +76,9 @@ export default {
     googleDoPlusPay(productName,action){
         GoogleService.startPlusPayment(productName,action);
     },
+    googleLogin(callback){
+        GoogleService.googleLogin(callback);
+    },
     getAppEnv(callback){
         IBoxEnvironment.getEnv(callback);
     },

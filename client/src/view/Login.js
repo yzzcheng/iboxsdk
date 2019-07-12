@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NativeModules, Text, View, TouchableWithoutFeedback, Image } from 'react-native';
 import Apis from '../apis'
+import Native from '../apis/native'
 import Radio from './components/Radio'
 import { componentController } from '../viewState'
 import device from './device'
@@ -61,6 +62,12 @@ export default class Login extends Component {
     componentController.changeView('platformLogin');
   }
 
+  onGoogleLogin(){
+    Native.googleLogin((msg)=>{
+      console.log(msg);
+    })
+  }
+
   render() {
 
     return (
@@ -95,7 +102,7 @@ export default class Login extends Component {
                 <Text style={Styles.loginText}>FaceBook</Text>
               </View>
               <View style={Styles.iconItem}>
-                <TouchableWithoutFeedback onPress={this.onFacebookLogin.bind(this)}>
+                <TouchableWithoutFeedback onPress={this.onGoogleLogin.bind(this)}>
                   <Image style={Styles.loginIcon} source={device.getAssert('login/google-icon.png')} />
                 </TouchableWithoutFeedback>
                 <Text style={Styles.loginText}>Google</Text>

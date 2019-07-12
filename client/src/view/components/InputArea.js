@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, Image,TouchableWithoutFeedback } from 'react-native';
 import device from '../device'
+import {extendStyle} from '../../res/styles/common_v2'
 export default class InputField extends Component {
 
     constructor(props){

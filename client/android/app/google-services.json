@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "1022773316254",
+    "firebase_url": "https://test-b65ba.firebaseio.com",
+    "project_id": "test-b65ba",
+    "storage_bucket": "test-b65ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1022773316254:android:237bb721ea68863c",
+        "android_client_info": {
+          "package_name": "com.ibox.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1022773316254-2jd20vrnvfkb1kr43hc30q1m8r9o97d2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ibox.test",
+            "certificate_hash": "e3c8dae82f7221d05da29be15f114f021b850892"
+          }
+        },
+        {
+          "client_id": "1022773316254-cej53n2audnmnan2uepounr3a2ahvqnb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ibox.test",
+            "certificate_hash": "da062900727e5c2f047fde2281b7617f9f078c46"
+          }
+        },
+        {
+          "client_id": "1022773316254-td4g7e9car2dndjlvmfe51pcj6tfm79l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYXY8yhudyyIzXkAts4KiCGtNZdnaEhzo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1022773316254-65s2blv4bohs00cfb4m0o6kfo056i0b5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

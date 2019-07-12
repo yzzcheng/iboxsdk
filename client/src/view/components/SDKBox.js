@@ -26,7 +26,7 @@ export default class SDKBox extends Component {
             <View style={{ backgroundColor: '#FFFFFF', alignItems: 'center', justifyContent: 'center', shadowColor: '#E8E8E8' }}>
                 <View style={{ height: device.pxTodp(100), paddingLeft: device.pxTodp(50), paddingRight: device.pxTodp(50), flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                     <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                        <TouchableWithoutFeedback onPress={this.back.bind(this)}>
+                        <TouchableWithoutFeedback onPressIn={this.back.bind(this)}>
                             <Image style={{ width: device.pxTodp(40), height: device.pxTodp(40) }} source={device.getAssert('return.png')} />
                         </TouchableWithoutFeedback>
                     </View>

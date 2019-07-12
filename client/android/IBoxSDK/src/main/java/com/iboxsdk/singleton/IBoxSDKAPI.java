@@ -25,8 +25,6 @@ public class IBoxSDKAPI {
     }
 
     public static void debugTools(Activity activity){
-        Intent intent = new Intent();
-        intent.setClass(activity, DevSettingsActivity.class);
-        activity.startActivity(intent);
+        IBoxReactView.getInstance().getReactView().showDevDialog();
     }
 }
