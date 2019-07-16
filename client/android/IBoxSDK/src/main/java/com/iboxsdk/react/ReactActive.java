@@ -3,6 +3,7 @@ package com.iboxsdk.react;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -13,6 +14,7 @@ import com.facebook.react.ReactActivityDelegate;
 
 public class ReactActive extends Dialog {
 
+    View contentView;
 
     public ReactActive(Context context) {
         super(context);
@@ -23,6 +25,18 @@ public class ReactActive extends Dialog {
         attr.width = ViewGroup.LayoutParams.WRAP_CONTENT;
         attr.gravity = Gravity.CENTER;
         this.setCancelable(false);
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        this.contentView.requestFocus();
+    }
+
+    @Override
+    public void setContentView( View view) {
+        super.setContentView(view);
+        this.contentView = view;
     }
 
     @Override

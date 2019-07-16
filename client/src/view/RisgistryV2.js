@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NativeModules, Text, View, TouchableWithoutFeedback, Image } from 'react-native';
+import { Text, View } from 'react-native';
 import Apis from '../apis'
 import SDKBox from './components/SDKBoxV2'
 import IBoxButton from './components/Button'
@@ -24,21 +24,18 @@ export default class LoginV2 extends Component {
         };
     }
 
-    registry(){
-        componentController.changeView('registryV2')
-    }
-
     render() {
 
         return (
-            <SDKBox title="平台登录" >
+            <SDKBox title="注册" style={{height: device.pxTodp(290),flex:1}}>
                 <View style={extendStyle(Common.margin_20)}>
                     <InputAreaV2 style={Common.margin_bottom_20} leftIcon={device.getAssertV2('people.png')} rightIcon={device.getAssertV2('unfold.png')} placeholder="用户名/电话号" placeholderTextColor="rgb(153,153,153)" />
                     <InputAreaV2 style={Common.margin_bottom_20} leftIcon={device.getAssertV2('lock.png')} placeholder="密码" placeholderTextColor="rgb(153,153,153)" />
-                    <IBoxButton text="登录" style={extendStyle(Common.margin_left_20, Common.margin_right_20, { backgroundColor: '#F2CC4A', height: device.pxTodp(30) })} textStyle={{ color: 'white' }} />
-                    <View style={extendStyle(Common.margin_left_20, Common.margin_right_20, Common.flex_center, { flexDirection: 'row', height: device.pxTodp(50), justifyContent: 'space-between' })}>
-                        <IBoxButton text="忘记密码?" style={{ height: device.pxTodp(30) }} textStyle={extendStyle(Common.text_tip, { color: '#68696A', fontWeight: '100' })} />
-                        <IBoxButton onPress={this.registry.bind(this)} text="注册" style={{ height: device.pxTodp(30) }} textStyle={extendStyle(Common.text_tip, { color: '#68696A', fontWeight: '100' })} />
+                    <InputAreaV2 style={Common.margin_bottom_20} leftIcon={device.getAssertV2('lock.png')} placeholder="请再次输入密码" placeholderTextColor="rgb(153,153,153)" />
+                    <IBoxButton text="下一步" style={extendStyle(Common.margin_left_20, Common.margin_right_20, { backgroundColor: '#F2CC4A', height: device.pxTodp(30) })} textStyle={{ color: 'white' }} />
+                    <View style={extendStyle(Common.margin_left_20, Common.margin_right_20, Common.flex_center, { flexDirection: 'row', height: device.pxTodp(50)})}>
+                        <Text style={{color:'#666'}}>已有账号</Text>
+                        <IBoxButton text="立即登录" style={{ height: device.pxTodp(30) }} textStyle={extendStyle(Common.text_tip, { color: '#56a9f7', fontWeight: '100' })} />
                     </View>
                 </View>
 

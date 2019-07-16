@@ -12,7 +12,6 @@ export const extendStyle = function () {
         }
 
     }
-    console.log(newStyle);
     return newStyle;
 }
 
@@ -31,11 +30,13 @@ export default StyleSheet.create({
         fontSize: device.pxTodp(14),
         height: device.pxTodp(21),
         lineHeight:device.pxTodp(21),
+        color:'#000000'
     },
     text_tip: {
         fontSize: device.pxTodp(12),
         height: device.pxTodp(18),
         lineHeight:device.pxTodp(18),
+        color:'#cccccc'
     },
     flex_center:{
         justifyContent: 'center',

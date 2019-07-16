@@ -16,7 +16,7 @@ sendMsgToNative
 
 Native.registry(Native.INIT, (native) => {
     Native.show();
-    componentController.changeView('loginV2');
+    componentController.changeView('bindPhone');
     native.sendMsgToNative(Native.INIT, {
         [Native.STATUS]: 200
     });
@@ -38,7 +38,7 @@ Native.registry(Native.INIT, (native) => {
 
 Native.registry(Native.LOGIN, (native) => {
 
-    componentController.changeView('loginV2', () => {
+    componentController.changeView('bindPhone', () => {
         Native.show();
     });
 });
@@ -89,8 +89,8 @@ export default class APP extends Component {
         let width = 0, height = 0;
         if (view.size) {
             if (view.size.full) {
-                width = device.width - device.pxTodp(65) * 2;
-                height = device.height - device.pxTodp(65) * 2;
+                width = device.width;
+                height = device.height;
             } else {
                 width = device.pxTodp(view.size.width);
                 height = device.pxTodp(view.size.height);

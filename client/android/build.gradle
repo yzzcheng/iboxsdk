@@ -2,8 +2,9 @@
 buildscript {
     repositories {
         maven { url 'https://dl.bintray.com/iboxzhang/IBoxSDK' }
-        jcenter()
-        google()
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        //google()
+        maven { url 'https://maven.aliyun.com/repository/google' }
         flatDir {
             dirs 'libs'
         }
@@ -19,12 +20,16 @@ allprojects {
 
     repositories {
         maven { url 'https://dl.bintray.com/iboxzhang/IBoxSDK' }
-        jcenter()
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        //google()
+        maven { url 'https://maven.aliyun.com/repository/google' }
+//        jcenter()
 //        maven {
 //            // All of React Native (JS, Android binaries) is installed from npm
 //            url "$rootDir/../node_modules/react-native/android"
 //        }
-        google()
+        
+//        google()
         flatDir {
             dirs 'libs'
         }

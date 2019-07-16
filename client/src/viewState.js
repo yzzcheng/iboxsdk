@@ -15,7 +15,11 @@ import ChargeList from './view/PayComponents/ChargeList'
 
 
 import LoginV2 from './view/LoginV2'
-
+import RisgistryV2 from './view/RisgistryV2'
+import AccountList from './view/LoginComponents/AccountList'
+import EditAccount from './view/LoginComponents/EditAccount'
+import UserCenterV2 from './view/UserCenterV2'
+import BindPhone from './view/UserCenter/BindPhone'
 
 const componentList = [
     {
@@ -113,6 +117,39 @@ const componentList = [
         size:{
             width:320,
             height:240
+        }
+    },{
+        componentName:'registryV2',
+        component:RisgistryV2,
+        size:{
+            width:320,
+            height:290
+        }
+    },{
+        componentName:'accountList',
+        component:AccountList,
+        size:{
+            width:320,
+            height:250
+        }
+    },{
+        componentName:'editAccount',
+        component:EditAccount,
+        size:{
+            width:320,
+            height:250
+        }
+    },{
+        componentName:'userCenterV2',
+        component:UserCenterV2,
+        size:{
+            full:true,
+        }
+    },{
+        componentName:'bindPhone',
+        component:BindPhone,
+        size:{
+            full:true,
         }
     }
 ];

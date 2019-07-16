@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, Image, TouchableWithoutFeedback } from 'react-native';
 import { extendStyle } from '../../res/styles/common_v2'
-
+import device from '../device'
 export default class IBoxButton extends Component {
 
 
@@ -13,10 +13,11 @@ export default class IBoxButton extends Component {
     }
 
     render() {
-        const { style, text, textStyle } = this.props;
+        const { style, text, textStyle, icon,children } = this.props;
         return <TouchableWithoutFeedback onPress={this.onPress.bind(this)}>
-            <View style={extendStyle({ justifyContent: 'center', alignItems: 'center' }, style)}>
-                <Text style={extendStyle({ textAlign: 'center' }, textStyle)}>{text}</Text>
+            <View style={extendStyle({ justifyContent: 'center', alignItems: 'center',flexDirection:'row' }, style)}>
+                {icon?<Image style={{ width: device.pxTodp(14), height: device.pxTodp(14) }} source={icon} />: null}
+                <Text style={extendStyle({ textAlign: 'center' }, textStyle)}>{text?text:children}</Text>
             </View>
         </TouchableWithoutFeedback>;
     }

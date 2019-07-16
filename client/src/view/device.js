@@ -76,6 +76,19 @@ const assertV2Map = {
     ['lock.png']:require(devAssertV2Path + 'lock.png'),
     ['people.png']:require(devAssertV2Path + 'people.png'),
     ['unfold.png']:require(devAssertV2Path + 'unfold.png'),
+    ['logo.png']:require(devAssertV2Path + 'logo.png'),
+    ['close-gray.png']:require(devAssertV2Path + 'close-gray.png'),
+    ['people_fill.png']:require(devAssertV2Path + 'people_fill.png'),
+    ['time.png']:require(devAssertV2Path + 'time.png'),
+    ['delete.png']:require(devAssertV2Path + 'delete.png'),
+    ['add.png']:require(devAssertV2Path + 'add.png'),
+    ['delete-2.png']:require(devAssertV2Path + 'delete-2.png'), 
+    ['lock_gray.png']:require(devAssertV2Path + 'lock_gray.png'),
+    ['mobile_fill.png']:require(devAssertV2Path + 'mobile_fill.png'),
+    ['community_fill.png']:require(devAssertV2Path + 'community_fill.png'),
+    ['mail.png']:require(devAssertV2Path + 'mail.png'),
+    ['question_fill.png']:require(devAssertV2Path + 'question_fill.png'),
+    ['array-down.png']:require(devAssertV2Path + 'array-down.png'),
 };
 
 export default {
@@ -83,6 +96,7 @@ export default {
     width: width,
     assertPath:'',
     pxTodp(px) {
+        console.log(this.width,px,designSize.width);
         return this.width * px / designSize.width;
     },
     getAssert(name) {

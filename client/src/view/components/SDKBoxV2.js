@@ -23,7 +23,7 @@ export default class SDKBoxV2 extends Component {
 
     render() {
         const { style, title, children } = this.props;
-        return <View style={extendStyle({ height: device.pxTodp(240), style })}>
+        return <View style={extendStyle({flex:1},style)}>
             <View style={{ height: device.pxTodp(40), backgroundColor: 'rgb(84,168,247)', alignItems: 'center', justifyContent: 'center', shadowColor: '#E8E8E8' }}>
                 <View style={{ height: device.pxTodp(30), flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                     <View style={{ alignItems: 'center', width: device.pxTodp(30), justifyContent: 'center' }}>
@@ -42,7 +42,7 @@ export default class SDKBoxV2 extends Component {
                 </View>
             </View>
 
-            <View style={extendStyle({ flex: 1, backgroundColor: '#F5F5F5' })}>{children}</View>
+            <View style={extendStyle({ flex: 1 })}>{children}</View>
         </View>;
     }
 }
