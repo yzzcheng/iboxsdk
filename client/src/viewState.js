@@ -20,7 +20,10 @@ import AccountList from './view/LoginComponents/AccountList'
 import EditAccount from './view/LoginComponents/EditAccount'
 import UserCenterV2 from './view/UserCenterV2'
 import BindPhone from './view/UserCenter/BindPhone'
-
+import ModifyPhone from './view/UserCenter/ModifyPhone'
+import BindEmail from './view/UserCenter/BindEmail'
+import ModifyEmailByPhone from './view/UserCenter/ModifyEmailByPhone'
+import ModifyPassword from './view/UserCenter/ModifyPassword'
 const componentList = [
     {
         componentName: 'login',
@@ -148,6 +151,30 @@ const componentList = [
     },{
         componentName:'bindPhone',
         component:BindPhone,
+        size:{
+            full:true,
+        }
+    },{
+        componentName:'modifyPhone',
+        component:ModifyPhone,
+        size:{
+            full:true,
+        }
+    },{
+        componentName:'bindEmail',
+        component:BindEmail,
+        size:{
+            full:true,
+        }
+    },{
+        componentName:'modifyEmailByPhone',
+        component:ModifyEmailByPhone,
+        size:{
+            full:true,
+        }
+    },{
+        componentName:'modifyPassword',
+        component:ModifyPassword,
         size:{
             full:true,
         }

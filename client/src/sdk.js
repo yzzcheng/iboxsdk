@@ -16,7 +16,7 @@ sendMsgToNative
 
 Native.registry(Native.INIT, (native) => {
     Native.show();
-    componentController.changeView('bindPhone');
+    componentController.changeView('userCenterV2');
     native.sendMsgToNative(Native.INIT, {
         [Native.STATUS]: 200
     });
@@ -38,7 +38,7 @@ Native.registry(Native.INIT, (native) => {
 
 Native.registry(Native.LOGIN, (native) => {
 
-    componentController.changeView('bindPhone', () => {
+    componentController.changeView('userCenterV2', () => {
         Native.show();
     });
 });

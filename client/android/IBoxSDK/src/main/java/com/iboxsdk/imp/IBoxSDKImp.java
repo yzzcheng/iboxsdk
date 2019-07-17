@@ -11,6 +11,7 @@ import com.iboxsdk.abstracts.InitCallback;
 import com.iboxsdk.abstracts.LoginCallback;
 import com.iboxsdk.abstracts.PaymentCallback;
 import com.iboxsdk.bean.InitEvent;
+import com.iboxsdk.bean.LoginEvent;
 import com.iboxsdk.bean.SDKPayment;
 import com.iboxsdk.bean.SDKPaymentEvent;
 import com.iboxsdk.bean.SDKRoleInfo;
@@ -68,15 +69,12 @@ public class IBoxSDKImp implements IBoxSDK {
     }
 
     @Override
-    public void login(Activity activity, LoginCallback callback) {
+    public void login(Activity activity,int type, LoginCallback callback) {
         if(IBoxSDKContext.getInstance().isInit()){
             IBoxEventDispatcher.getInstance().addListener(EventConsts.LOGIN, callback);
-            InitEvent event = new InitEvent();
-            Integer appId = IBoxSDKContext.getInstance().getAppId();
-            event.setPackageName(activity.getPackageName());
-            event.setAppId(appId);
+            LoginEvent event = new LoginEvent();
+            event.setAccountType(type);
             IBoxReactView.getInstance().getReactView().emitter().emit(EventConsts.LOGIN, event.toMap());
-
             Logger.d("login success");
         }else {
             callback.Error(ErrorCode.NOT_INIT,"NOT INIT");

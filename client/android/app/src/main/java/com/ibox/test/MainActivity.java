@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iboxsdk.abstracts.IBoxSDK;
 import com.iboxsdk.abstracts.InitCallback;
 import com.iboxsdk.abstracts.LoginCallback;
 import com.iboxsdk.abstracts.PaymentCallback;
@@ -83,7 +84,7 @@ public class MainActivity extends Activity {
     }
 
     protected void login(){
-        IBoxSDKAPI.getInstance().getSDK().login(this, new LoginCallback() {
+        IBoxSDKAPI.getInstance().getSDK().login(this, IBoxSDK.PLATFORM, new LoginCallback() {
             @Override
             public void LoginSuccess(SDKUser user) {
                 Toast.makeText(MainActivity.this, "Hellow" + user.getUserName(), Toast.LENGTH_SHORT).show();

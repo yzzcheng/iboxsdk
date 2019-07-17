@@ -1,5 +1,7 @@
-import { Dimensions,NativeModules } from 'react-native'
+import { Dimensions,NativeModules,PixelRatio } from 'react-native'
 const { width, height } = Dimensions.get('window')
+
+const pxPerdp = PixelRatio.get();
 const vDesignSize = {
     width: 1334,
     height: 750
@@ -89,15 +91,20 @@ const assertV2Map = {
     ['mail.png']:require(devAssertV2Path + 'mail.png'),
     ['question_fill.png']:require(devAssertV2Path + 'question_fill.png'),
     ['array-down.png']:require(devAssertV2Path + 'array-down.png'),
+    ['icon-diamond.png']:require(devAssertV2Path + 'icon-diamond.png'),
 };
 
 export default {
     height: height,
     width: width,
+    pxPerdp:pxPerdp,
     assertPath:'',
     pxTodp(px) {
         console.log(this.width,px,designSize.width);
         return this.width * px / designSize.width;
+    },
+    dpTopx(dp){
+        return dp/this.pxPerdp;
     },
     getAssert(name) {
         if(this.isDebug()){

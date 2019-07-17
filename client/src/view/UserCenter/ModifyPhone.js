@@ -24,7 +24,7 @@ const Styles = StyleSheet.create({
 });
 
 
-export default class BindPhone extends Component {
+export default class ModifyPhone extends Component {
 
     constructor(props) {
         super(props);
@@ -86,14 +86,14 @@ export default class BindPhone extends Component {
 
             }, 1000)
         })
-
-
     }
+
     componentWillUnmount(){
         if(this.timer) {
             clearInterval(this.timer);
         }
     }
+
     back(){
         componentController.changeView('userCenterV2')
     }
@@ -101,21 +101,9 @@ export default class BindPhone extends Component {
     render() {
         const { selectZoneNum, visible, time } = this.state;
         console.log(visible);
-        return <SDKBox title="绑定手机" back={this.back.bind(this)}>
+        return <SDKBox title="更换手机" back={this.back.bind(this)}>
             <View style={Styles.contain}>
-                <Text style={extendStyle(Common.margin_bottom_20, Styles.textTip)}>请输入手机号进行绑定</Text>
-                <View style={extendStyle(Common.margin_bottom_20, { flexDirection: 'row' })}>
-                    <IBoxPicker onOpen={this.onOpen.bind(this)} style={extendStyle(Styles.inputStyle, { borderColor: '#cdcdcd', borderWidth: device.dpTopx(1), borderStyle: 'solid', width: device.pxTodp(50) })} lable={selectZoneNum} visible={visible} >
-                        <View style={Common.margin_30}>
-                            <FlatList
-                                data={[{ key: '+86' }, { key: '+87' }]}
-                                renderItem={this.renderItem.bind(this)}
-                            />
-                        </View>
-
-                    </IBoxPicker>
-                    <InputArea style={extendStyle(Styles.inputStyle, { width: device.pxTodp(540) })} placeholder="请输入电话号" placeholderTextColor="#757575"></InputArea>
-                </View>
+                <Text style={extendStyle(Common.margin_bottom_20, Styles.textTip)}>您正在更换帐号13265****623</Text>
                 <View style={extendStyle(Common.margin_bottom_20, { flexDirection: 'row' })}>
                     <InputArea style={extendStyle(Styles.inputStyle, { width: device.pxTodp(290) })} placeholder="请输入验证码" placeholderTextColor="#757575"></InputArea>
                     <View style={extendStyle(Common.margin_left_20, Common.margin_right_20, Common.flex_center)}>
@@ -128,6 +116,20 @@ export default class BindPhone extends Component {
                         <IBoxButton style={{ backgroundColor: '#54a8f7', width: device.pxTodp(100) }}>获取验证码</IBoxButton>
                     </View>
                 </View>
+                <Text style={extendStyle(Common.margin_bottom_20, Styles.textTip)}>请输入新的手机号码</Text>
+                <View style={extendStyle(Common.margin_bottom_20, { flexDirection: 'row' })}>
+                    <IBoxPicker onOpen={this.onOpen.bind(this)} style={extendStyle(Styles.inputStyle, { borderColor: '#cdcdcd', borderWidth: device.dpTopx(1), borderStyle: 'solid', width: device.pxTodp(50) })} lable={selectZoneNum} visible={visible} >
+                        <View style={Common.margin_30}>
+                            <FlatList
+                                data={[{ key: '+86' }, { key: '+87' }]}
+                                renderItem={this.renderItem.bind(this)}
+                            />
+                        </View>
+
+                    </IBoxPicker>
+                    <InputArea style={extendStyle(Styles.inputStyle, { width: device.pxTodp(540) })} placeholder="请输入电话号" placeholderTextColor="#757575"></InputArea>
+                </View>
+
                 <View style={extendStyle(Common.margin_bottom_20, { flexDirection: 'row' })}>
                     <IBoxButton onPress={this.onBind.bind(this)} style={{ backgroundColor: '#f2cc4a', height: device.pxTodp(30), width: device.pxTodp(600) }}>下一步</IBoxButton>
                 </View>

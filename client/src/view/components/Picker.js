@@ -39,9 +39,16 @@ export default class Picker extends Component {
     }
 
     show() {
-        this.setState({
-            visible: true
-        })
+
+        const { onOpen } = this.props;
+        if (onOpen) {
+            onOpen();
+        } else {
+            this.setState({
+                visible: true
+            })
+        }
+
     }
 
     render() {
@@ -49,7 +56,7 @@ export default class Picker extends Component {
         const { style, children, lable } = this.props;
         return <View style={extendStyle({ alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }, style)}>
             <TouchableWithoutFeedback onPress={this.show.bind(this)}>
-                <View style={{ alignItems: 'center', justifyContent: 'center',flexDirection:'row' }} >
+                <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }} >
                     <Text style={{ color: 'black' }}>{lable}</Text>
                     <Image style={{ height: device.pxTodp(12), width: device.pxTodp(12) }} source={device.getAssertV2('array-down.png')} />
                 </View>
