@@ -101,14 +101,14 @@ export default class ModifyPassword extends Component {
     render() {
         const { selectZoneNum, visible, time } = this.state;
         console.log(visible);
-        return <SDKBox title="绑定手机" back={this.back.bind(this)}>
+        return <SDKBox title="修改密码" back={this.back.bind(this)}>
             <View style={Styles.contain}>
                 <Text style={extendStyle(Common.margin_bottom_20, Styles.textTip)}>请输入已绑定手机号的验证码</Text>
                 <View style={extendStyle(Common.margin_bottom_20, { flexDirection: 'row' })}>
-                    <InputArea style={extendStyle(Styles.inputStyle, { width: device.pxTodp(540) })} placeholder="请输入电话号" placeholderTextColor="#757575"></InputArea>
+                    <InputArea style={extendStyle(Styles.inputStyle, { flex:1 })} placeholder="请输入电话号" placeholderTextColor="#757575"></InputArea>
                 </View>
                 <View style={extendStyle(Common.margin_bottom_20, { flexDirection: 'row' })}>
-                    <InputArea style={extendStyle(Styles.inputStyle, { width: device.pxTodp(290) })} placeholder="请输入验证码" placeholderTextColor="#757575"></InputArea>
+                    <InputArea style={extendStyle(Styles.inputStyle, { flex:1 })} placeholder="请输入验证码" placeholderTextColor="#757575"></InputArea>
                     <View style={extendStyle(Common.margin_left_20, Common.margin_right_20, Common.flex_center)}>
                         <Text style={{ color: '#999999' }}>({time}s)</Text>
                     </View>
@@ -121,13 +121,13 @@ export default class ModifyPassword extends Component {
                 </View>
                 <Text style={extendStyle(Common.margin_bottom_20, Styles.textTip)}>设置新密码</Text>
                 <View style={extendStyle(Common.margin_bottom_20, { flexDirection: 'row' })}>
-                    <InputArea style={extendStyle(Styles.inputStyle, { width: device.pxTodp(540) })} placeholder="请输入新密码" placeholderTextColor="#757575"></InputArea>
+                    <InputArea style={extendStyle(Styles.inputStyle, { flex:1 })} placeholder="请输入新密码" placeholderTextColor="#757575"></InputArea>
                 </View>
                 <View style={extendStyle(Common.margin_bottom_20, { flexDirection: 'row' })}>
-                    <InputArea style={extendStyle(Styles.inputStyle, { width: device.pxTodp(540) })} placeholder="请在此输入新密码" placeholderTextColor="#757575"></InputArea>
+                    <InputArea style={extendStyle(Styles.inputStyle, { flex:1})} placeholder="请在此输入新密码" placeholderTextColor="#757575"></InputArea>
                 </View>
                 <View style={extendStyle(Common.margin_bottom_20, { flexDirection: 'row' })}>
-                    <IBoxButton onPress={this.onBind.bind(this)} style={{ backgroundColor: '#f2cc4a', height: device.pxTodp(30), width: device.pxTodp(600) }}>下一步</IBoxButton>
+                    <IBoxButton onPress={this.onBind.bind(this)} style={{ backgroundColor: '#f2cc4a', height: device.pxTodp(30),flex:1 }}>下一步</IBoxButton>
                 </View>
             </View>
 

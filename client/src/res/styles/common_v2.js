@@ -34,9 +34,8 @@ export default StyleSheet.create({
     },
     text_tip: {
         fontSize: device.pxTodp(12),
-        height: device.pxTodp(18),
         lineHeight:device.pxTodp(18),
-        color:'#cccccc'
+        color:'#999999'
     },
     flex_center:{
         justifyContent: 'center',

@@ -18,12 +18,19 @@ import LoginV2 from './view/LoginV2'
 import RisgistryV2 from './view/RisgistryV2'
 import AccountList from './view/LoginComponents/AccountList'
 import EditAccount from './view/LoginComponents/EditAccount'
+import GuestAccountTip from './view/LoginComponents/GuestAccountTip'
 import UserCenterV2 from './view/UserCenterV2'
 import BindPhone from './view/UserCenter/BindPhone'
 import ModifyPhone from './view/UserCenter/ModifyPhone'
 import BindEmail from './view/UserCenter/BindEmail'
 import ModifyEmailByPhone from './view/UserCenter/ModifyEmailByPhone'
 import ModifyPassword from './view/UserCenter/ModifyPassword'
+import GuestUpdate from './view/LoginComponents/GuestUpdate'
+import PlatformUpdate from './view/LoginComponents/PlatformUpdate'
+import RegistrySuccess from './view/LoginComponents/RegistrySuccess'
+
+import WebPayView from './view/PayComponents/WebPayView'
+
 const componentList = [
     {
         componentName: 'login',
@@ -175,6 +182,40 @@ const componentList = [
     },{
         componentName:'modifyPassword',
         component:ModifyPassword,
+        size:{
+            full:true,
+        }
+    },{
+        componentName:'guestAccountTip',
+        component:GuestAccountTip,
+        size:{
+            width:320,
+            height:250
+        }
+    },{
+        componentName:'guestUpdate',
+        component:GuestUpdate,
+        size:{
+            width:320,
+            height:175
+        }
+    },{
+        componentName:'platformUpdate',
+        component:PlatformUpdate,
+        size:{
+            width:320,
+            height:270
+        }
+    },{
+        componentName:'registrySuccess',
+        component:RegistrySuccess,
+        size:{
+            width:320,
+            height:150
+        }
+    },{
+        componentName:'webPayView',
+        component:WebPayView,
         size:{
             full:true,
         }

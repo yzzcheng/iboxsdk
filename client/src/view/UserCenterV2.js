@@ -37,7 +37,7 @@ export default class UserCenterV2 extends Component {
                         </View>
                         <Text style={extendStyle(Common.text_tip, { color: '#000000' })}>linlin.zhang</Text>
                     </View>
-                    <View><IBoxButton onPress={this.changeAccount.bind(this)} style={extendStyle(Common.margin_right_min, { borderWidth: device.dpTopx(1), borderStyle: 'solid', borderColor: '#ff3300', width: device.pxTodp(80) })} textStyle={{ color: '#ff3300' }}>切换账号</IBoxButton></View>
+                    <View><IBoxButton onPress={this.changeAccount.bind(this)} style={extendStyle(Common.margin_right_min, { borderWidth: device.dpTopx(1), borderStyle: 'solid', borderColor: '#ff3300', width: device.pxTodp(80),height: device.pxTodp(30) })} textStyle={{ color: '#ff3300' }}>切换账号</IBoxButton></View>
                 </View>
                 <View style={extendStyle(Common.margin_top_20, { flex: 1 })}>
                     <View style={{ marginLeft: device.pxTodp(100), marginRight: device.pxTodp(100), flexWrap: 'wrap', flexDirection: 'row' }}>

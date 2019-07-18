@@ -106,7 +106,7 @@ export default class BindEmail extends Component {
                 <Text style={extendStyle(Common.margin_bottom_20, Styles.textTip)}>您正在设置帐号 1325****35 的密保邮箱，密保邮箱作为解冻、换号等重要手段，无法变更，请谨慎填写</Text>
 
                 <View style={extendStyle(Common.margin_bottom_20, { flexDirection: 'row' })}>
-                    <InputArea style={extendStyle(Styles.inputStyle, { width: device.pxTodp(290) })} placeholder="请输入邮箱" placeholderTextColor="#757575"></InputArea>
+                    <InputArea style={extendStyle(Styles.inputStyle, { flex:1 })} placeholder="请输入邮箱" placeholderTextColor="#757575"></InputArea>
                     <View style={extendStyle(Common.margin_left_20, Common.margin_right_20, Common.flex_center)}>
                         <Text style={{ color: '#999999' }}>({time}s)</Text>
                     </View>
@@ -119,11 +119,11 @@ export default class BindEmail extends Component {
                 </View>
 
                 <View style={extendStyle(Common.margin_bottom_20, { flexDirection: 'row' })}>
-                    <InputArea style={extendStyle(Styles.inputStyle, { width: device.pxTodp(540) })} placeholder="请输入电话号" placeholderTextColor="#757575"></InputArea>
+                    <InputArea style={extendStyle(Styles.inputStyle, { flex:1 })} placeholder="请输入电话号" placeholderTextColor="#757575"></InputArea>
                 </View>
               
                 <View style={extendStyle(Common.margin_bottom_20, { flexDirection: 'row' })}>
-                    <IBoxButton onPress={this.onBind.bind(this)} style={{ backgroundColor: '#f2cc4a', height: device.pxTodp(30), width: device.pxTodp(600) }}>下一步</IBoxButton>
+                    <IBoxButton onPress={this.onBind.bind(this)} style={{ backgroundColor: '#f2cc4a', height: device.pxTodp(30), width: device.pxTodp(600),flex:1 }}>下一步</IBoxButton>
                 </View>
             </View>
 

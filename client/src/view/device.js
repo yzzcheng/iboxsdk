@@ -1,4 +1,4 @@
-import { Dimensions,NativeModules,PixelRatio } from 'react-native'
+import { Dimensions, NativeModules, PixelRatio } from 'react-native'
 const { width, height } = Dimensions.get('window')
 
 const pxPerdp = PixelRatio.get();
@@ -19,7 +19,7 @@ const vDesignSizeV2 = {
 
 const hDesignSizeV2 = {
     height: 810,
-    width : 375
+    width: 375
 };
 
 
@@ -73,61 +73,61 @@ const assertMap = {
 
 
 const assertV2Map = {
-    ['back.png']:require(devAssertV2Path + 'back.png'),
-    ['close.png']:require(devAssertV2Path + 'close.png'),
-    ['lock.png']:require(devAssertV2Path + 'lock.png'),
-    ['people.png']:require(devAssertV2Path + 'people.png'),
-    ['unfold.png']:require(devAssertV2Path + 'unfold.png'),
-    ['logo.png']:require(devAssertV2Path + 'logo.png'),
-    ['close-gray.png']:require(devAssertV2Path + 'close-gray.png'),
-    ['people_fill.png']:require(devAssertV2Path + 'people_fill.png'),
-    ['time.png']:require(devAssertV2Path + 'time.png'),
-    ['delete.png']:require(devAssertV2Path + 'delete.png'),
-    ['add.png']:require(devAssertV2Path + 'add.png'),
-    ['delete-2.png']:require(devAssertV2Path + 'delete-2.png'), 
-    ['lock_gray.png']:require(devAssertV2Path + 'lock_gray.png'),
-    ['mobile_fill.png']:require(devAssertV2Path + 'mobile_fill.png'),
-    ['community_fill.png']:require(devAssertV2Path + 'community_fill.png'),
-    ['mail.png']:require(devAssertV2Path + 'mail.png'),
-    ['question_fill.png']:require(devAssertV2Path + 'question_fill.png'),
-    ['array-down.png']:require(devAssertV2Path + 'array-down.png'),
-    ['icon-diamond.png']:require(devAssertV2Path + 'icon-diamond.png'),
+    ['back.png']: require(devAssertV2Path + 'back.png'),
+    ['close.png']: require(devAssertV2Path + 'close.png'),
+    ['lock.png']: require(devAssertV2Path + 'lock.png'),
+    ['people.png']: require(devAssertV2Path + 'people.png'),
+    ['unfold.png']: require(devAssertV2Path + 'unfold.png'),
+    ['logo.png']: require(devAssertV2Path + 'logo.png'),
+    ['close-gray.png']: require(devAssertV2Path + 'close-gray.png'),
+    ['people_fill.png']: require(devAssertV2Path + 'people_fill.png'),
+    ['time.png']: require(devAssertV2Path + 'time.png'),
+    ['delete.png']: require(devAssertV2Path + 'delete.png'),
+    ['add.png']: require(devAssertV2Path + 'add.png'),
+    ['delete-2.png']: require(devAssertV2Path + 'delete-2.png'),
+    ['lock_gray.png']: require(devAssertV2Path + 'lock_gray.png'),
+    ['mobile_fill.png']: require(devAssertV2Path + 'mobile_fill.png'),
+    ['community_fill.png']: require(devAssertV2Path + 'community_fill.png'),
+    ['mail.png']: require(devAssertV2Path + 'mail.png'),
+    ['question_fill.png']: require(devAssertV2Path + 'question_fill.png'),
+    ['array-down.png']: require(devAssertV2Path + 'array-down.png'),
+    ['icon-diamond.png']: require(devAssertV2Path + 'icon-diamond.png'),
+    ['facebook.png']: require(devAssertV2Path + 'facebook.png'),
 };
 
 export default {
     height: height,
     width: width,
-    pxPerdp:pxPerdp,
-    assertPath:'',
+    pxPerdp: pxPerdp,
+    assertPath: '',
     pxTodp(px) {
-        console.log(this.width,px,designSize.width);
         return this.width * px / designSize.width;
     },
-    dpTopx(dp){
-        return dp/this.pxPerdp;
+    dpTopx(dp) {
+        return dp / this.pxPerdp;
     },
     getAssert(name) {
-        if(this.isDebug()){
+        if (this.isDebug()) {
             return assertMap[name];
         } else {
             return {
-                uri:"file:" + this.assertPath + name
+                uri: "file:" + this.assertPath + name
             };
         }
     },
     getAssertV2(name) {
-        if(this.isDebug()){
+        if (this.isDebug()) {
             return assertV2Map[name];
         } else {
             return {
-                uri:"file:" + this.assertPath + name
+                uri: "file:" + this.assertPath + name
             };
         }
     },
-    setAssertPath(path){
+    setAssertPath(path) {
         this.assertPath = path;
     },
-    isDebug(){
+    isDebug() {
         const { scriptURL } = NativeModules.SourceCode
         const devEvn = scriptURL.split('&')[1]
         return devEvn === 'dev=true'

@@ -16,7 +16,7 @@ sendMsgToNative
 
 Native.registry(Native.INIT, (native) => {
     Native.show();
-    componentController.changeView('userCenterV2');
+    componentController.changeView('webPayView');
     native.sendMsgToNative(Native.INIT, {
         [Native.STATUS]: 200
     });
@@ -38,7 +38,7 @@ Native.registry(Native.INIT, (native) => {
 
 Native.registry(Native.LOGIN, (native) => {
 
-    componentController.changeView('userCenterV2', () => {
+    componentController.changeView('webPayView', () => {
         Native.show();
     });
 });
@@ -52,7 +52,7 @@ Native.registry(Native.ORDER_CREATE, (native) => {
 
 Native.registry(Native.OPEN_ACCOUNT_CENTER, (native) => {
 
-    componentController.changeView('userCenter', () => {
+    componentController.changeView('userCenterV2', () => {
         Native.show();
     });
 });

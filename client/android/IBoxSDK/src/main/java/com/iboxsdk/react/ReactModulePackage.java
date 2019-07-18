@@ -4,6 +4,8 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
+import com.iboxsdk.react.component.webview.RNCWebViewManager;
+import com.iboxsdk.react.component.webview.RNCWebViewModule;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,11 +23,14 @@ public class ReactModulePackage implements ReactPackage {
         modules.add(new ReactGoogleService(reactContext));
         modules.add(new ReactFaceBook(reactContext));
         modules.add(new ReactEnvironment(reactContext));
+        modules.add(new RNCWebViewModule(reactContext));
         return modules;
     }
     @Nonnull
     @Override
     public List<ViewManager> createViewManagers(@Nonnull ReactApplicationContext reactContext) {
-        return Collections.emptyList();
+        List<ViewManager> modules = new ArrayList<>();
+        modules.add(new RNCWebViewManager());
+        return modules;
     }
 }

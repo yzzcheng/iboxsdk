@@ -104,7 +104,7 @@ export default class BindPhone extends Component {
         return <SDKBox title="绑定手机" back={this.back.bind(this)}>
             <View style={Styles.contain}>
                 <Text style={extendStyle(Common.margin_bottom_20, Styles.textTip)}>请输入手机号进行绑定</Text>
-                <View style={extendStyle(Common.margin_bottom_20, { flexDirection: 'row' })}>
+                <View style={extendStyle(Common.margin_bottom_20, { flexDirection: 'row'})}>
                     <IBoxPicker onOpen={this.onOpen.bind(this)} style={extendStyle(Styles.inputStyle, { borderColor: '#cdcdcd', borderWidth: device.dpTopx(1), borderStyle: 'solid', width: device.pxTodp(50) })} lable={selectZoneNum} visible={visible} >
                         <View style={Common.margin_30}>
                             <FlatList
@@ -114,7 +114,7 @@ export default class BindPhone extends Component {
                         </View>
 
                     </IBoxPicker>
-                    <InputArea style={extendStyle(Styles.inputStyle, { width: device.pxTodp(540) })} placeholder="请输入电话号" placeholderTextColor="#757575"></InputArea>
+                    <InputArea style={extendStyle(Styles.inputStyle, { flex:1 })} placeholder="请输入电话号" placeholderTextColor="#757575"></InputArea>
                 </View>
                 <View style={extendStyle(Common.margin_bottom_20, { flexDirection: 'row' })}>
                     <InputArea style={extendStyle(Styles.inputStyle, { width: device.pxTodp(290) })} placeholder="请输入验证码" placeholderTextColor="#757575"></InputArea>
@@ -129,7 +129,7 @@ export default class BindPhone extends Component {
                     </View>
                 </View>
                 <View style={extendStyle(Common.margin_bottom_20, { flexDirection: 'row' })}>
-                    <IBoxButton onPress={this.onBind.bind(this)} style={{ backgroundColor: '#f2cc4a', height: device.pxTodp(30), width: device.pxTodp(600) }}>下一步</IBoxButton>
+                    <IBoxButton onPress={this.onBind.bind(this)} style={{ backgroundColor: '#f2cc4a', height: device.pxTodp(30),flex:1 }}>下一步</IBoxButton>
                 </View>
             </View>
 
