@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { DeviceEventEmitter, NativeModules, View } from 'react-native';
-
-import ComponentList, { componentController } from './viewState'
-import API from './apis'
+import { NativeModules, View } from 'react-native';
+import { componentController } from './viewState'
+import Apis from './apis'
 import Native from './apis/native'
 import device from './view/device'
-const { ReactEventListener, GoogleService, FaceBookService, IBoxEnvironment } = NativeModules;
+import { user as UserStore } from './store'
+const { GoogleService, FaceBookService, IBoxEnvironment } = NativeModules;
 
 /*
 sendMsgToNative
@@ -15,46 +15,97 @@ sendMsgToNative
 */
 
 Native.registry(Native.INIT, (native) => {
-    Native.show();
-    componentController.changeView('webPayView');
-    native.sendMsgToNative(Native.INIT, {
-        [Native.STATUS]: 200
+    API.init().then(data => {
+        componentController.changeView('login');
+        native.sendMsgToNative(Native.INIT, {
+            [Native.STATUS]: 200
+        });
+    }).catch(msg => {
+        console.log(msg);
+        native.sendMsgToNative(Native.INIT, {
+            [Native.STATUS]: 400,
+            [Native.MESSAGE]: JSON.stringify(msg)
+        });
     });
-    // API.init().then(data=>{
-    //     componentController.changeView('login');
-    //     native.sendMsgToNative(Native.INIT,{
-    //         [Native.STATUS]:200
-    //     });
-    // }).catch(msg=>{
-    //     native.sendMsgToNative(Native.INIT,{
-    //         [Native.STATUS]:400,
-    //         [Native.MESSAGE]:msg
-    //     });
-    // });
 
 });
 
 // Native.resize();
 
-Native.registry(Native.LOGIN, (native) => {
+Native.registry(Native.LOGIN, (native, msg) => {
+    console.log(msg);
+    if (msg.accountType == 0) {
+        componentController.changeView('guestAccountTip', () => {
+            Native.show();
+        });
+        // 游客登录
+    } else if (msg.accountType == 1) {
+        componentController.changeView('loginV2', () => {
+            Native.show();
+        });
+    } else if (msg.accountType == 2) {
+        Native.facebookLogin((userinfo) => {
+            console.log(userinfo);
+            Apis.facebookLogin(userinfo).then(msg => {
+                if (msg.code === 200) {
+                    Native.dispatcherEvent(Native.LOGIN, 200, false, {
+                        userId: msg.data.userId,
+                        userName: userinfo.name,
+                        token: msg.token
+                    });
+    
+                }
+            }).catch(error => {
+                console.log(error)
+            });
+        });
+    } else if (msg.accountType == 3) {
+        Native.googleLogin((userinfo) => {
+            console.log(userinfo);
+            Apis.googleLogin(userinfo).then(msg => {
+                if (msg.code === 200) {
+                    Native.dispatcherEvent(Native.LOGIN, 200, false, {
+                        userId: msg.data.userId,
+                        userName: userinfo.name,
+                        token: msg.token
+                    });
+    
+                }
+            }).catch(error => {
+                console.log(error)
+            });
+        });
+    }
 
-    componentController.changeView('webPayView', () => {
-        Native.show();
-    });
+
+
+
 });
 
 Native.registry(Native.ORDER_CREATE, (native) => {
     Native.show();
-    componentController.changeView('payChannel', () => {
+    componentController.changeView('channelListV2', () => {
 
     });
 });
 
 Native.registry(Native.OPEN_ACCOUNT_CENTER, (native) => {
-
-    componentController.changeView('userCenterV2', () => {
-        Native.show();
-    });
+    if(UserStore.isLogin){
+        let view = "";
+        if(UserStore.userType == 0) {
+            view='userCenterGuest';
+        } else if(UserStore.accountType == 2) {
+            view='userCenterThirdParty';
+        } else if(UserStore.accountType == 3) {
+            view='userCenterThirdParty';
+        } else {
+            view='userCenterV2';
+        }
+        componentController.changeView(view, () => {
+            Native.show();
+        });
+    }
+    
 });
 
 Native.registry(Native.OPEN_COSTOMER_CENTER, (native) => {
@@ -64,8 +115,30 @@ Native.registry(Native.OPEN_COSTOMER_CENTER, (native) => {
     });
 });
 
+Native.registry(Native.ON_APP_INSTALL, (native, msg) => {
+
+    console.log(msg)
+});
+
+Native.registry(Native.ON_APP_NOT_FIND, (native, msg) => {
+    console.log(msg)
+});
 
 
+Native.registry(Native.BIND_ACCOUNT, (native, msg) => {
+
+    componentController.changeView('guestUpdate', () => {
+        Native.show();
+    });
+});
+
+
+Native.registry(Native.AUTO_LOGIN, (native, msg) => {
+
+    componentController.changeView('guestUpdate', () => {
+        Native.show();
+    });
+});
 
 export default class APP extends Component {
 
@@ -82,10 +155,11 @@ export default class APP extends Component {
             component: null,
             width: 0,
             height: 0,
+            props: null
         };
     }
 
-    changeView(view, callback) {
+    changeView(view, callback, props) {
         let width = 0, height = 0;
         if (view.size) {
             if (view.size.full) {
@@ -105,15 +179,16 @@ export default class APP extends Component {
             view,
             component: view.component,
             width,
-            height
+            height,
+            props
         }, () => {
             if (callback) callback();
         });
     }
 
     componentWillMount() {
-        componentController.addListener((view,callback) => {
-            this.changeView(view,callback);
+        componentController.addListener((view, callback, props) => {
+            this.changeView(view, callback, props);
         });
     }
 
@@ -131,10 +206,10 @@ export default class APP extends Component {
         GoogleService.launchToApp('com.bdgames.xmyxwno1');
     }
     render() {
-        const { component: Component, width, height } = this.state;
+        const { component: Component, width, height, props } = this.state;
         return (
             <View style={{ backgroundColor: 'rgba(255,255,255,0.9)', borderRadius: 5, flex: 1 }} >
-                {Component ? <Component width={width} height={height} /> : null}
+                {Component ? <Component width={width} height={height} {...props} /> : null}
             </View>
         );
     }

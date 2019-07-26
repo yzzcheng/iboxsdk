@@ -37,6 +37,11 @@ export default StyleSheet.create({
         lineHeight:device.pxTodp(18),
         color:'#999999'
     },
+    border_normal:{
+        borderColor:'#999999',
+        borderWidth:device.dpTopx(1),
+        borderStyle:'solid'
+    },
     flex_center:{
         justifyContent: 'center',
         alignItems: 'center' 

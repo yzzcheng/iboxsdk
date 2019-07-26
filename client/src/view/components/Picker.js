@@ -35,7 +35,16 @@ export default class Picker extends Component {
     close() {
         this.setState({
             visible: false
-        })
+        }, this.modelClose);
+
+
+    }
+
+    modelClose() {
+        const { onClose } = this.props;
+        if (onClose) {
+            onClose();
+        }
     }
 
     show() {
@@ -61,7 +70,7 @@ export default class Picker extends Component {
                     <Image style={{ height: device.pxTodp(12), width: device.pxTodp(12) }} source={device.getAssertV2('array-down.png')} />
                 </View>
             </TouchableWithoutFeedback>
-            <Modal transparent={true} visible={visible}>
+            <Modal transparent={true} visible={visible} onRequestClose={this.modelClose.bind(this)}>
                 <View style={{ backgroundColor: 'rgba(0,0,0,0.6)', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <View style={{ width: '50%', height: '50%', backgroundColor: 'white' }}>
                         <View style={{ flex: 1 }}>

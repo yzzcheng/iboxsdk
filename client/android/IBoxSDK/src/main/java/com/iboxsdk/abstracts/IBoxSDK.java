@@ -21,4 +21,5 @@ public interface IBoxSDK {
     void openAccountCenter(Activity activity);
     void openCustomerCenter(Activity activity);
     void autoLogin(Activity activity,LoginCallback callback);
+    void bindAccount(Activity activity,LoginCallback callback);
 }

@@ -1,13 +1,12 @@
 <resources>
     <string name="app_name">iboxSDK</string>
     <string name="isDebug">true</string>
-    <string name="ibox_app_id">10014</string>
+    <string name="ibox_app_id">10000</string>
     <string name="ibox_package_id">11</string>
-    <string name="ibox_app_key">08682617-afcc-4d52-9041-ce9955274ded</string>
+    <string name="ibox_app_key">efe5fffa-994a-4415-98dc-4ca797cc52c9</string>
     <string name="ibox_bundle_url">http://oas.mythsgame.com/index.android.bundle</string>
     <string name="ibox_bundle_name">index.android.bundle</string>
     <string name="ibox_bundle_version">http://oas.mythsgame.com/js.version</string>
-    <string name="facebook_app_id">1242292745918872</string>
-    <string name="fb_login_protocol_scheme">fb1242292745918872</string>
-
+    <string name="facebook_app_id">356371541676113</string>
+    <string name="fb_login_protocol_scheme">fb356371541676113</string>
 </resources>

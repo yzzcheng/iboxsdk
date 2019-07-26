@@ -93,6 +93,11 @@ const assertV2Map = {
     ['array-down.png']: require(devAssertV2Path + 'array-down.png'),
     ['icon-diamond.png']: require(devAssertV2Path + 'icon-diamond.png'),
     ['facebook.png']: require(devAssertV2Path + 'facebook.png'),
+    ['select.png']: require(devAssertV2Path + 'select.png'),
+    ['levelup.png']: require(devAssertV2Path + 'levelup.png'), 
+    ['warnning.png']: require(devAssertV2Path + 'warnning.png'),
+    ['google.png']: require(devAssertV2Path + 'google.png'), 
+    ['facebook-circle.png']: require(devAssertV2Path + 'facebook-circle.png'),
 };
 
 export default {

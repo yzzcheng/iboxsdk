@@ -137,6 +137,14 @@ public class IBoxSDKImp implements IBoxSDK {
         }
     }
 
+    @Override
+    public void bindAccount(Activity activity, LoginCallback callback) {
+        if(IBoxSDKContext.getInstance().isInit()){
+            WritableMap map = Arguments.createMap();
+            IBoxReactView.getInstance().getReactView().emitter().emit(EventConsts.BIND_ACCOUNT,map);
+        }
+    }
+
 
     public IBoxSDKImp(){
         Logger.addLogAdapter(new AndroidLogAdapter());

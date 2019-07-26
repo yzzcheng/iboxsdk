@@ -1,0 +1,1 @@
+"C:\Program Files\Java\jdk1.8.0_191\bin\keytool" -exportcert -alias androiddebugkey -keystore "C:\Users\USERNAME\.android\debug.keystore" | "D:\bin\openssl-0.9.8k_X64\bin\openssl" sha1 -binary | "D:\bin\openssl-0.9.8k_X64\bin\openssl" base64

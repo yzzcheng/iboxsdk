@@ -1,5 +1,8 @@
 import {AsyncStorage} from 'react-native';
 import Native from '../apis/native'
+
+// AsyncStorage.clear();
+
 export default class LocalStore {
     buildKey(keyArr){
         return keyArr.join(",");

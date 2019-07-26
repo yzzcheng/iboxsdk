@@ -8,7 +8,7 @@ import device from '../device'
 import API from '../../apis'
 import { componentController } from '../../viewState'
 import Common, { extendStyle } from '../../res/styles/common_v2'
-
+import { user as userStore } from '../../store'
 
 
 const Styles = StyleSheet.create({
@@ -35,7 +35,11 @@ export default class ModifyPhone extends Component {
         return {
             selectZoneNum: '87',
             visible: false,
-            time: 60,
+            time: -1,
+            verifyCode: '',
+            phoneNum:'',
+            accountInfo:userStore,
+            buttonText:'获取验证码'
         }
     }
 
@@ -56,31 +60,63 @@ export default class ModifyPhone extends Component {
     }
 
 
-    onOpen(){
-        if(!this.timer) {
+    onOpen() {
+        if (!this.timer) {
             this.setState({
-                visible:true
+                visible: true
             });
         }
     }
 
-    onBind(){
-        Alert.alert('绑定手机号码成功')
+    onClose() {
+        this.setState({
+            visible: false
+        });
+    }
+
+    onBind() {
+        const { verifyCode,phoneNum } = this.state;
+        API.modifyPhone({verifyCheckCode:verifyCode,phone:phoneNum}).then(msg=>{
+            if(msg.code === 200) {
+                Alert.alert("","绑定成功",[
+                    {text:'确认',onPress:()=>{
+                        componentController.changeView('userCenterV2');
+                    }}
+                ]);
+            }
+            
+        }).catch(error=>{
+            console.log(error);
+            Alert.alert(error);
+        })
     }
 
 
     sendCode() {
+        const { time, accountInfo } = this.state;
+        if (time > 0) return;
         this.setState({
             time: 60
         }, () => {
+
+            API.verifyPhone({ phone: accountInfo.telephone }).then(msg => {
+                Alert.alert(msg.error_msg);
+            }).catch(error => {
+                Alert.alert(error.error_msg);
+            })
+
             this.timer = setInterval(() => {
                 const { time } = this.state;
                 console.log(time);
                 if (time > 0) {
                     this.setState({
-                        time: time - 1
+                        time: time - 1,
+                        buttonText: (time - 1) + 's'
                     });
                 } else {
+                    this.setState({
+                        buttonText: '重新发送'
+                    })
                     clearInterval(this.timer);
                 }
 
@@ -88,37 +124,31 @@ export default class ModifyPhone extends Component {
         })
     }
 
-    componentWillUnmount(){
-        if(this.timer) {
+    componentWillUnmount() {
+        if (this.timer) {
             clearInterval(this.timer);
         }
     }
 
-    back(){
+    back() {
         componentController.changeView('userCenterV2')
     }
 
     render() {
-        const { selectZoneNum, visible, time } = this.state;
+        const { selectZoneNum, visible, buttonText, verifyCode,accountInfo,phoneNum } = this.state;
         console.log(visible);
         return <SDKBox title="更换手机" back={this.back.bind(this)}>
             <View style={Styles.contain}>
-                <Text style={extendStyle(Common.margin_bottom_20, Styles.textTip)}>您正在更换帐号13265****623</Text>
+                <Text style={extendStyle(Common.margin_bottom_20, Styles.textTip)}>您正在更换帐号{accountInfo.telephone}</Text>
                 <View style={extendStyle(Common.margin_bottom_20, { flexDirection: 'row' })}>
-                    <InputArea style={extendStyle(Styles.inputStyle, { flex:1 })} placeholder="请输入验证码" placeholderTextColor="#757575"></InputArea>
-                    <View style={extendStyle(Common.margin_left_20, Common.margin_right_20, Common.flex_center)}>
-                        <Text style={{ color: '#999999' }}>({time}s)</Text>
-                    </View>
-                    <View style={extendStyle(Common.margin_left_20, Common.margin_right_20, Common.flex_center)}>
-                        <IBoxButton onPress={this.sendCode.bind(this)} textStyle={{ color: '#ff3300' }}>重新发送</IBoxButton>
-                    </View>
-                    <View style={extendStyle(Common.margin_left_20, Common.margin_right_20, Common.flex_center)}>
-                        <IBoxButton style={{ backgroundColor: '#54a8f7', width: device.pxTodp(100) }}>获取验证码</IBoxButton>
+                    <InputArea value={verifyCode} onChangeText={text => this.setState({ verifyCode: text })} style={extendStyle(Styles.inputStyle, { flex: 1 })} placeholder="请输入验证码" placeholderTextColor="#757575"></InputArea>
+                    <View style={extendStyle(Common.margin_left_20, Common.margin_right_20, Common.flex_center, { flex: 1 })}>
+                        <IBoxButton onPress={this.sendCode.bind(this)} style={{ backgroundColor: '#54a8f7', width: device.pxTodp(100), height: device.pxTodp(30) }}>{buttonText}</IBoxButton>
                     </View>
                 </View>
                 <Text style={extendStyle(Common.margin_bottom_20, Styles.textTip)}>请输入新的手机号码</Text>
                 <View style={extendStyle(Common.margin_bottom_20, { flexDirection: 'row' })}>
-                    <IBoxPicker onOpen={this.onOpen.bind(this)} style={extendStyle(Styles.inputStyle, { borderColor: '#cdcdcd', borderWidth: device.dpTopx(1), borderStyle: 'solid', width: device.pxTodp(50) })} lable={selectZoneNum} visible={visible} >
+                    <IBoxPicker onOpen={this.onOpen.bind(this)} onClose={this.onClose.bind(this)} style={extendStyle(Styles.inputStyle, { borderColor: '#cdcdcd', borderWidth: device.dpTopx(1), borderStyle: 'solid', width: device.pxTodp(50) })} lable={selectZoneNum} visible={visible} >
                         <View style={Common.margin_30}>
                             <FlatList
                                 data={[{ key: '+86' }, { key: '+87' }]}
@@ -127,11 +157,11 @@ export default class ModifyPhone extends Component {
                         </View>
 
                     </IBoxPicker>
-                    <InputArea style={extendStyle(Styles.inputStyle, { flex:1 })} placeholder="请输入电话号" placeholderTextColor="#757575"></InputArea>
+                    <InputArea value={phoneNum} onChangeText={text => this.setState({ phoneNum: text })} style={extendStyle(Styles.inputStyle, { flex: 1 })} placeholder="请输入电话号" placeholderTextColor="#757575"></InputArea>
                 </View>
 
                 <View style={extendStyle(Common.margin_bottom_20, { flexDirection: 'row' })}>
-                    <IBoxButton onPress={this.onBind.bind(this)} style={{ backgroundColor: '#f2cc4a', height: device.pxTodp(30),flex:1 }}>下一步</IBoxButton>
+                    <IBoxButton onPress={this.onBind.bind(this)} style={{ backgroundColor: '#f2cc4a', height: device.pxTodp(30), flex: 1 }}>下一步</IBoxButton>
                 </View>
             </View>
 

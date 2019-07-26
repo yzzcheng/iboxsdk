@@ -5,6 +5,8 @@ public class EventConsts {
 
     public final static String LOGIN = "LOGIN";
 
+    public final static String BIND_ACCOUNT = "BIND_ACCOUNT";
+
     public final static String START_GOOGLE_PAY = "START_GOOGLE_PAY";
 
     public final static String START_PLUS_PAY = "START_PLUS_PAY";
@@ -34,4 +36,8 @@ public class EventConsts {
     public final static String CLOSE_SDK = "CLOSE_SDK";
 
     public final static String SHOW_SDK = "SHOW_SDK";
+
+    public final static String  ON_APP_INSTALL = "ON_APP_INSTALL";
+
+    public final static String  ON_APP_NOT_FIND= "ON_APP_NOT_FIND";
 }

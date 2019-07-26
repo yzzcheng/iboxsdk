@@ -6,14 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <Button
@@ -23,10 +22,34 @@
                 android:text="Init" />
 
             <Button
-                android:id="@+id/loginBtn"
+                android:id="@+id/guestLoginBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Login" />
+                android:text="Guest" />
+
+            <Button
+                android:id="@+id/accountLoginBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Account" />
+
+            <Button
+                android:id="@+id/facebookLoginBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Facebook" />
+
+            <Button
+                android:id="@+id/googleLoginBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Google" />
+
+            <Button
+                android:id="@+id/bindAccountBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="GuestBind" />
 
             <EditText
                 android:id="@+id/productTxt"
@@ -34,11 +57,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="product_0.99_xmyxwno1" />
+
             <Button
                 android:id="@+id/paymentBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Payment" />
+
             <Button
                 android:id="@+id/intentBtn"
                 android:layout_width="match_parent"
@@ -70,5 +95,6 @@
                 android:text="调试" />
 
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
+
 </android.support.constraint.ConstraintLayout>

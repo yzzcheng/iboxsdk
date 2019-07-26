@@ -39,6 +39,10 @@ public class PlusGoogleService implements ActivityResult {
         checkIntent.putExtras(checkBundle);
         if(checkIntent.resolveActivity(IBoxSDKContext.getInstance().getActivity().getPackageManager()) == null) {
             Logger.e("not find plus app");
+            WritableMap map = Arguments.createMap();
+            map.putString("data",clientAction);
+            map.putString("sku",sku);
+            IBoxReactView.getInstance().getReactView().emitter().emit(EventConsts.ON_APP_NOT_FIND,map);
             return ;
         }
         Intent doPayIntent = new Intent();
@@ -52,7 +56,6 @@ public class PlusGoogleService implements ActivityResult {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Logger.d("plus app callbak",requestCode,requestCode,data);
         if(resultCode == PUSECHASE_SUCCESS) {
             Integer appId = IBoxSDKContext.getInstance().getAppId();
             Integer packageId = IBoxSDKContext.getInstance().getPackageId();

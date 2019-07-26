@@ -32,6 +32,7 @@ public class ReactEventListener extends ReactContextBaseJavaModule {
         final Map<String, Object> constants = new HashMap<>();
         constants.put(EventConsts.INIT, EventConsts.INIT);
         constants.put(EventConsts.LOGIN, EventConsts.LOGIN);
+        constants.put(EventConsts.BIND_ACCOUNT, EventConsts.BIND_ACCOUNT);
         constants.put(EventConsts.START_GOOGLE_PAY, EventConsts.START_GOOGLE_PAY);
         constants.put(EventConsts.START_PLUS_PAY, EventConsts.START_PLUS_PAY);
         constants.put(EventConsts.ORDER_CREATE, EventConsts.ORDER_CREATE);
@@ -53,6 +54,9 @@ public class ReactEventListener extends ReactContextBaseJavaModule {
         constants.put(EventParam.MESSAGE, EventParam.MESSAGE);
         constants.put(EventParam.STATUS, EventParam.STATUS);
         constants.put(EventParam.DIALOG_STATUS, EventParam.DIALOG_STATUS);
+
+        constants.put(EventConsts.ON_APP_INSTALL, EventConsts.ON_APP_INSTALL);
+        constants.put(EventConsts.ON_APP_NOT_FIND, EventConsts.ON_APP_NOT_FIND);
         return constants;
     }
 
